@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:ron_order/screen/splash/viewmodel/splash_viewmodel.dart';
 
 import '../../core/extension/context_extension.dart';
-import '../auth/screen_login/login_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    _waitForDelay(context).whenComplete(() => navigate(context));
+    final SplashViewmodel splashViewmodel = SplashViewmodel();
+    splashViewmodel
+        .waitForDelay(context)
+        .whenComplete(() => splashViewmodel.navigate(context));
     return Scaffold(
       body: SizedBox(
         height: context.getHeight(1),
@@ -18,19 +21,6 @@ class SplashScreen extends StatelessWidget {
           fit: BoxFit.fill,
         ),
       ),
-    );
-  }
-
-  Future<dynamic> navigate(BuildContext context) {
-    return Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (_) => const LoginScreen()),
-    );
-  }
-
-  Future<void> _waitForDelay(context) async {
-    await Future.delayed(
-      const Duration(milliseconds: 2000),
     );
   }
 }
