@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "350675315737",
+    "project_id": "ron-order",
+    "storage_bucket": "ron-order.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:350675315737:android:988e745ddac17e2a15ce88",
+        "android_client_info": {
+          "package_name": "com.rondigital.ronorder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "350675315737-rtpdc4i3rqjdv5maai05a58e467gn72v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKWfSNrnibNXbZisgAKM2fUVQYgHlLr7c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "350675315737-rtpdc4i3rqjdv5maai05a58e467gn72v.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "350675315737-gk01h5c0e8i08us0luicj63f5h011nqp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.rondigital.ronorder"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
