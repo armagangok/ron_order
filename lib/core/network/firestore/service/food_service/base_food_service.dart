@@ -1,4 +1,4 @@
-import '../../../../models/food_model.dart';
+import '../../../../../global/models/food_model.dart';
 
 abstract class BaseFoodService {
   // Future<List<FoodModel>> fetchDesert();

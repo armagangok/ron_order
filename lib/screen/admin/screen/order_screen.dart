@@ -4,8 +4,9 @@ import 'package:provider/provider.dart';
 import '../../../../core/components/components.dart';
 import '../../../../core/extension/context_extension.dart';
 import '../../../../core/local/pdf_service.dart';
-import '../../../../core/models/order_model.dart';
-import '../../home/viewmodel/order_viewmodel.dart';
+
+import '../../../global/models/order_model.dart';
+import '../../../global/viewmodel/order_viewmodel.dart';
 
 class OrderScreen extends StatelessWidget {
   OrderScreen({Key? key}) : super(key: key);

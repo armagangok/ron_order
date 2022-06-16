@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import './food_update_screen.dart';
 import './order_screen.dart';
 import '../../../../core/extension/context_extension.dart';
-import '../../home/components/topbar_widget.dart';
+import '../../../global/components/topbar_widget.dart';
 import 'add_new_food.dart';
 
 class AdminScreen extends StatelessWidget {

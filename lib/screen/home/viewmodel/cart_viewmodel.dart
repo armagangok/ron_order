@@ -2,7 +2,8 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../core/models/food_model.dart';
+
+import '../../../global/models/food_model.dart';
 
 class CartViewmodel with ChangeNotifier {
   final List<FoodModel> _foodCart = [];

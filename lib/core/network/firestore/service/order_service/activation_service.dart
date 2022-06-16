@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../../../../global/models/food_model.dart';
 import './base/base_activation_service.dart';
-import '../../../../models/food_model.dart';
+
 
 class ActivationService implements BaseActivationService {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;

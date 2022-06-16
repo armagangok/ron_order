@@ -6,10 +6,11 @@ import 'package:provider/provider.dart';
 
 import '../../../../core/components/circle_container.dart';
 import '../../../../core/extension/context_extension.dart';
-import '../../../../core/models/food_model.dart';
-import '../../home/components/chip_category_widget.dart';
-import '../../home/viewmodel/chip_viewmodel.dart';
-import '../../home/viewmodel/food_viewmodel.dart';
+
+import '../../../global/components/chip_category_widget.dart';
+import '../../../global/models/food_model.dart';
+import '../../../global/viewmodel/chip_viewmodel.dart';
+import '../../../global/viewmodel/food_viewmodel.dart';
 import '../viewmodel/activation_viewmodel.dart';
 
 class FoodUpdateScreen extends StatelessWidget {

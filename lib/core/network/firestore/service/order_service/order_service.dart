@@ -3,8 +3,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-import '../../../../models/order_model.dart';
-import '../../../../models/storage_model.dart';
+
+import '../../../../../global/models/order_model.dart';
+import '../../../../../global/models/storage_model.dart';
 import 'base/base_order_service.dart';
 
 class OrderService implements BaserOrderService {

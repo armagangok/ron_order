@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/models/category_model.dart';
+
+import '../models/category_model.dart';
 
 class ChipViewmodel with ChangeNotifier {
   // static final ChipController _singleton = ChipController._();

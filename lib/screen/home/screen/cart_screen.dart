@@ -7,13 +7,15 @@ import '../../../core/components/circle_container.dart';
 import '../../../core/components/global_app_bar.dart';
 import '../../../core/components/global_elevated_button.dart';
 import '../../../core/extension/context_extension.dart';
-import '../../../core/models/food_model.dart';
-import '../../../core/models/order_model.dart';
+
 import '../../../core/network/firebase/view-models/firebase_viewmodel.dart';
+import '../../../global/models/food_model.dart';
+import '../../../global/models/order_model.dart';
+import '../../../global/viewmodel/order_viewmodel.dart';
 import '../../auth/screen_register/components/dialogs.dart';
 import '../viewmodel/cart_viewmodel.dart';
 import '../viewmodel/index_provider.dart';
-import '../viewmodel/order_viewmodel.dart';
+
 
 class CartScreen extends StatelessWidget {
   const CartScreen({Key? key}) : super(key: key);

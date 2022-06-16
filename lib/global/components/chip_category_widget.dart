@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../core/extension/context_extension.dart';
-import '../../../core/models/category_model.dart';
+import '../../../core/extension/context_extension.dart';
+
+import '../models/category_model.dart';
 import '../viewmodel/chip_viewmodel.dart';
 
 class ChipCategoryWidgetBuilder extends StatelessWidget {

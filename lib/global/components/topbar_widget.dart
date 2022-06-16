@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 
-import '../../../../core/extension/context_extension.dart';
-import '../../../../core/network/firebase/view-models/firebase_viewmodel.dart';
-import '../../../core/navigation/navigation.dart';
-import '../screen/cart_screen.dart';
-import '../viewmodel/cart_viewmodel.dart';
+import '../../../core/extension/context_extension.dart';
+import '../../../core/network/firebase/view-models/firebase_viewmodel.dart';
+import '../../core/navigation/navigation.dart';
+import '../../screen/home/screen/cart_screen.dart';
+import '../../screen/home/viewmodel/cart_viewmodel.dart';
 
 class TopBarWidget extends StatelessWidget {
   const TopBarWidget({

@@ -5,9 +5,10 @@ import 'package:provider/provider.dart';
 import 'package:tcard/tcard.dart';
 
 import '../../../../core/extension/context_extension.dart';
-import '../../../core/models/food_model.dart';
+
+import '../../../global/models/food_model.dart';
 import '../viewmodel/cart_viewmodel.dart';
-import '../viewmodel/food_viewmodel.dart';
+import '../../../global/viewmodel/food_viewmodel.dart';
 
 class TCardWidget extends StatelessWidget {
   const TCardWidget({

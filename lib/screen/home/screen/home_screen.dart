@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/extension/context_extension.dart';
-import '../components/chip_category_widget.dart';
+import '../../../global/components/chip_category_widget.dart';
 import '../components/food_gridview.dart';
 import '../components/tcard_widget.dart';
-import '../components/topbar_widget.dart';
-import '../viewmodel/chip_viewmodel.dart';
+import '../../../global/components/topbar_widget.dart';
+import '../../../global/viewmodel/chip_viewmodel.dart';
 import '../viewmodel/menu_viewmodel.dart';
 
 class HomeScreen extends StatelessWidget {

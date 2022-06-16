@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../../../../global/models/food_model.dart';
 import './base_food_service.dart';
-import '../../../../models/food_model.dart';
+
 
 class FoodService implements BaseFoodService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;

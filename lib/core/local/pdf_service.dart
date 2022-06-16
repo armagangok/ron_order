@@ -6,7 +6,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import '../models/order_model.dart';
+import '../../global/models/order_model.dart';
+
 
 class PdfOrderService {
   Future<Uint8List> createOrder(List<OrderModel> orders) async {
