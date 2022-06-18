@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/network/firestore/service/order_service/activation_service.dart';
 import '../../../core/network/firestore/service/order_service/base/base_activation_service.dart';
-import '../../../global/models/food_model.dart';
+import '../../../feature/models/food_model.dart';
 
 class ActivationViewmodel with ChangeNotifier implements BaseActivationService {
   final ActivationService _activationService = ActivationService();

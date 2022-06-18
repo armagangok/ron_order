@@ -1,13 +1,13 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:open_document/open_document.dart';
+import 'package:open_file/open_file.dart';
+//import 'package:open_document/open_document.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import '../../global/models/order_model.dart';
-
+import '../../feature/models/order_model.dart';
 
 class PdfOrderService {
   Future<Uint8List> createOrder(List<OrderModel> orders) async {
@@ -81,6 +81,6 @@ class PdfOrderService {
     var filePath = "${output.path}/$fileName.pdf";
     final file = File(filePath);
     await file.writeAsBytes(byteList);
-    await OpenDocument.openDocument(filePath: filePath);
+    await OpenFile.open(filePath);
   }
 }

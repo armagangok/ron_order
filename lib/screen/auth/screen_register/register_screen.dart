@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ron_order/core/components/global_app_bar.dart';
 
 import './components/dialogs.dart';
 import './provider/textfield_controller.dart';
 import '../../../core/components/components.dart';
-import '../../../core/components/global_app_bar.dart';
 import '../../../core/components/global_elevated_button.dart';
 import '../../../core/components/global_textfield.dart';
 import '../../../core/constants/constant_text.dart';
@@ -22,18 +22,11 @@ class RegisterScreen extends StatelessWidget {
 
     final FirebaseVmodel firebase = Provider.of<FirebaseVmodel>(context);
     return Scaffold(
-      appBar: GlobalAppBar(
-        title: "Register",
-        enableBackButton: true,
-      ),
+      appBar: const GlobalAppBar(title: "Register"),
       body: ListView(
         padding: EdgeInsets.symmetric(horizontal: context.getHeight(0.05)),
         physics: const ClampingScrollPhysics(),
         children: [
-          GlobalTextField(
-            hintText: "Name",
-            controller: controller.username,
-          ),
           const SizedBox004(),
           GlobalTextField(
             hintText: "Email Adress",

@@ -6,9 +6,9 @@ import 'package:provider/provider.dart';
 import '../../../core/components/circle_container.dart';
 import '../../../core/extension/context_extension.dart';
 
-import '../../../global/models/food_model.dart';
+import '../../../feature/models/food_model.dart';
 import '../viewmodel/cart_viewmodel.dart';
-import '../../../global/viewmodel/food_viewmodel.dart';
+import '../../../feature/viewmodel/food_viewmodel.dart';
 import '../viewmodel/index_provider.dart';
 
 class FoodGridView extends StatelessWidget {

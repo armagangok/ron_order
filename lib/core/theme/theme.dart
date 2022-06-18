@@ -129,6 +129,8 @@ final ThemeData appTheme = ThemeData.light().copyWith(
     //   color: Color.fromRGBO(68, 53, 65, 1),
     // ),
 
+    
+
     headline1: TextStyle(
       fontSize: 96,
       fontWeight: FontWeight.w300,

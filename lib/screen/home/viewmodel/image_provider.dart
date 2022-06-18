@@ -1,24 +1,28 @@
+// ignore_for_file: avoid_print
+
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ImageController with ChangeNotifier {
   final ImagePicker picker = ImagePicker();
 
-  XFile? image;
+  File? image;
 
   Future pickImage() async {
     try {
-      image = await picker.pickImage(
-        source: ImageSource.gallery,
-        imageQuality: 40,
-      );
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
 
-      print(image!.path);
+      if (image == null) return;
 
-      image = XFile(image!.path);
+      final imageTemp = File(image.path);
+
+      this.image = imageTemp;
       notifyListeners();
-    } catch (e) {
-      print(e);
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
     }
   }
 }

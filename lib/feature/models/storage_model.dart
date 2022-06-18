@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'food_model.dart';
 
-class StorogeModel {
+class StorogeFoodModel {
   File file;
   FoodModel foodModel;
-  StorogeModel({
+  StorogeFoodModel({
     required this.file,
     required this.foodModel,
   });

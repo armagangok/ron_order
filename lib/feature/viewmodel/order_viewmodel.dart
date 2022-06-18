@@ -3,7 +3,6 @@
 import 'package:firebase_storage/firebase_storage.dart';
 
 import '../../../../core/network/firestore/service/order_service/order_service.dart';
-
 import '../../../core/network/firestore/service/order_service/base/base_order_service.dart';
 import '../models/order_model.dart';
 import '../models/storage_model.dart';
@@ -33,28 +32,23 @@ class OrderViewmodel implements BaserOrderService {
   //
 
   @override
-  Future uploadFoodToStorage(StorogeModel storageModel) async {
+  Future uploadFoodToStorage(StorogeFoodModel storageFoodModel) async {
     try {
       Reference ref = _storage.ref(
-        "${storageModel.foodModel.category}/${storageModel.foodModel.foodName}.png",
+        "${storageFoodModel.foodModel.category}/${storageFoodModel.foodModel.foodName}.png",
       );
 
-      TaskSnapshot uploadedFile = await ref.putFile(storageModel.file);
+      TaskSnapshot uploadedFile = await ref.putFile(storageFoodModel.file);
 
       if (uploadedFile.state == TaskState.success) {
         downloadedUrl = await ref.getDownloadURL();
-        print(downloadedUrl);
 
-        storageModel.foodModel.imageUrl = downloadedUrl;
+        storageFoodModel.foodModel.imageUrl = downloadedUrl;
 
-        await _orderService.uploadFoodToStorage(storageModel);
+        await _orderService.uploadFoodToStorage(storageFoodModel);
       }
     } catch (e) {
       print(e);
     }
-  }
-
-  Future adFood(StorogeModel foodModel) async {
-    await _orderService.adFood(foodModel);
   }
 }

@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 
 
-import '../../../global/models/food_model.dart';
+import '../../../feature/models/food_model.dart';
 
 class CartViewmodel with ChangeNotifier {
   final List<FoodModel> _foodCart = [];

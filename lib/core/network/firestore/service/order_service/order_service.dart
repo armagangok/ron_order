@@ -3,9 +3,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-
-import '../../../../../global/models/order_model.dart';
-import '../../../../../global/models/storage_model.dart';
+import '../../../../../feature/models/order_model.dart';
+import '../../../../../feature/models/storage_model.dart';
 import 'base/base_order_service.dart';
 
 class OrderService implements BaserOrderService {
@@ -50,11 +49,10 @@ class OrderService implements BaserOrderService {
   //
 
   @override
-  Future uploadFoodToStorage(StorogeModel storageModel) async {
+  Future uploadFoodToStorage(StorogeFoodModel storageModel) async {
     try {
-
       await adFood(storageModel);
-      
+
       Reference ref = _storage.ref(
         "${storageModel.foodModel.category}/${storageModel.foodModel.foodName}.png",
       );
@@ -66,8 +64,6 @@ class OrderService implements BaserOrderService {
         print(downloadedUrl);
 
         storageModel.foodModel.imageUrl = downloadedUrl;
-
-        
       }
     } catch (e) {
       print(e);
@@ -76,7 +72,7 @@ class OrderService implements BaserOrderService {
 
   //
 
-  Future adFood(StorogeModel storageModel) async {
+  Future adFood(StorogeFoodModel storageModel) async {
     try {
       await _firestore
           .collection(storageModel.foodModel.category)

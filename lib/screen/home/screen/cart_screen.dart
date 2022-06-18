@@ -9,9 +9,9 @@ import '../../../core/components/global_elevated_button.dart';
 import '../../../core/extension/context_extension.dart';
 
 import '../../../core/network/firebase/view-models/firebase_viewmodel.dart';
-import '../../../global/models/food_model.dart';
-import '../../../global/models/order_model.dart';
-import '../../../global/viewmodel/order_viewmodel.dart';
+import '../../../feature/models/food_model.dart';
+import '../../../feature/models/order_model.dart';
+import '../../../feature/viewmodel/order_viewmodel.dart';
 import '../../auth/screen_register/components/dialogs.dart';
 import '../viewmodel/cart_viewmodel.dart';
 import '../viewmodel/index_provider.dart';

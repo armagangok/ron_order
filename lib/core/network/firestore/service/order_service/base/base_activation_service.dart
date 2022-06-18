@@ -1,4 +1,4 @@
-import '../../../../../../global/models/food_model.dart';
+import '../../../../../../feature/models/food_model.dart';
 
 
 abstract class BaseActivationService {
