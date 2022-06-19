@@ -1,12 +1,11 @@
 // ignore_for_file: avoid_print
 
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../core/components/circle_container.dart';
 import '../../../../core/extension/context_extension.dart';
 import '../../../feature/components/chip_category_widget.dart';
+import '../../../feature/components/food_container.dart';
 import '../../../feature/models/food_model.dart';
 import '../../../feature/viewmodel/chip_viewmodel.dart';
 import '../../../feature/viewmodel/food_viewmodel.dart';
@@ -86,35 +85,7 @@ class FoodUpdateScreen extends StatelessWidget {
               },
               child: Stack(
                 children: [
-                  Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(16),
-                      ),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Align(
-                          child: SizedBox(
-                            height: h * 0.25,
-                            width: h * 0.25,
-                            child: CircleContainer(
-                              imageUrl: foodList[index].imageUrl,
-                            ),
-                          ),
-                        ),
-                        AutoSizeText(
-                          foodList[index].foodName,
-                          textAlign: TextAlign.center,
-                          style: context.textTheme.labelMedium,
-                          maxFontSize: 18,
-                          maxLines: 2,
-                        ),
-                      ],
-                    ),
-                  ),
+                  FoodContainer(food: foodList[index]),
                   foodList[index].isActive
                       ? const SizedBox()
                       : Container(

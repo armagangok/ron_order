@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../../../../../feature/models/food_model.dart';
-import './base/base_activation_service.dart';
+import '../../../../feature/models/food_model.dart';
+import 'base_activation_service.dart';
 
 
 class ActivationService implements BaseActivationService {

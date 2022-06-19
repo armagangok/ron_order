@@ -1,14 +1,11 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/components/circle_container.dart';
+import '../../../feature/components/food_container.dart';
 import '../../../core/extension/context_extension.dart';
-
 import '../../../feature/models/food_model.dart';
-import '../viewmodel/cart_viewmodel.dart';
 import '../../../feature/viewmodel/food_viewmodel.dart';
+import '../viewmodel/cart_viewmodel.dart';
 import '../viewmodel/index_provider.dart';
 
 class FoodGridView extends StatelessWidget {
@@ -55,7 +52,7 @@ class FoodGridView extends StatelessWidget {
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 10,
-        mainAxisExtent: context.getHeight(0.34),
+        mainAxisExtent: context.getHeight(0.35),
         mainAxisSpacing: 10,
       ),
       itemCount: foodList.length,
@@ -68,14 +65,13 @@ class FoodGridView extends StatelessWidget {
           },
           child: Stack(
             children: [
-              menuItem(context, foodList, index),
+              FoodContainer(food: foodList[index]),
               foodCart.isSelected(foodList[index])
                   ? Container(
                       decoration: BoxDecoration(
                         color: context.theme.primaryColor.withOpacity(0.1),
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(16),
-                        ),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(16)),
                       ),
                     )
                   : const SizedBox(),
@@ -85,8 +81,7 @@ class FoodGridView extends StatelessWidget {
                         alignment: Alignment.center,
                         child: removeButton(
                           foodCart,
-                          foodList,
-                          index,
+                          foodList[index],
                           context.theme.primaryColor,
                         ),
                       ),
@@ -101,42 +96,7 @@ class FoodGridView extends StatelessWidget {
 
   //
 
-  Container menuItem(
-    BuildContext context,
-    List<FoodModel> foodList,
-    int index,
-  ) {
-    return Container(
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(16)),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            CircleContainer(
-              heigth: context.getWidth(0.4),
-              width: context.getWidth(0.4),
-              imageUrl: foodList[index].imageUrl,
-            ),
-            AutoSizeText(
-              foodList[index].foodName,
-              textAlign: TextAlign.center,
-              style: context.textTheme.labelMedium,
-              maxFontSize: 18,
-              maxLines: 2,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  //
-
-  Row removeButton(foodCart, foodList, index, color) {
+  Row removeButton(foodCart, FoodModel food, color) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -147,7 +107,7 @@ class FoodGridView extends StatelessWidget {
             size: 70,
           ),
           onTap: () {
-            foodCart.removeFoodFromCart(foodList[index]);
+            foodCart.removeFoodFromCart(food);
           },
         )
 

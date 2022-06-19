@@ -2,8 +2,8 @@
 
 import 'package:firebase_storage/firebase_storage.dart';
 
-import '../../../../core/network/firestore/service/order_service/order_service.dart';
-import '../../../core/network/firestore/service/order_service/base/base_order_service.dart';
+import '../../core/network/firestore/order_service/order_service.dart';
+import '../../core/network/firestore/order_service/base_order_service.dart';
 import '../models/order_model.dart';
 import '../models/storage_model.dart';
 

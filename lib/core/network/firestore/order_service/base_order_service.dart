@@ -1,5 +1,5 @@
-import '../../../../../../feature/models/order_model.dart';
-import '../../../../../../feature/models/storage_model.dart';
+import '../../../../feature/models/order_model.dart';
+import '../../../../feature/models/storage_model.dart';
 
 abstract class BaserOrderService {
   Future<void> orderFood(OrderModel foodModel);

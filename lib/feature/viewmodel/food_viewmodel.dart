@@ -1,8 +1,7 @@
 import 'package:ron_order/core/network/firebase/view-models/firebase_viewmodel.dart';
 
-
-import '../../core/network/firestore/service/food_service/base_food_service.dart';
-import '../../core/network/firestore/service/food_service/food_service.dart';
+import '../../core/network/firestore/food_service/base_food_service.dart';
+import '../../core/network/firestore/food_service/food_service.dart';
 import '../models/food_model.dart';
 
 class FoodProvider implements BaseFoodService {
@@ -32,10 +31,9 @@ class FoodProvider implements BaseFoodService {
       shuffledFoodList.add(element);
     }
 
-    shuffledFoodList.shuffle();
-    shuffledFoodList.shuffle();
-    shuffledFoodList.shuffle();
-    shuffledFoodList.shuffle();
+    for (var i = 0; i < 10; i++) {
+      shuffledFoodList.shuffle();
+    }
 
     return shuffledFoodList;
   }
