@@ -16,7 +16,6 @@ class OrderService implements BaserOrderService {
 
   @override
   Future<void> orderFood(OrderModel orderModel) async {
-    // print(orderModel.orderer);
     try {
       await _firestore
           .collection("orders")
@@ -82,33 +81,17 @@ class OrderService implements BaserOrderService {
       print(e);
     }
   }
-}
 
   //
 
-  // Future<void> deleteFood(StorogeFoodModel foodModel) async {
-  //   switch (foodModel.category) {
-  //     case "desert":
-  //       await _firestore.collection("desert").doc(foodModel.foodName).delete();
-  //       break;
-
-  //     case "dish":
-  //       await _firestore.collection("foods").doc(foodModel.foodName).delete();
-  //       break;
-
-  //     case "other":
-  //       await _firestore.collection("others").doc(foodModel.foodName).delete();
-  //       break;
-
-  //     case "salads":
-  //       await _firestore.collection("salad").doc(foodModel.foodName).delete();
-  //       break;
-
-  //     case "soups":
-  //       await _firestore.collection("soup").doc(foodModel.foodName).delete();
-  //       break;
-
-  //     default:
-  //       {}
-  //   }
-  // }
+  @override
+  Future<void> deleteAllOrders() async {
+    _firestore.collection('orders').get().then(
+      (snapshot) {
+        for (DocumentSnapshot ds in snapshot.docs) {
+          ds.reference.delete();
+        }
+      },
+    );
+  }
+}

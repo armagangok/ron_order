@@ -1,11 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ron_order/screen/admin/viewmodel/order_provider.dart';
+import 'package:ron_order/screen/admin/viewmodel/order_list_provider.dart';
 
 import '../../../../core/components/components.dart';
 import '../../../../core/extension/context_extension.dart';
-import '../../../../core/local/pdf_service.dart';
+import '../../../core/tools/pdf_provider.dart';
 import '../../../feature/models/order_model.dart';
 import '../../../feature/viewmodel/order_viewmodel.dart';
 
@@ -15,7 +16,7 @@ class OrderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Provider.of<OrderViewmodel>(context).fetchOrder();
-    final PdfOrderService pdfService = PdfOrderService();
+    final PdfOrderProvider pdfService = PdfOrderProvider();
     OrderListProvider orderListProvider =
         Provider.of<OrderListProvider>(context);
 
@@ -23,7 +24,7 @@ class OrderScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 8),
           physics: const ClampingScrollPhysics(),
           children: [
             textWidget(context),
@@ -75,35 +76,38 @@ class OrderScreen extends StatelessWidget {
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
         crossAxisSpacing: 10,
-        // mainAxisExtent: h * (0.3),
         mainAxisSpacing: 10,
       ),
       itemCount: orders.length,
       itemBuilder: (context, index) {
         return ListTile(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          tileColor: const Color.fromARGB(255, 255, 240, 196),
           title: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AutoSizeText(
                 orders[index].orderer,
-                style: context.textTheme.labelMedium!.copyWith(
-                  fontSize: 16,
-                ),
+                style: context.textTheme.labelMedium,
                 maxLines: 1,
+                maxFontSize: 16,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ListView.builder(
+                    physics: const ClampingScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: orders[index].orderList.length,
                     itemBuilder: (context, index1) {
                       return AutoSizeText(
                         orders[index].orderList[index1].foodName,
-                        style: context.textTheme.subtitle1!.copyWith(
-                          fontSize: 12,
-                        ),
+                        style: context.textTheme.subtitle1,
                         maxLines: 1,
+                        minFontSize: 12,
                       );
                     },
                   )
@@ -115,4 +119,53 @@ class OrderScreen extends StatelessWidget {
       },
     );
   }
+}
+
+class DeleteFoodDialog extends StatelessWidget {
+  const DeleteFoodDialog({
+    Key? key,
+    required this.text,
+    required this.func,
+  }) : super(key: key);
+
+  final Function func;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoAlertDialog(
+      title: Column(
+        children: [
+          Text(text),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              TextButton(
+                onPressed: () => func,
+                child: const Text("Yes"),
+              ),
+              TextButton(
+                onPressed: () {},
+                child: const Text("No"),
+              )
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+Future<void> buildDialog(
+  context,
+  Function func,
+  String text,
+) async {
+  await showDialog(
+    context: context,
+    builder: (_) => DeleteFoodDialog(
+      text: text,
+      func: func,
+    ),
+  );
 }

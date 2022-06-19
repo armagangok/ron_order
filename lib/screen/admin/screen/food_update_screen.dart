@@ -3,22 +3,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../core/extension/context_extension.dart';
 import '../../../feature/components/chip_category_widget.dart';
-import '../../../feature/components/food_container.dart';
+import '../../../feature/components/food_grid_view_builder.dart';
 import '../../../feature/models/food_model.dart';
 import '../../../feature/viewmodel/chip_viewmodel.dart';
 import '../../../feature/viewmodel/food_viewmodel.dart';
-import '../viewmodel/activation_viewmodel.dart';
 
 class FoodUpdateScreen extends StatelessWidget {
   const FoodUpdateScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final h = context.getHeight(1);
-    final w = context.getWidth(1);
-
     return Scaffold(
       body: SafeArea(
         child: ListView(
@@ -26,20 +21,17 @@ class FoodUpdateScreen extends StatelessWidget {
           physics: const ClampingScrollPhysics(),
           padding: const EdgeInsets.all(10),
           children: [
-            const ChipCategoryWidgetBuilder(isAdminView: true),
+            const ChipCategoryWidgetBuilder(),
             Consumer(
               builder: (context, ChipViewmodel chipViewmodel, _) {
                 String category = chipViewmodel.getChoosenCategory;
 
                 return FutureBuilder<List<FoodModel>>(
-                  future: FoodProvider().fetchFoodByCategory(category),
+                  future: FoodViewmodel().fetchFoodByCategory(category),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.done) {
                       var foodList = snapshot.data;
-                      return buildGridView(
-                        foodList!,
-                        h,
-                      );
+                      return GridViewBuilderWidget(foodList: foodList!);
                     } else if (snapshot.connectionState ==
                         ConnectionState.waiting) {
                       return const Center(
@@ -57,60 +49,6 @@ class FoodUpdateScreen extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-
-  Widget buildGridView(
-    List<FoodModel> foodList,
-    h,
-  ) {
-    return GridView.builder(
-      itemCount: foodList.length,
-      physics: const ClampingScrollPhysics(),
-      shrinkWrap: true,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 10,
-        mainAxisExtent: h * (0.34),
-        mainAxisSpacing: 10,
-      ),
-      itemBuilder: (context, index) {
-        return Consumer(
-          builder: (context, ActivationViewmodel foodActivation, child) {
-            return InkWell(
-              onTap: () {
-                foodList[index].isActive
-                    ? foodActivation.inactivate(foodList[index])
-                    : foodActivation.activate(foodList[index]);
-              },
-              child: Stack(
-                children: [
-                  FoodContainer(food: foodList[index]),
-                  foodList[index].isActive
-                      ? const SizedBox()
-                      : Container(
-                          height: h * 0.34,
-                          width: h * 0.34,
-                          decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(0.3),
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(16),
-                            ),
-                          ),
-                          child: Text(
-                            "Deactivated",
-                            textAlign: TextAlign.center,
-                            style: context.textTheme.headline5!.copyWith(
-                              color: Colors.white,
-                            ),
-                          ),
-                        )
-                ],
-              ),
-            );
-          },
-        );
-      },
     );
   }
 }

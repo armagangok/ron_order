@@ -1,15 +1,16 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ron_order/feature/viewmodel/order_viewmodel.dart';
 
 import './add_new_food.dart';
 import './food_update_screen.dart';
 import './order_screen.dart';
 import '../../../../core/extension/context_extension.dart';
-import '../../../core/local/pdf_service.dart';
+import '../../../core/tools/pdf_provider.dart';
 import '../../../feature/components/topbar_widget.dart';
-import '../viewmodel/order_provider.dart';
+import '../components/components.dart';
+import '../viewmodel/order_list_provider.dart';
 import '../viewmodel/tab_index_provider.dart';
 
 class AdminScreen extends StatelessWidget {
@@ -17,36 +18,77 @@ class AdminScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final PdfOrderService pdfService = PdfOrderService();
+    final PdfOrderProvider pdfService = PdfOrderProvider();
     OrderListProvider orderListProvider =
         Provider.of<OrderListProvider>(context);
 
+    OrderViewmodel orderViewmodel = Provider.of<OrderViewmodel>(context);
+
     return Scaffold(
       appBar: AppBar(
+        leadingWidth: 100,
         title: Center(
           child: Text(
             "Admin Panel",
             style: context.textTheme.headline6,
           ),
         ),
-        actions: const [
-          Center(child: LogoutButton()),
+        toolbarHeight: context.getHeight(0.1),
+        actions: [
+          Consumer(
+            builder: ((context, TabIndexProvider indexProvider, child) {
+              return IconButton(
+                icon: Icon(
+                  CupertinoIcons.trash,
+                  color: (indexProvider.currentIndex == 2)
+                      ? Colors.black
+                      : Colors.black.withOpacity(0),
+                ),
+                onPressed: () {
+                  buildDialog(
+                    context,
+                    () async => await orderViewmodel.deleteAllOrders(),
+                    "Do you want to delete all orders?",
+                  );
+                },
+              );
+            }),
+          ),
+          const Center(child: LogoutButton()),
         ],
         leading: Consumer(
           builder: (context, TabIndexProvider indexProvider, child) {
-            return (indexProvider.currentIndex == 2)
-                ? IconButton(
+            return Builder(builder: (context) {
+              return Row(
+                children: [
+                  IconButton(
                     onPressed: () async {
-                      final a = await pdfService
-                          .createOrder(orderListProvider.getOrderList);
-                      await pdfService.savePdfFile("ron_yemek_siparişler", a);
+                      final pdf = await pdfService
+                          .createOrderPdf(orderListProvider.getOrderList);
+                      await pdfService.savePdfFile(
+                        "ron_yemek_siparişler",
+                        pdf,
+                      );
                     },
-                    icon: const Icon(
+                    icon: Icon(
                       CupertinoIcons.share,
-                      color: Colors.black,
+                      color: (indexProvider.currentIndex == 2)
+                          ? Colors.black
+                          : Colors.black.withOpacity(0),
                     ),
-                  )
-                : const SizedBox();
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      CupertinoIcons.trash,
+                      color: (indexProvider.currentIndex == 2)
+                          ? Colors.black.withOpacity(0)
+                          : Colors.black.withOpacity(0),
+                    ),
+                  ),
+                ],
+              );
+            });
           },
         ),
       ),
@@ -82,36 +124,6 @@ class AdminScreen extends StatelessWidget {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class TabBarWidget extends StatelessWidget {
-  final String text;
-
-  const TabBarWidget({
-    Key? key,
-    required this.text,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final h = context.getHeight(1);
-    final w = context.getWidth(1);
-    return Container(
-      padding: const EdgeInsets.all(5),
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(16.0)),
-        color: context.theme.primaryColor,
-      ),
-      height: h * 0.065,
-      width: double.infinity,
-      child: Center(
-        child: AutoSizeText(
-          text,
-          textAlign: TextAlign.center,
         ),
       ),
     );

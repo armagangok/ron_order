@@ -98,7 +98,7 @@ class LogoutButton extends StatelessWidget {
     final FirebaseVmodel firebase = Provider.of<FirebaseVmodel>(context);
     return IconButton(
       padding: EdgeInsets.zero,
-      icon: const Icon(Icons.exit_to_app),
+      icon: const Icon(Icons.logout_rounded),
       onPressed: () async => await firebase.logout(),
       color: Colors.black,
     );

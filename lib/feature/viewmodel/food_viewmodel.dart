@@ -1,10 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:ron_order/core/network/firebase/view-models/firebase_viewmodel.dart';
 
 import '../../core/network/firestore/food_service/base_food_service.dart';
 import '../../core/network/firestore/food_service/food_service.dart';
 import '../models/food_model.dart';
 
-class FoodProvider implements BaseFoodService {
+class FoodViewmodel with ChangeNotifier implements BaseFoodService {
   final FoodService _foodService = FoodService();
   final FirebaseVmodel _firebase = FirebaseVmodel();
 
@@ -55,5 +56,11 @@ class FoodProvider implements BaseFoodService {
       }
       return foodList;
     }
+  }
+
+  @override
+  Future<void> deleteFood(FoodModel food) async {
+    await _foodService.deleteFood(food);
+    notifyListeners();
   }
 }

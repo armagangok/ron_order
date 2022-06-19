@@ -2,17 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/extension/context_extension.dart';
-
 import '../models/category_model.dart';
 import '../viewmodel/chip_viewmodel.dart';
 
 class ChipCategoryWidgetBuilder extends StatelessWidget {
   const ChipCategoryWidgetBuilder({
     Key? key,
-    required this.isAdminView,
   }) : super(key: key);
-
-  final bool isAdminView;
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +23,7 @@ class ChipCategoryWidgetBuilder extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemCount: chipController.getCategories.length,
         itemBuilder: (context, index) {
-          return ChipCategoryWidget(
-            index: index,
-            isAdminView: isAdminView,
-          );
+          return ChipCategoryWidget(index: index);
         },
       ),
     );
@@ -41,11 +34,9 @@ class ChipCategoryWidget extends StatelessWidget {
   const ChipCategoryWidget({
     Key? key,
     required this.index,
-    required this.isAdminView,
   }) : super(key: key);
 
   final int index;
-  final bool isAdminView;
 
   @override
   Widget build(BuildContext context) {

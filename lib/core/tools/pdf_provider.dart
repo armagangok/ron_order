@@ -9,9 +9,10 @@ import 'package:pdf/widgets.dart' as pw;
 
 import '../../feature/models/order_model.dart';
 
-class PdfOrderService {
-  Future<Uint8List> createOrder(List<OrderModel> orders) async {
+class PdfOrderProvider {
+  Future<Uint8List> createOrderPdf(List<OrderModel> orders) async {
     final pdf = pw.Document();
+
     pdf.addPage(
       pw.Page(
         pageFormat: PdfPageFormat.a4,
@@ -21,7 +22,7 @@ class PdfOrderService {
               pw.Text(
                 "RON YEMEK SIPARISLERI",
                 style: pw.TextStyle(
-                  fontSize: 25,
+                  fontSize: 20,
                   fontWeight: pw.FontWeight.bold,
                 ),
               ),
@@ -54,15 +55,21 @@ class PdfOrderService {
                   element.orderer,
                   style: pw.TextStyle(
                     fontWeight: pw.FontWeight.bold,
-                    fontSize: 18,
+                    fontSize: 14,
                   ),
                 ),
                 pw.ListView.builder(
                   itemCount: element.orderList.length,
                   itemBuilder: (context, indext) {
                     return pw.Column(
+                      mainAxisAlignment: pw.MainAxisAlignment.start,
                       children: [
-                        pw.Text(element.orderList[indext].foodName),
+                        pw.Text(
+                          element.orderList[indext].foodName,
+                          style: const pw.TextStyle(
+                            fontSize: 12,
+                          ),
+                        ),
                       ],
                     );
                   },

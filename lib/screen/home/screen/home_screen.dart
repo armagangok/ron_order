@@ -4,10 +4,12 @@ import 'package:provider/provider.dart';
 
 import '../../../../core/extension/context_extension.dart';
 import '../../../feature/components/chip_category_widget.dart';
-import '../components/food_gridview.dart';
-import '../components/tcard_widget.dart';
+import '../../../feature/components/food_grid_view_builder.dart';
 import '../../../feature/components/topbar_widget.dart';
+import '../../../feature/models/food_model.dart';
 import '../../../feature/viewmodel/chip_viewmodel.dart';
+import '../../../feature/viewmodel/food_viewmodel.dart';
+import '../components/tcard_widget.dart';
 import '../viewmodel/menu_viewmodel.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -15,7 +17,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final double height = context.getHeight(1);
+    final double height = context.getHeight(1);
     final double width = context.getWidth(1);
     final Color primaryColor = context.theme.primaryColor;
     final MenuViewmodel menuViewmodel = Provider.of<MenuViewmodel>(context);
@@ -24,27 +26,55 @@ class HomeScreen extends StatelessWidget {
       body: SafeArea(
         child: ListView(
           physics: const ClampingScrollPhysics(),
-          padding: const EdgeInsets.symmetric(horizontal: 12),
+          padding: EdgeInsets.symmetric(horizontal: width * 0.025),
           children: [
             const TopBarWidget(),
-            // const SizedBox004(),
-            // Text(
-            //   "We think you might enjoy these specially selected dishes",
-            //   style: context.textTheme.labelMedium,
-            // ),
-            // const SizedBox004(),
             Row(
               children: [
                 menuViewmodel.isTview
                     ? const SizedBox()
                     : const Expanded(
-                        child: ChipCategoryWidgetBuilder(isAdminView: true),
+                        child: ChipCategoryWidgetBuilder(),
                       ),
                 SizedBox(width: width * 0.01),
                 chooseMenuTypeButton(width, menuViewmodel, primaryColor),
               ],
             ),
-            buildFood(menuViewmodel),
+            Consumer(
+              builder: (context, ChipViewmodel chipViewmodel, _) {
+                String category = chipViewmodel.getChoosenCategory;
+
+                return menuViewmodel.isTview
+                    ? const TCardBuilder()
+                    : FutureBuilder(
+                        future: Provider.of<FoodViewmodel>(context)
+                            .fetchFoodByCategory(category),
+                        builder:
+                            (context, AsyncSnapshot<List<FoodModel>> snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            final foodList = snapshot.data;
+                            return SizedBox(
+                              height: height * 0.8,
+                              child: GridViewBuilderWidget(
+                                foodList: foodList!,
+                                isActivationWidget: false,
+                              ),
+                            );
+                          } else if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                              child: Text("Waiting for data..."),
+                            );
+                          } else {
+                            return const Center(
+                              child: Text("An error occured..."),
+                            );
+                          }
+                        },
+                      );
+              },
+            )
           ],
         ),
       ),
@@ -52,22 +82,6 @@ class HomeScreen extends StatelessWidget {
   }
 
   //
-
-  Consumer<ChipViewmodel> buildFood(MenuViewmodel menuViewmodel) {
-    return Consumer(
-      builder: (BuildContext context, ChipViewmodel chipViewmodel, _) {
-        String category = chipViewmodel.getChoosenCategory;
-
-        return menuViewmodel.isTview
-            ? const TCardBuilder()
-            : SizedBox(
-                height: context.getHeight(0.8),
-                child: FoodGridView(category: category),
-              );
-      },
-    );
-  }
-
   //
 
   Widget chooseMenuTypeButton(
@@ -98,6 +112,4 @@ class HomeScreen extends StatelessWidget {
       onTap: () => menuViewmodel.changeMenuType(),
     );
   }
-
-  
 }

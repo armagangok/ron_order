@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,7 +10,6 @@ import '../../../core/tools/uuid_provider.dart';
 import '../../../feature/models/food_model.dart';
 import '../../../feature/models/storage_model.dart';
 import '../../../feature/viewmodel/order_viewmodel.dart';
-
 import '../../auth/screen_register/components/dialogs.dart';
 import '../../home/viewmodel/image_provider.dart';
 import '../viewmodel/dropdown_viewmodel.dart';
@@ -35,7 +35,7 @@ class UploadImageButton extends StatelessWidget {
         if (imageProvider.image == null) {
           await dialog(context, "Please choose a food photo.");
         } else {
-          if (controller.food.text == "") {
+          if (controller.foodController.text == "") {
             await dialog(context, "Food name cannot be empty.");
           } else {
             fileToUpload = File(imageProvider.image!.path);
@@ -50,9 +50,9 @@ class UploadImageButton extends StatelessWidget {
               ),
             );
 
-            await orderViewmodel.uploadFoodToStorage(storageModel);
-
-            dialog(context, "Food has been uploaded.");
+            orderViewmodel.uploadFoodToStorage(storageModel).whenComplete(
+                  () => dialog(context, "Food has been uploaded."),
+                );
           }
         }
       },
@@ -98,5 +98,35 @@ class GalleryImage extends StatelessWidget {
               fit: BoxFit.fill,
             ),
           );
+  }
+}
+
+class TabBarWidget extends StatelessWidget {
+  final String text;
+
+  const TabBarWidget({
+    Key? key,
+    required this.text,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final h = context.getHeight(1);
+    final w = context.getWidth(1);
+    return Container(
+      padding: const EdgeInsets.all(5),
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+        color: context.theme.primaryColor,
+      ),
+      height: h * 0.065,
+      width: double.infinity,
+      child: Center(
+        child: AutoSizeText(
+          text,
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
   }
 }

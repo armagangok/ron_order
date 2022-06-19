@@ -27,6 +27,10 @@ class RegisterScreen extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: context.getHeight(0.05)),
         physics: const ClampingScrollPhysics(),
         children: [
+          GlobalTextField(
+            hintText: "User Name",
+            controller: controller.username,
+          ),
           const SizedBox004(),
           GlobalTextField(
             hintText: "Email Adress",
@@ -71,24 +75,6 @@ class RegisterScreen extends StatelessWidget {
               text: "Register",
             ),
           ),
-          // const SizedBox004(),
-          // const DividerWidget(),
-          // const SizedBox004(),
-          // GlobalElevatedButton(
-          //   onPressed: () {},
-          //   text: "Continue with Google",
-          //   textColor: Colors.black,
-          //   color: Colors.white,
-          //   borderSideEnabled: true,
-          // ),
-          // const SizedBox004(),
-          // GlobalElevatedButton(
-          //   onPressed: () {},
-          //   text: "Continue with Facebook",
-          //   textColor: Colors.black,
-          //   color: Colors.white,
-          //   borderSideEnabled: true,
-          // ),
         ],
       ),
     );

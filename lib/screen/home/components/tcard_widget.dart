@@ -1,14 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'package:tcard/tcard.dart';
 
 import '../../../../core/extension/context_extension.dart';
-
 import '../../../feature/models/food_model.dart';
-import '../viewmodel/cart_viewmodel.dart';
 import '../../../feature/viewmodel/food_viewmodel.dart';
+import '../viewmodel/cart_viewmodel.dart';
 
 class TCardWidget extends StatelessWidget {
   const TCardWidget({
@@ -75,7 +73,7 @@ class TCardBuilder extends StatelessWidget {
     final double height = context.getHeight(1);
 
     return FutureBuilder<List<FoodModel>>(
-      future: FoodProvider().fetchAllFood(),
+      future: FoodViewmodel().fetchAllFood(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           var foods = snapshot.data!;

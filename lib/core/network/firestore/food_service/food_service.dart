@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../../../../../feature/models/food_model.dart';
 import './base_food_service.dart';
-
+import '../../../../../feature/models/food_model.dart';
 
 class FoodService implements BaseFoodService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -18,5 +17,10 @@ class FoodService implements BaseFoodService {
       foodList.add(food);
     }
     return foodList;
+  }
+
+  @override
+  Future<void> deleteFood(FoodModel food) async {
+    await _firestore.collection(food.category).doc(food.foodID).delete();
   }
 }

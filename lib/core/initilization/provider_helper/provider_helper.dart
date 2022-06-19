@@ -1,6 +1,6 @@
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
-import 'package:ron_order/screen/admin/viewmodel/order_provider.dart';
+import 'package:ron_order/screen/admin/viewmodel/order_list_provider.dart';
 
 import '../../../feature/viewmodel/chip_viewmodel.dart';
 import '../../../feature/viewmodel/food_viewmodel.dart';
@@ -30,12 +30,13 @@ class ProviderHelper {
     ChangeNotifierProvider(create: (_) => ActivationViewmodel()),
     ChangeNotifierProvider(create: (_) => CheckBoxProvider()),
     ChangeNotifierProvider(create: (_) => TabIndexProvider()),
+    ChangeNotifierProvider(create: (_) => FoodViewmodel()),
     Provider(create: (_) => RegisterTextController()),
     Provider(create: (_) => LoginTextController()),
     Provider(create: (_) => OrderViewmodel()),
     Provider(create: (_) => IndexProvider()),
     Provider(create: (_) => UrlProvider()),
-    Provider(create: (_) => FoodProvider()),
+
     Provider(create: (_) => OrderListProvider()),
     Provider(create: (_) => AdminTextController()),
 

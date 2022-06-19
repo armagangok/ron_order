@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AdminTextController {
-  final TextEditingController food = TextEditingController();
+  final TextEditingController _food = TextEditingController();
 
-  get foodController => food;
+  get foodController => _food;
 }

@@ -7,4 +7,5 @@ abstract class BaseFoodService {
   // Future<List<FoodModel>> fetchSalad();
   // Future<List<FoodModel>> fetchOther();
   Future<List<FoodModel>> fetchFoodByCategory(String category);
+  Future<void> deleteFood(FoodModel food);
 }

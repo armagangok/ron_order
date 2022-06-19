@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 
-
 import '../../../feature/models/food_model.dart';
 
 class CartViewmodel with ChangeNotifier {
@@ -11,31 +10,33 @@ class CartViewmodel with ChangeNotifier {
   List<FoodModel> get foodCart => _foodCart;
   int get cartLength => _foodCart.length;
 
+  
+
   addFoodToCart(FoodModel choosenFood) {
+    int holder = 0;
     if (_foodCart.isEmpty) {
-      print("empty");
       checkFoodList() ? _foodCart.add(choosenFood) : {};
       notifyListeners();
-    } else {
-      print("not empty");
-
+    } else if (_foodCart.isNotEmpty) {
       for (var foodInCart in _foodCart) {
-        if (foodInCart.category == choosenFood.category) {
-          break;
-        } else if (foodInCart.category != choosenFood.category) {
-          checkFoodList() ? _foodCart.add(choosenFood) : {};
-          notifyListeners();
-          break;
-        }
-        break;
+        if (choosenFood.category == foodInCart.category) {
+          holder++;
+        } else {}
+      }
+
+      if (holder == 0) {
+        checkFoodList() ? _foodCart.add(choosenFood) : {};
+        notifyListeners();
       }
     }
-  } 
+  }
 
   removeFoodFromCart(FoodModel food) {
-    for (var element in _foodCart) {
+    for (var foodInCart in _foodCart) {
       if (_foodCart.isNotEmpty) {
-        (element.foodName == food.foodName) ? _foodCart.remove(element) : {};
+        (foodInCart.foodName == food.foodName)
+            ? _foodCart.remove(foodInCart)
+            : {};
         notifyListeners();
       }
     }
