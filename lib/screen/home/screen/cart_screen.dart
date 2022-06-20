@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import './home_screen.dart';
 import '../../../core/components/components.dart';
 import '../../../core/components/global_app_bar.dart';
 import '../../../core/components/global_elevated_button.dart';
+import '../../../core/navigation/navigation.dart';
 import '../../../core/network/firebase/view-models/firebase_viewmodel.dart';
 import '../../../feature/components/food_grid_view_builder.dart';
 import '../../../feature/models/order_model.dart';
@@ -48,10 +50,12 @@ class CartScreen extends StatelessWidget {
                       }
                     : {
                         await orderVmodel.orderFood(order),
-                        await dialog(
+                        dialog(
                           context,
                           "Order is being sent!",
-                        ),
+                        ).whenComplete(
+                          () => push(const HomeScreen(), context),
+                        )
                       };
               },
               text: "Send Order",

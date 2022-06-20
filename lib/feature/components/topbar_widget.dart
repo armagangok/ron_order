@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 import '../../../core/extension/context_extension.dart';
 import '../../../core/network/firebase/view-models/firebase_viewmodel.dart';
 import '../../core/navigation/navigation.dart';
@@ -96,10 +95,14 @@ class LogoutButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final FirebaseVmodel firebase = Provider.of<FirebaseVmodel>(context);
+    CartViewmodel cart = Provider.of<CartViewmodel>(context);
     return IconButton(
       padding: EdgeInsets.zero,
       icon: const Icon(Icons.logout_rounded),
-      onPressed: () async => await firebase.logout(),
+      onPressed: () async {
+        cart.foodCart.clear();
+        await firebase.logout();
+      },
       color: Colors.black,
     );
   }

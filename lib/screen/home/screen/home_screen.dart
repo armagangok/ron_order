@@ -56,7 +56,11 @@ class HomeScreen extends StatelessWidget {
                             final foodList = snapshot.data;
                             return SizedBox(
                               height: height * 0.8,
-                              child: GridViewBuilderWidget(foodList: foodList!),
+                              child: foodList!.isEmpty
+                                  ? const Center(
+                                      child: Text("No active food available."),
+                                    )
+                                  : GridViewBuilderWidget(foodList: foodList),
                             );
                           } else if (snapshot.connectionState ==
                               ConnectionState.waiting) {

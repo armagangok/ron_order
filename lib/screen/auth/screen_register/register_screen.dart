@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ron_order/core/components/global_app_bar.dart';
+import 'package:ron_order/core/tools/uuid_provider.dart';
 
 import './components/dialogs.dart';
 import './provider/textfield_controller.dart';
@@ -9,8 +11,10 @@ import '../../../core/components/global_elevated_button.dart';
 import '../../../core/components/global_textfield.dart';
 import '../../../core/constants/constant_text.dart';
 import '../../../core/extension/context_extension.dart';
+import '../../../core/navigation/navigation.dart';
 import '../../../core/network/firebase/models/user_model.dart';
 import '../../../core/network/firebase/view-models/firebase_viewmodel.dart';
+import '../screen_login/login_screen.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -59,17 +63,20 @@ class RegisterScreen extends StatelessWidget {
                   password: controller.password.text,
                   passwordRepeat: controller.password.text,
                   orderList: [],
-                  id: "",
+                  id: UniqueIDProvider().generateUID(),
                 );
 
-                try {  
-                  AppUser? response =
-                      await firebase.createUserByEmailPassword(userModel);
-                  response == null
-                      ? dialog(context, ConstText.registerErrorText)
-                      : dialog(context, ConstText.verification);
-                } catch (e) {
-                  dialog(context, "$e");
+                try {
+                  firebase.createUserByEmailPassword(userModel).then(
+                        (value) => value == null
+                            ? dialog(context, ConstText.registerErrorText)
+                            : dialog(context, ConstText.verification)
+                                .whenComplete(
+                                () => push(const LoginScreen(), context),
+                              ),
+                      );
+                } on FirebaseAuthException catch (e) {
+                  dialog(context, e.message);
                 }
               },
               text: "Register",

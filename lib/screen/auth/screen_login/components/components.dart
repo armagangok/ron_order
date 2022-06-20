@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ron_order/screen/auth/screen_login/viewmodel/checkbox_provider.dart';
 
 import '../../../../core/components/global_elevated_button.dart';
 import '../../../../core/components/global_textfield.dart';
@@ -59,14 +60,14 @@ class EmailTextField extends StatelessWidget {
 class LoginButton extends StatelessWidget {
   const LoginButton({Key? key}) : super(key: key);
 
-  // AppUser? a;
-
   @override
   Widget build(BuildContext context) {
     final LoginTextController controller =
         Provider.of<LoginTextController>(context);
 
     final FirebaseVmodel firebase = Provider.of<FirebaseVmodel>(context);
+    final CheckBoxProvider checkBox = Provider.of<CheckBoxProvider>(context);
+    final PreferenceController pref = PreferenceController();
 
     return SizedBox(
       height: context.getHeight(0.065),
@@ -76,19 +77,27 @@ class LoginButton extends StatelessWidget {
               controller.passwordController.text.isEmpty) {
             await dialog(context, ConstText.emptyLogin);
           } else {
-            await firebase.loginByEmailPassword(
-              controller.emailController.text,
-              controller.passwordController.text,
-            );
+            if (checkBox.value) {
+              firebase
+                  .loginByEmailPassword(
+                    controller.emailController.text,
+                    controller.passwordController.text,
+                  )
+                  .whenComplete(
+                    () => pref.saveUserInfo(
+                      PrefUserModel(
+                        email: controller.emailController.text,
+                        password: controller.passwordController.text,
+                      ),
+                    ),
+                  );
+            } else {
+              await firebase.loginByEmailPassword(
+                controller.emailController.text,
+                controller.passwordController.text,
+              );
+            }
           }
-          // (a == null)
-          //     ? {
-          //         print(a),
-          //         await dialog(context, "Password or mail is not correct!"),
-          //       }
-          //     : {
-          //         print(a),
-          //       };
         },
         text: "Log in",
       ),

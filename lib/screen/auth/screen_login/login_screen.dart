@@ -32,7 +32,7 @@ class LoginScreen extends StatelessWidget {
               ],
             ),
             const SizedBox004(),
-             LoginButton(),
+            const LoginButton(),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
