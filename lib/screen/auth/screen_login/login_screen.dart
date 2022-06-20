@@ -14,7 +14,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GlobalAppBar(title: "Log in"),
+      appBar: const GlobalAppBar(title: "Log in"),
       body: SizedBox(
         height: context.getHeight(1),
         child: ListView(
@@ -32,7 +32,7 @@ class LoginScreen extends StatelessWidget {
               ],
             ),
             const SizedBox004(),
-            const LoginButton(),
+             LoginButton(),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [

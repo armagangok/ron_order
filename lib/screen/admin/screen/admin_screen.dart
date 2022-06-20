@@ -33,7 +33,6 @@ class AdminScreen extends StatelessWidget {
             style: context.textTheme.headline6,
           ),
         ),
-        toolbarHeight: context.getHeight(0.1),
         actions: [
           Consumer(
             builder: ((context, TabIndexProvider indexProvider, child) {

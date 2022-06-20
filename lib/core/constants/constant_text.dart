@@ -6,8 +6,7 @@ class ConstText {
   static String registerErrorText = "There may be an account with that email.";
 
   static String verification = """\nHello There!\n
-    Verification link has been sent your e-mail.\n
-    Do you really think that you can signin without verification? \n""";
+    You have just registered a new account.""";
 
   static String emptyLogin = "Password and email fields cannot be empty.";
 }

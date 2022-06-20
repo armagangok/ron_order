@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ron_order/feature/components/food_grid_view_builder.dart';
 
+import '../../../core/components/components.dart';
 import '../../../core/components/global_app_bar.dart';
 import '../../../core/components/global_elevated_button.dart';
 import '../../../core/network/firebase/view-models/firebase_viewmodel.dart';
+import '../../../feature/components/food_grid_view_builder.dart';
 import '../../../feature/models/order_model.dart';
 import '../../../feature/viewmodel/order_viewmodel.dart';
 import '../../auth/screen_register/components/dialogs.dart';
@@ -22,13 +23,14 @@ class CartScreen extends StatelessWidget {
     return Scaffold(
       appBar: const GlobalAppBar(title: "My Orders"),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(12.0),
         child: Column(
           children: [
             GridViewBuilderWidget(
               foodList: cart.foodCart,
               isActivationWidget: false,
             ),
+            const SizedBox004(),
             GlobalElevatedButton(
               onPressed: () async {
                 final OrderModel order = OrderModel(

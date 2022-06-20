@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 import '../models/category_model.dart';
 
 class ChipViewmodel with ChangeNotifier {
@@ -9,8 +8,8 @@ class ChipViewmodel with ChangeNotifier {
   // ChipController._();
 
   final List<Category> categories = [
-    
     Category(categoryName: "dishes", isSelected: true),
+    Category(categoryName: "sub dishes", isSelected: false),
     Category(categoryName: "deserts", isSelected: false),
     Category(categoryName: "soups", isSelected: false),
     Category(categoryName: "salads", isSelected: false),

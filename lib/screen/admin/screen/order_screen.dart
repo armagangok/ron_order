@@ -27,7 +27,7 @@ class OrderScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 8),
           physics: const ClampingScrollPhysics(),
           children: [
-            textWidget(context),
+            Center(child: textWidget(context)),
             const SizedBox004(),
             FutureBuilder<List<OrderModel>>(
               future: Provider.of<OrderViewmodel>(context).fetchOrder(),
@@ -37,7 +37,11 @@ class OrderScreen extends StatelessWidget {
 
                   orderListProvider.setOrderList = orders;
 
-                  return buildOrders(orders, h);
+                  return orders.isEmpty
+                      ? const Center(
+                          child: Text("There is no active order recently."),
+                        )
+                      : buildOrders(orders, h);
                 } else if (snapshot.connectionState ==
                     ConnectionState.waiting) {
                   return const Center(
@@ -56,14 +60,10 @@ class OrderScreen extends StatelessWidget {
     );
   }
 
-  Row textWidget(BuildContext context) {
-    return Row(
-      children: [
-        Text(
-          "Ron Food Orders",
-          style: context.textTheme.headline5,
-        ),
-      ],
+  Widget textWidget(BuildContext context) {
+    return Text(
+      "Ron Food Orders",
+      style: context.textTheme.headline5,
     );
   }
 
@@ -101,6 +101,8 @@ class OrderScreen extends StatelessWidget {
                   ListView.builder(
                     physics: const ClampingScrollPhysics(),
                     shrinkWrap: true,
+                    addAutomaticKeepAlives: false,
+                    addRepaintBoundaries: false,
                     itemCount: orders[index].orderList.length,
                     itemBuilder: (context, index1) {
                       return AutoSizeText(
@@ -141,7 +143,7 @@ class DeleteFoodDialog extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               TextButton(
-                onPressed: () => func,
+                onPressed: () async => await func(),
                 child: const Text("Yes"),
               ),
               TextButton(
@@ -165,7 +167,7 @@ Future<void> buildDialog(
     context: context,
     builder: (_) => DeleteFoodDialog(
       text: text,
-      func: func,
+      func: () async => await func(),
     ),
   );
 }

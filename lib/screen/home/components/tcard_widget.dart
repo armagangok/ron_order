@@ -87,7 +87,7 @@ class TCardBuilder extends StatelessWidget {
                       lockYAxis: true,
                       onForward: (index, info) {
                         (info.direction == SwipDirection.Right)
-                            ? cartViewmodel.addFoodToCart(foods[index])
+                            ? cartViewmodel.addFoodToCart(foods[index], context)
                             : {};
                       },
                       size: Size(

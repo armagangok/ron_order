@@ -5,6 +5,7 @@ class DropDownProvider with ChangeNotifier {
 
   List<String> categories = [
     "dishes",
+    "sub dishes",
     "deserts",
     "soups",
     "salads",

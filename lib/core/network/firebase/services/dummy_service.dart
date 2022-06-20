@@ -53,16 +53,16 @@ class DummyService implements AuthBase {
     }
   }
 
-  @override
-  Future<AppUser?> signInByGoogle() async {
-    try {
-      UserCredential authCredential = await _firebaseAuth.signInAnonymously();
-      return _userFromFirebase(authCredential.user);
-    } catch (e) {
-      debugPrint("$e");
-      return null;
-    }
-  }
+  // @override
+  // Future<AppUser?> signInByGoogle() async {
+  //   try {
+  //     UserCredential authCredential = await _firebaseAuth.signInAnonymously();
+  //     return _userFromFirebase(authCredential.user);
+  //   } catch (e) {
+  //     debugPrint("$e");
+  //     return null;
+  //   }
+  // }
 
   @override
   Future<AppUser?> loginByEmailPassword(String email, String password) async {

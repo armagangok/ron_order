@@ -47,19 +47,17 @@ class ActivationWidget extends StatelessWidget {
                           Radius.circular(16),
                         ),
                       ),
-                      child: Positioned.fill(
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: AutoSizeText(
-                            "Deactivated",
-                            // textAlign: TextAlign.center,
-                            style: context.textTheme.headline5!.copyWith(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w700,
-                            ),
-
-                            maxLines: 1,
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: AutoSizeText(
+                          "Deactivated",
+                          // textAlign: TextAlign.center,
+                          style: context.textTheme.headline5!.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
                           ),
+
+                          maxLines: 1,
                         ),
                       ),
                     )
@@ -89,13 +87,17 @@ class DeleteFoodDialog extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              
               TextButton(
-                onPressed: () async => foodProvider.deleteFood(food),
+                onPressed: () async {
+                  Navigator.pop(context);
+                  await foodProvider.deleteFood(food);
+                },
                 child: const Text("Yes"),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context);
+                },
                 child: const Text("No"),
               )
             ],
@@ -104,11 +106,4 @@ class DeleteFoodDialog extends StatelessWidget {
       ),
     );
   }
-}
-
-Future<void> deleteFoodDialog(context, FoodModel food) async {
-  await showDialog(
-    context: context,
-    builder: (_) => DeleteFoodDialog(food: food),
-  );
 }

@@ -10,13 +10,12 @@ class CartViewmodel with ChangeNotifier {
   List<FoodModel> get foodCart => _foodCart;
   int get cartLength => _foodCart.length;
 
-  
-
-  addFoodToCart(FoodModel choosenFood) {
+  bool addFoodToCart(FoodModel choosenFood, BuildContext context) {
     int holder = 0;
     if (_foodCart.isEmpty) {
       checkFoodList() ? _foodCart.add(choosenFood) : {};
       notifyListeners();
+      return true;
     } else if (_foodCart.isNotEmpty) {
       for (var foodInCart in _foodCart) {
         if (choosenFood.category == foodInCart.category) {
@@ -25,10 +24,18 @@ class CartViewmodel with ChangeNotifier {
       }
 
       if (holder == 0) {
-        checkFoodList() ? _foodCart.add(choosenFood) : {};
-        notifyListeners();
+        checkFoodList()
+            ? {
+                _foodCart.add(choosenFood),
+                notifyListeners(),
+              }
+            : {};
+        return true;
+      } else {
+        return false;
       }
     }
+    return true;
   }
 
   removeFoodFromCart(FoodModel food) {

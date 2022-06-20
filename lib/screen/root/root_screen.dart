@@ -23,7 +23,9 @@ class RootScreen extends StatelessWidget {
       }
     } else {
       return const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
+        body: Center(
+          child: Text("Checking user info..."),
+        ),
       );
     }
   }

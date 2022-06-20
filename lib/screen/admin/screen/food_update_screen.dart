@@ -31,7 +31,11 @@ class FoodUpdateScreen extends StatelessWidget {
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.done) {
                       var foodList = snapshot.data;
-                      return GridViewBuilderWidget(foodList: foodList!);
+                      return GridViewBuilderWidget(
+                        
+                        foodList: foodList!,
+                        isActivationWidget: true,
+                      );
                     } else if (snapshot.connectionState ==
                         ConnectionState.waiting) {
                       return const Center(

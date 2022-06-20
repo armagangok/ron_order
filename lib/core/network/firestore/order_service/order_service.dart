@@ -86,12 +86,11 @@ class OrderService implements BaserOrderService {
 
   @override
   Future<void> deleteAllOrders() async {
-    _firestore.collection('orders').get().then(
-      (snapshot) {
-        for (DocumentSnapshot ds in snapshot.docs) {
-          ds.reference.delete();
-        }
-      },
-    );
+    var collectionRef = FirebaseFirestore.instance.collection('orders');
+    var snapshots = await collectionRef.get();
+
+    for (var doc in snapshots.docs) {
+      await doc.reference.delete();
+    }
   }
 }

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import './activation_widget.dart';
 import '../../core/extension/context_extension.dart';
 import '../../screen/admin/viewmodel/activation_viewmodel.dart';
-import '../../screen/home/components/remove_food_widget.dart';
 import '../models/food_model.dart';
+import 'food_container.dart';
 
 class GridViewBuilderWidget extends StatelessWidget {
   final List<FoodModel> foodList;
@@ -13,7 +12,7 @@ class GridViewBuilderWidget extends StatelessWidget {
   const GridViewBuilderWidget({
     Key? key,
     required this.foodList,
-    this.isActivationWidget = true,
+    this.isActivationWidget = false,
   }) : super(key: key);
 
   @override
@@ -24,6 +23,8 @@ class GridViewBuilderWidget extends StatelessWidget {
       itemCount: foodList.length,
       physics: const ClampingScrollPhysics(),
       shrinkWrap: true,
+      addAutomaticKeepAlives: false,
+      addRepaintBoundaries: false,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 10,
@@ -34,8 +35,8 @@ class GridViewBuilderWidget extends StatelessWidget {
         return Consumer(
           builder: (context, ActivationViewmodel foodActivation, child) {
             return isActivationWidget
-                ? ActivationWidget(food: foodList[index])
-                : RemoveFoodWidget(food: foodList[index]);
+                ? FoodContainerAdmin(food: foodList[index])
+                : FoodContainer(food: foodList[index]);
           },
         );
       },

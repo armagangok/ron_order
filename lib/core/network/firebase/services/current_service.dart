@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
 // import 'package:google_sign_in/google_sign_in.dart';
 
 import '../models/user_model.dart';
@@ -29,7 +30,6 @@ class CurrentService implements AuthBase {
 
   Future<AppUser?> _userFromFirebase(User? user) async {
     if (user == null) {
-      print("x");
       return null;
     } else {
       DocumentSnapshot<Map<String, dynamic>> userFromFirebase =
@@ -42,9 +42,6 @@ class CurrentService implements AuthBase {
         userName: userFromFirebase["userName"],
         orderList: userFromFirebase["orderList"],
       );
-
-      print(a.email);
-      print(a.orderList);
 
       return a;
     }

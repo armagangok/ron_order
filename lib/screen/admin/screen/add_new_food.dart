@@ -34,6 +34,7 @@ class AddNewFoodScreen extends StatelessWidget {
         ),
         const SizedBox004(),
         const GalleryImage(),
+        const SizedBox004(),
         const UploadImageButton(),
       ],
     );

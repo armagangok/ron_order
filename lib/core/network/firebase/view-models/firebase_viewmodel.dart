@@ -1,3 +1,4 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 import '../locator/locator.dart';
@@ -32,8 +33,8 @@ class FirebaseVmodel with ChangeNotifier implements AuthBase {
       state = ViewState.busy;
       _user = await _userRepository.currentUser();
       return _user;
-    } catch (e) {
-      debugPrint("Error in viewmodel, at currenUser() method. \n [$e]");
+    } on FirebaseException catch (e) {
+      debugPrint("$e");
       return null;
     } finally {
       state = ViewState.idle;
@@ -47,8 +48,8 @@ class FirebaseVmodel with ChangeNotifier implements AuthBase {
       bool credential = await _userRepository.logout();
       _user = null;
       return credential;
-    } catch (e) {
-      debugPrint("Error in FirebaseViewmodel, at signOut() method. \n [$e]");
+    } on FirebaseException catch (e) {
+      debugPrint("$e");
       return false;
     } finally {
       state = ViewState.idle;
@@ -62,8 +63,8 @@ class FirebaseVmodel with ChangeNotifier implements AuthBase {
       _user = await _userRepository.signinAnonim();
       debugPrint("userViewModel user:  $_user");
       return _user;
-    } catch (e) {
-      debugPrint("Error in FirebaseViewmodel, signinAnonim() method. \n [$e]");
+    } on FirebaseException catch (e) {
+      debugPrint("$e");
       return null;
     } finally {
       state = ViewState.idle;
@@ -94,16 +95,17 @@ class FirebaseVmodel with ChangeNotifier implements AuthBase {
             await _userRepository.createUserByEmailPassword(user);
         // await verifyMail();
 
-        print(response);
-
         return response;
-      } catch (e) {
+      } on FirebaseException catch (e) {
+        debugPrint(e.message);
         return null;
       }
     } else {
       return null;
     }
   }
+
+  //
 
   @override
   Future<AppUser?> loginByEmailPassword(
@@ -119,10 +121,8 @@ class FirebaseVmodel with ChangeNotifier implements AuthBase {
           password,
         );
         return _user;
-      } catch (e) {
-        debugPrint(
-          "Error in FirebaseViewmodel, at signInByEmailPassword() method. \n [$e] \n ${e.hashCode};",
-        );
+      } on FirebaseException catch (e) {
+        debugPrint("$e.message");
         return null;
       } finally {
         state = ViewState.idle;
@@ -130,6 +130,8 @@ class FirebaseVmodel with ChangeNotifier implements AuthBase {
     }
     return null;
   }
+
+  //
 
   // @override
   // bool? isVerified() {
@@ -159,6 +161,8 @@ class FirebaseVmodel with ChangeNotifier implements AuthBase {
       return false;
     }
   }
+
+  //
 
   @override
   Future<void> setLikedPostID(AppUser user, String likedPost) async {
