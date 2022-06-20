@@ -62,7 +62,7 @@ class RegisterScreen extends StatelessWidget {
                   id: "",
                 );
 
-                try {
+                try {  
                   AppUser? response =
                       await firebase.createUserByEmailPassword(userModel);
                   response == null

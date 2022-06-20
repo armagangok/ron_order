@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ron_order/screen/splash/splash_screen.dart';
 
 import './core/initilization/init_app.dart';
 import './core/theme/theme.dart';
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: appTheme,
-      home: const RootScreen(),
+      home: const SplashScreen(),
     );
   }
 }

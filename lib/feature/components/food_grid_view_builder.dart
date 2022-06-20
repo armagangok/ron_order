@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import './activation_widget.dart';
 import '../../core/extension/context_extension.dart';
 import '../../screen/admin/viewmodel/activation_viewmodel.dart';
-import '../../screen/home/components/food_gridview.dart';
+import '../../screen/home/components/remove_food_widget.dart';
 import '../models/food_model.dart';
 
 class GridViewBuilderWidget extends StatelessWidget {

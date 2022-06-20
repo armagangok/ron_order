@@ -12,7 +12,7 @@ class SplashScreen extends StatelessWidget {
     splashViewmodel
         .waitForDelay(context)
         .whenComplete(() => splashViewmodel.navigate(context));
-    return Scaffold(
+    return Scaffold(   
       body: SizedBox(
         height: context.getHeight(1),
         width: double.infinity,

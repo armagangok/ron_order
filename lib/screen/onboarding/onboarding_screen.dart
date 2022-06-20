@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:ron_order/screen/root/root_screen.dart';
 
-
-
-import '../../core/navigation/navigation.dart';
 import '../../core/components/components.dart';
 import '../../core/extension/context_extension.dart';
-import '../home/screen/home_screen.dart';
-
+import '../../core/navigation/navigation.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({Key? key}) : super(key: key);
@@ -75,7 +72,7 @@ class OnboardingScreen extends StatelessWidget {
                 const SizedBox004(),
                 InkWell(
                   onTap: () {
-                    push(const HomeScreen(), context);
+                    push(const RootScreen(), context);
                   },
                   child: CircleAvatar(
                     radius: width * 0.085,
