@@ -30,7 +30,9 @@ class ChipViewmodel with ChangeNotifier {
     }
 
     categories[index].isSelected = value;
-
     notifyListeners();
   }
 }
+
+
+

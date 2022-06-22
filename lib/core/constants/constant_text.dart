@@ -1,12 +1,22 @@
+final ConstText kText = ConstText();
+
 class ConstText {
   static final ConstText _singleton = ConstText._internal();
   factory ConstText() => _singleton;
   ConstText._internal();
 
-  static String registerErrorText = "There may be an account with that email.";
+  String userNameEmpty = "Kullanıcı adı boş bırakılamaz.";
+  String emailEmpty = "Emil boş bırakılamaz.";
+  String passwordsEmpty = "Şifreler boş bırakılamaz.";
+  String passwordsNotSame = "Şifreler aynı değil Lütfen kontrol ediniz.";
+  String registrationSuccess =
+      "Hesap başarıyla oluşturuldu. Lütfen giriş yapın.";
 
-  static String verification = """\nHello There!\n
-    You have just registered a new account.""";
+  String unknownError = "Bilinmeyen bir hata oluştu";
 
-  static String emptyLogin = "Password and email fields cannot be empty.";
+  Map<String, String> warningText = {
+    "email-already-in-use":
+        "Bu email zaten başka bir hesap tarafından kullanılıyor.",
+    "invalid-email": "Email hatalı, lütfen emalinizi kontrol edin.",
+  };
 }

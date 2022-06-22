@@ -33,9 +33,7 @@ class HomeScreen extends StatelessWidget {
               children: [
                 menuViewmodel.isTview
                     ? const SizedBox()
-                    : const Expanded(
-                        child: ChipCategoryWidgetBuilder(),
-                      ),
+                    : const Expanded(child: ChipCategoryWidgetBuilder()),
                 SizedBox(width: width * 0.01),
                 chooseMenuTypeButton(width, menuViewmodel, primaryColor),
               ],

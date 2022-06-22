@@ -18,12 +18,15 @@ class FoodViewmodel with ChangeNotifier implements BaseFoodService {
     for (var element in await fetchFoodByCategory("deserts")) {
       shuffledFoodList.add(element);
     }
+
     for (var element in await fetchFoodByCategory("dishes")) {
       shuffledFoodList.add(element);
     }
+
     for (var element in await fetchFoodByCategory("others")) {
       shuffledFoodList.add(element);
     }
+
     for (var element in await fetchFoodByCategory("soups")) {
       shuffledFoodList.add(element);
     }
@@ -32,7 +35,7 @@ class FoodViewmodel with ChangeNotifier implements BaseFoodService {
       shuffledFoodList.add(element);
     }
 
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < 5; i++) {
       shuffledFoodList.shuffle();
     }
 
