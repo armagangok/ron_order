@@ -65,7 +65,7 @@ class DummyService implements AuthBase {
   // }
 
   @override
-  Future<AppUser?> loginByEmailPassword(String email, String password) async {
+  Future<AppUser?> login(String email, String password) async {
     return AppUser(
       id: "id",
       email: "email",
@@ -76,7 +76,7 @@ class DummyService implements AuthBase {
   }
 
   @override
-  Future<AppUser?> createUserByEmailPassword(AppUser user) async {
+  Future<AppUser?> register(AppUser user) async {
     return AppUser(
       id: "id",
       email: "email",

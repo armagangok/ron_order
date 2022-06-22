@@ -16,14 +16,14 @@ class ChipViewmodel with ChangeNotifier {
     Category(categoryName: "others", isSelected: false),
   ];
 
-  final List<String> selectedCategoryList = ["dishes"];
+  final List<String> choosenCategoryList = ["dishes"];
 
-  String get getChoosenCategory => selectedCategoryList[0];
+  String get chosenCategory => choosenCategoryList[0];
   List<Category> get getCategories => categories;
 
   void changeCategory(String newCategory, bool value, index) {
-    selectedCategoryList.clear();
-    selectedCategoryList.add(newCategory);
+    choosenCategoryList.clear();
+    choosenCategoryList.add(newCategory);
 
     for (Category category in categories) {
       (category.isSelected == true) ? category.isSelected = false : {};

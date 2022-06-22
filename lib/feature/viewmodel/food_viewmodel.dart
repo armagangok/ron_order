@@ -58,6 +58,11 @@ class FoodViewmodel with ChangeNotifier implements BaseFoodService {
     }
   }
 
+  Future<List<FoodModel>> fetchFoodForAdminScreen(String category) async {
+    var foodListFromService = await _foodService.fetchFoodByCategory(category);
+    return foodListFromService;
+  }
+
   @override
   Future<void> deleteFood(FoodModel food) async {
     await _foodService.deleteFood(food);

@@ -49,24 +49,23 @@ class UserRepository implements AuthBase {
   // }
 
   @override
-  Future<AppUser?> loginByEmailPassword(
+  Future<AppUser?> login(
     String email,
     String password,
   ) async {
     if (appMode == AppMode.debug) {
-      return await _dummyAuthService.loginByEmailPassword(email, password);
+      return await _dummyAuthService.login(email, password);
     } else {
-      return await _authService.loginByEmailPassword(email, password);
+      return await _authService.login(email, password);
     }
   }
 
   @override
-  Future<AppUser?> createUserByEmailPassword(AppUser user) async {
+  Future<AppUser?> register(AppUser user) async {
     if (appMode == AppMode.debug) {
-      return await _dummyAuthService.createUserByEmailPassword(user);
+      return await _dummyAuthService.register(user);
     } else {
-      final AppUser? renewedUser =
-          await _authService.createUserByEmailPassword(user);
+      final AppUser? renewedUser = await _authService.register(user);
       return renewedUser;
     }
   }

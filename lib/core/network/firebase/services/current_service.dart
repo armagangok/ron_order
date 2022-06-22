@@ -41,6 +41,7 @@ class CurrentService implements AuthBase {
         id: user.uid,
         userName: userFromFirebase["userName"],
         orderList: userFromFirebase["orderList"],
+        isAdmin: userFromFirebase["isAdmin"],
       );
 
       return a;
@@ -121,45 +122,39 @@ class CurrentService implements AuthBase {
   //
 
   @override
-  Future<AppUser?> createUserByEmailPassword(AppUser user) async {
-    try {
-      UserCredential authCredential =
-          await _firebaseAuth.createUserWithEmailAndPassword(
-        email: user.email!,
-        password: user.password!,
-      );
+  Future<AppUser?> register(AppUser user) async {
+    UserCredential authCredential =
+        await _firebaseAuth.createUserWithEmailAndPassword(
+      email: user.email!,
+      password: user.password!,
+    );
 
-      user.id = authCredential.user!.uid;
+    user.id = authCredential.user!.uid;
 
-      await _firestore
-          .collection("users")
-          .doc(authCredential.user!.uid)
-          .set(user.toMap());
+    await _firestore
+        .collection("users")
+        .doc(authCredential.user!.uid)
+        .set(user.toMap());
 
-      var a = await _userFromFirebase(authCredential.user);
+    var firebaseUser = await _userFromFirebase(authCredential.user);
 
-      return a;
-    } catch (e) {
-      debugPrint("Error in services, at createUserByEmailAndPassword: [$e]");
-      return null;
-    }
+    return firebaseUser;
   }
 
   //
   //
 
   @override
-  Future<AppUser?> loginByEmailPassword(String email, String password) async {
-    try {
-      // debugPrint(
-      //     "DEBUG in FirebaseAuthService at signInByEmailPassword. \n  S${_firebaseAuth.currentUser?.emailVerified}");
-      UserCredential authCredential = await _firebaseAuth
-          .signInWithEmailAndPassword(email: email, password: password);
-      return _userFromFirebase(authCredential.user);
-    } catch (e) {
-      debugPrint("Error in services, signInWithEmailAndPassword: [$e]");
-      return null;
-    }
+  Future<AppUser?> login(
+    String email,
+    String password,
+  ) async {
+    UserCredential authCredential =
+        await _firebaseAuth.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+    return _userFromFirebase(authCredential.user);
   }
 
   // @override

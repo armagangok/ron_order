@@ -15,10 +15,12 @@ class RootScreen extends StatelessWidget {
 
     if (firebase.state == ViewState.idle) {
       if (firebase.user != null) {
-        return (firebase.user!.email == "admin@admin.com")
+        print("null değil");
+        return (firebase.user!.isAdmin)
             ? const AdminScreen()
             : const HomeScreen();
       } else {
+        print("null");
         return const LoginScreen();
       }
     } else {

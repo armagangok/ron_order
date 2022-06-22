@@ -1,12 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ron_order/screen/admin/screen/admin_screen.dart';
 
 import '../../../core/extension/context_extension.dart';
 import '../../../core/network/firebase/view-models/firebase_viewmodel.dart';
 import '../../core/navigation/navigation.dart';
+import '../../screen/auth/screen_login/viewmodel/textfield_controller.dart';
+import '../../screen/auth/screen_register/provider/textfield_controller.dart';
 import '../../screen/home/screen/cart_screen.dart';
 import '../../screen/home/viewmodel/cart_viewmodel.dart';
+import '../../screen/root/root_screen.dart';
 
 class TopBarWidget extends StatelessWidget {
   const TopBarWidget({
@@ -15,6 +19,8 @@ class TopBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseVmodel firebase = Provider.of<FirebaseVmodel>(context);
+
     final double h = context.getHeight(1);
     final double w = context.getWidth(1);
 
@@ -26,6 +32,17 @@ class TopBarWidget extends StatelessWidget {
         buildLocationAndTextWidget(textTheme, w),
         Row(
           children: [
+            firebase.user!.isAdmin
+                ? IconButton(
+                    onPressed: () {
+                      getTo(const AdminScreen(), context);
+                    },
+                    icon: const Icon(
+                      CupertinoIcons.person,
+                      color: Colors.black,
+                    ),
+                  )
+                : const SizedBox(),
             const LogoutButton(),
             cartWidget(),
           ],
@@ -59,7 +76,6 @@ class TopBarWidget extends StatelessWidget {
   Widget cartWidget() {
     return Consumer(
       builder: (BuildContext context, CartViewmodel cart, _) {
-        var foodList = cart.foodCart;
         return (cart.cartLength != 0)
             ? Stack(
                 children: [
@@ -76,7 +92,7 @@ class TopBarWidget extends StatelessWidget {
                   IconButton(
                     padding: EdgeInsets.zero,
                     icon: const Icon(CupertinoIcons.shopping_cart),
-                    onPressed: () => push(const CartScreen(), context),
+                    onPressed: () => getTo(const CartScreen(), context),
                     color: Colors.black,
                   ),
                 ],
@@ -96,12 +112,25 @@ class LogoutButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final FirebaseVmodel firebase = Provider.of<FirebaseVmodel>(context);
     CartViewmodel cart = Provider.of<CartViewmodel>(context);
+    LoginTextController loginTextController =
+        Provider.of<LoginTextController>(context);
+    RegisterTextController registerTextController =
+        Provider.of<RegisterTextController>(context);
     return IconButton(
       padding: EdgeInsets.zero,
       icon: const Icon(Icons.logout_rounded),
       onPressed: () async {
         cart.foodCart.clear();
-        await firebase.logout();
+        loginTextController.emailController.clear();
+        loginTextController.passwordController.clear();
+        registerTextController.email.clear();
+        registerTextController.password.clear();
+        registerTextController.rePassword.clear();
+        registerTextController.username.clear();
+
+        await firebase
+            .logout()
+            .whenComplete(() => getTo(const RootScreen(), context));
       },
       color: Colors.black,
     );

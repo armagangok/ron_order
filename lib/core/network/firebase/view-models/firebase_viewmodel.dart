@@ -44,32 +44,29 @@ class FirebaseVmodel with ChangeNotifier implements AuthBase {
   @override
   Future<bool> logout() async {
     try {
-      state = ViewState.busy;
       bool credential = await _userRepository.logout();
       _user = null;
       return credential;
     } on FirebaseException catch (e) {
       debugPrint("$e");
       return false;
-    } finally {
-      state = ViewState.idle;
     }
   }
 
-  @override
-  Future<AppUser?> signinAnonim() async {
-    try {
-      state = ViewState.busy;
-      _user = await _userRepository.signinAnonim();
-      debugPrint("userViewModel user:  $_user");
-      return _user;
-    } on FirebaseException catch (e) {
-      debugPrint("$e");
-      return null;
-    } finally {
-      state = ViewState.idle;
-    }
-  }
+  // @override
+  // Future<AppUser?> signinAnonim() async {
+  //   try {
+  //     state = ViewState.busy;
+  //     _user = await _userRepository.signinAnonim();
+  //     debugPrint("userViewModel user:  $_user");
+  //     return _user;
+  //   } on FirebaseException catch (e) {
+  //     debugPrint("$e");
+  //     return null;
+  //   } finally {
+  //     state = ViewState.idle;
+  //   }
+  // }
 
   // @override
   // Future<AppUser?> signInByGoogle() async {
@@ -87,48 +84,29 @@ class FirebaseVmodel with ChangeNotifier implements AuthBase {
   // }
 
   @override
-  Future<AppUser?> createUserByEmailPassword(AppUser user) async {
-    if (emailControl(user.email!)) {
-      try {
-        // passwordControll(user.password!, user.passwordRepeat!);
-        AppUser? response =
-            await _userRepository.createUserByEmailPassword(user);
-        // await verifyMail();
+  Future<AppUser?> register(AppUser user) async {
+    AppUser? response = await _userRepository.register(user);
 
-        return response;
-      } on FirebaseException catch (e) {
-        debugPrint(e.message);
-        return null;
-      }
-    } else {
-      return null;
-    }
+    return response;
   }
 
   //
 
   @override
-  Future<AppUser?> loginByEmailPassword(
+  Future<AppUser?> login(
     String email,
     String password,
   ) async {
-    if (email.isEmpty || password.isEmpty) {
-    } else {
-      try {
-        state = ViewState.busy;
-        _user = await _userRepository.loginByEmailPassword(
-          email,
-          password,
-        );
-        return _user;
-      } on FirebaseException catch (e) {
-        debugPrint("$e.message");
-        return null;
-      } finally {
-        state = ViewState.idle;
-      }
+    try {
+      // state = ViewState.busy;
+      _user = await _userRepository.login(
+        email,
+        password,
+      );
+      return _user;
+    } finally {
+      // state = ViewState.idle;
     }
-    return null;
   }
 
   //
@@ -147,12 +125,12 @@ class FirebaseVmodel with ChangeNotifier implements AuthBase {
   //   }
   // }
 
-  @override
-  bool? isAnonim() {
-    debugPrint(
-        "FirebaseViewmodel , at isANonim \n ${_userRepository.isAnonim()}");
-    return _userRepository.isAnonim();
-  }
+  // @override
+  // bool? isAnonim() {
+  //   debugPrint(
+  //       "FirebaseViewmodel , at isANonim \n ${_userRepository.isAnonim()}");
+  //   return _userRepository.isAnonim();
+  // }
 
   bool emailControl(String email) {
     if (email.contains("@")) {
@@ -169,12 +147,11 @@ class FirebaseVmodel with ChangeNotifier implements AuthBase {
     await _userRepository.setLikedPostID(user, likedPost);
   }
 
-  // bool passwordControll(String password1, String password2) {
-  //   if (password1 == password2 && password1.length > 6) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
-
+  bool passwordControll(String password1, String password2) {
+    if (password1 == password2 && password1.length > 6) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

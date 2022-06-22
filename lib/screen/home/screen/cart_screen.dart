@@ -23,7 +23,10 @@ class CartScreen extends StatelessWidget {
     final CartViewmodel cart = Provider.of<CartViewmodel>(context);
 
     return Scaffold(
-      appBar: const GlobalAppBar(title: "My Orders"),
+      appBar: const GlobalAppBar(
+        title: "My Orders",
+        enableBackButton: true,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(
@@ -49,13 +52,14 @@ class CartScreen extends StatelessWidget {
                         ),
                       }
                     : {
-                        await orderVmodel.orderFood(order),
-                        dialog(
-                          context,
-                          "Order is being sent!",
-                        ).whenComplete(
-                          () => push(const HomeScreen(), context),
-                        )
+                         orderVmodel.orderFood(order).whenComplete(
+                              () => dialog(
+                                context,
+                                "Order is being sent!",
+                              ).whenComplete(
+                                () => getTo(const HomeScreen(), context),
+                              ),
+                            )
                       };
               },
               text: "Send Order",

@@ -7,6 +7,7 @@ class AppUser {
   String? password;
   String? passwordRepeat;
   List? orderList;
+  bool isAdmin;
   AppUser({
     this.id,
     this.email,
@@ -14,6 +15,7 @@ class AppUser {
     this.password,
     this.passwordRepeat,
     this.orderList,
+    this.isAdmin = false,
   });
 
   AppUser copyWith({
@@ -23,6 +25,7 @@ class AppUser {
     String? password,
     String? passwordRepeat,
     List? orderList,
+    bool? isAdmin,
   }) {
     return AppUser(
       id: id ?? this.id,
@@ -31,6 +34,7 @@ class AppUser {
       password: password ?? this.password,
       passwordRepeat: passwordRepeat ?? this.passwordRepeat,
       orderList: orderList ?? this.orderList,
+      isAdmin: isAdmin ?? this.isAdmin,
     );
   }
 
@@ -42,6 +46,7 @@ class AppUser {
       'password': password,
       'passwordRepeat': passwordRepeat,
       'orderList': orderList,
+      'isAdmin': isAdmin,
     };
   }
 
@@ -53,6 +58,7 @@ class AppUser {
       password: map['password'],
       passwordRepeat: map['passwordRepeat'],
       orderList: map['orderList'],
+      isAdmin: map['isAdmin'],
     );
   }
 
@@ -63,7 +69,7 @@ class AppUser {
 
   @override
   String toString() {
-    return 'AppUser(id: $id, email: $email, userName: $userName, password: $password, passwordRepeat: $passwordRepeat, orderList: $orderList)';
+    return 'AppUser(id: $id, email: $email, userName: $userName, password: $password, passwordRepeat: $passwordRepeat, orderList: $orderList, isAdmin: $isAdmin)';
   }
 
   @override
@@ -76,7 +82,8 @@ class AppUser {
         other.userName == userName &&
         other.password == password &&
         other.passwordRepeat == passwordRepeat &&
-        other.orderList == orderList;
+        other.orderList == orderList &&
+        other.isAdmin == isAdmin;
   }
 
   @override
@@ -86,6 +93,7 @@ class AppUser {
         userName.hashCode ^
         password.hashCode ^
         passwordRepeat.hashCode ^
-        orderList.hashCode;
+        orderList.hashCode ^
+        isAdmin.hashCode;
   }
 }

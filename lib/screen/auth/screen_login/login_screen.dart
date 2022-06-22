@@ -5,7 +5,6 @@ import '../../../core/components/components.dart';
 import '../../../core/components/global_app_bar.dart';
 import '../../../core/extension/context_extension.dart';
 import '../../../core/navigation/navigation.dart';
-import '../components/check_box.dart';
 import '../screen_register/register_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -24,13 +23,6 @@ class LoginScreen extends StatelessWidget {
             const EmailTextField(),
             const SizedBox004(),
             const PasswordTextField(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: const [
-                Text("Remember me"),
-                CheckBoxWidget(),
-              ],
-            ),
             const SizedBox004(),
             const LoginButton(),
             Row(
@@ -38,7 +30,7 @@ class LoginScreen extends StatelessWidget {
               children: [
                 const Text("Dont Have An Account?"),
                 TextButton(
-                  onPressed: () => push(const RegisterScreen(), context),
+                  onPressed: () => getTo(const RegisterScreen(), context),
                   child: const Text("Register"),
                 ),
               ],

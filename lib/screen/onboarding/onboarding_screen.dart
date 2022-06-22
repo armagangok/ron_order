@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:ron_order/screen/root/root_screen.dart';
 
 import '../../core/components/components.dart';
 import '../../core/extension/context_extension.dart';
 import '../../core/navigation/navigation.dart';
-import '../root/root_screen.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({Key? key}) : super(key: key);
@@ -44,14 +44,14 @@ class OnboardingScreen extends StatelessWidget {
                         ),
                       ),
                       TextSpan(
-                        text: " Handle Your Hunger",
+                        text: " Handle Your Hunger with",
                         style: context.textTheme.headline4!.copyWith(
                           color: Colors.white,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
                       TextSpan(
-                        text: " with Ron Order!",
+                        text: " Ron Order!",
                         style: context.textTheme.headline4!.copyWith(
                           color: Colors.white,
                           fontWeight: FontWeight.w800,
@@ -71,7 +71,7 @@ class OnboardingScreen extends StatelessWidget {
                 ),
                 const SizedBox004(),
                 InkWell(
-                  onTap: () => push(const RootScreen(), context),
+                  onTap: () => getTo(const RootScreen(), context),
                   child: CircleAvatar(
                     radius: width * 0.085,
                     backgroundColor: Colors.white,

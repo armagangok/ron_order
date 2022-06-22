@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ron_order/core/navigation/navigation.dart';
 import 'package:ron_order/feature/viewmodel/order_viewmodel.dart';
+import 'package:ron_order/screen/home/screen/home_screen.dart';
 
 import './add_new_food.dart';
 import './food_update_screen.dart';
@@ -61,6 +63,12 @@ class AdminScreen extends StatelessWidget {
               return Row(
                 children: [
                   IconButton(
+                    onPressed: () {
+                      getTo(const HomeScreen(), context);
+                    },
+                    icon: const Icon(CupertinoIcons.person),
+                  ),
+                  IconButton(
                     onPressed: () async {
                       final pdf = await pdfService
                           .createOrderPdf(orderListProvider.getOrderList);
@@ -73,15 +81,6 @@ class AdminScreen extends StatelessWidget {
                       CupertinoIcons.share,
                       color: (indexProvider.currentIndex == 2)
                           ? Colors.black
-                          : Colors.black.withOpacity(0),
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      CupertinoIcons.trash,
-                      color: (indexProvider.currentIndex == 2)
-                          ? Colors.black.withOpacity(0)
                           : Colors.black.withOpacity(0),
                     ),
                   ),

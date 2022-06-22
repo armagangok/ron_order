@@ -42,7 +42,7 @@ class HomeScreen extends StatelessWidget {
             ),
             Consumer(
               builder: (context, ChipViewmodel chipViewmodel, _) {
-                String category = chipViewmodel.getChoosenCategory;
+                String category = chipViewmodel.chosenCategory;
 
                 return menuViewmodel.isTview
                     ? const TCardBuilder()
