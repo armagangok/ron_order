@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/extension/context_extension.dart';
+import '../../screen/admin/components/admin_food_widget.dart';
 import '../../screen/admin/viewmodel/activation_viewmodel.dart';
 import '../models/food_model.dart';
 import 'food_container.dart';
@@ -35,8 +36,8 @@ class GridViewBuilderWidget extends StatelessWidget {
         return Consumer(
           builder: (context, ActivationViewmodel foodActivation, child) {
             return isActivationWidget
-                ? FoodContainerAdmin(food: foodList[index])
-                : FoodContainer(food: foodList[index]);
+                ? FoodWidgetAdmin(food: foodList[index])
+                : FoodWidget(food: foodList[index]);
           },
         );
       },

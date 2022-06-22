@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import './food_container.dart';
 import '../../core/extension/context_extension.dart';
+import '../../screen/admin/components/admin_food_widget.dart';
 import '../../screen/admin/viewmodel/activation_viewmodel.dart';
 import '../models/food_model.dart';
 import '../viewmodel/food_viewmodel.dart';
@@ -35,7 +36,7 @@ class ActivationWidget extends StatelessWidget {
           },
           child: Stack(
             children: [
-              FoodContainer(food: food),
+              FoodWidget(food: food),
               food.isActive
                   ? const SizedBox()
                   : Container(

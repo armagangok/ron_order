@@ -2,13 +2,12 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ron_order/screen/admin/viewmodel/order_list_provider.dart';
 
 import '../../../../core/components/components.dart';
 import '../../../../core/extension/context_extension.dart';
-import '../../../core/tools/pdf_provider.dart';
 import '../../../feature/models/order_model.dart';
 import '../../../feature/viewmodel/order_viewmodel.dart';
+import '../viewmodel/order_list_provider.dart';
 
 class OrderScreen extends StatelessWidget {
   const OrderScreen({Key? key}) : super(key: key);
@@ -16,11 +15,12 @@ class OrderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Provider.of<OrderViewmodel>(context).fetchOrder();
-    final PdfOrderProvider pdfService = PdfOrderProvider();
+
     OrderListProvider orderListProvider =
         Provider.of<OrderListProvider>(context);
 
     double h = context.getHeight(1);
+
     return Scaffold(
       body: SafeArea(
         child: ListView(
@@ -143,13 +143,18 @@ class DeleteFoodDialog extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               TextButton(
-                onPressed: () async => await func(),
+                onPressed: () async {
+                  Navigator.pop(context);
+                  return await func();
+                },
                 child: const Text("Yes"),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context);
+                },
                 child: const Text("No"),
-              )
+              ),
             ],
           ),
         ],

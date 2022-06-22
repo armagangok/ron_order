@@ -2,7 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ron_order/core/constants/constant_text.dart';
 import 'package:ron_order/core/navigation/navigation.dart';
+import 'package:ron_order/feature/components/snackbar.dart';
 import 'package:ron_order/screen/root/root_screen.dart';
 
 import '../../../../core/components/global_elevated_button.dart';
@@ -66,19 +68,22 @@ class LoginButton extends StatelessWidget {
                   controller.emailController.text,
                   controller.passwordController.text,
                 )
-                .then((value) => value != null
-                    ? {
-                        getTo(const RootScreen(), context),
-                      }
-                    : {});
+                .then(
+                  (value) => value != null
+                      ? {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            getSnackBar1(kText.loginSuccess),
+                          ),
+                          getTo(const RootScreen(), context),
+                        }
+                      : {},
+                );
           } on FirebaseAuthException catch (e) {
-            showDialog(
-                context: context,
-                builder: (_) {
-                  return CupertinoAlertDialog(
-                    title: Text(e.message!),
-                  );
-                });
+            print(e.code);
+            ScaffoldMessenger.of(context).showSnackBar(
+              getSnackBar(kText.warningText[e.code]!),
+            );
+            // 
           }
         },
         text: "Log in",
