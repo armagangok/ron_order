@@ -48,6 +48,7 @@ class UploadImageButton extends StatelessWidget {
             StorogeFoodModel storageModel = StorogeFoodModel(
               file: fileToUpload,
               foodModel: FoodModel(
+                amount: 0,
                 imageUrl: "imageUrl",
                 foodName: controller.foodController.text,
                 category: dropDown.dropDownValue,

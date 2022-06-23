@@ -7,7 +7,7 @@ import 'package:ron_order/feature/viewmodel/food_viewmodel.dart';
 
 import '../../../feature/components/chip_category_widget.dart';
 import '../../../feature/components/food_grid_view_builder.dart';
-import '../../../feature/viewmodel/chip_viewmodel.dart';
+import '../../../feature/viewmodel/chip_controller.dart';
 
 class FoodUpdateScreen extends StatelessWidget {
   const FoodUpdateScreen({Key? key}) : super(key: key);

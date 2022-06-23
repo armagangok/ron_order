@@ -28,7 +28,7 @@ class CartScreen extends StatelessWidget {
         enableBackButton: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(10.0),
         child: Column(
           children: [
             GridViewBuilderWidget(

@@ -13,7 +13,8 @@ class ConstText {
       "Hesap başarıyla oluşturuldu. Lütfen giriş yapın.";
   String loginSuccess = "Başarılı bir şekilde oturum açıldı.";
   String unknownError = "Bilinmeyen bir hata oluştu";
-  String chooseAnotherCategory = "Please choose food from another category!";
+  String chooseAnotherCategory =
+      "Ana yemeklerden sadece bir adet seçebilirsiniz.";
   String cartIsFull = "Yemek sepetiniz doldu. En fazla 3 yemek seçebilirsiniz.";
   String noImage = "Lütfen bir fotoğraf seçiniz";
   String foodNameEmpty = "Yemek adı boş bırakılamaz.";

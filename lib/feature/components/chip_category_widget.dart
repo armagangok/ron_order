@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core/extension/context_extension.dart';
 import '../models/category_model.dart';
-import '../viewmodel/chip_viewmodel.dart';
+import '../viewmodel/chip_controller.dart';
 
 class ChipCategoryWidgetBuilder extends StatelessWidget {
   const ChipCategoryWidgetBuilder({

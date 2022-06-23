@@ -6,7 +6,7 @@ import '../../../feature/components/chip_category_widget.dart';
 import '../../../feature/components/food_grid_view_builder.dart';
 import '../../../feature/components/topbar_widget.dart';
 import '../../../feature/models/food_model.dart';
-import '../../../feature/viewmodel/chip_viewmodel.dart';
+import '../../../feature/viewmodel/chip_controller.dart';
 import '../../../feature/viewmodel/food_viewmodel.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -41,18 +41,18 @@ class HomeScreen extends StatelessWidget {
                         height: height * 0.8,
                         child: foodList!.isEmpty
                             ? const Center(
-                                child: Text("No active food available."),
+                                child: Text("Aktif yemek bulunmamaktadır."),
                               )
                             : GridViewBuilderWidget(foodList: foodList),
                       );
                     } else if (snapshot.connectionState ==
                         ConnectionState.waiting) {
                       return const Center(
-                        child: Text("Waiting for data..."),
+                        child: Text("Yemek verileri için bekleniyor..."),
                       );
                     } else {
                       return const Center(
-                        child: Text("An error occured..."),
+                        child: Text("Beklenmeyen bi hata oluştu..."),
                       );
                     }
                   },

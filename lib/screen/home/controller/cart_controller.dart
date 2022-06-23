@@ -10,44 +10,50 @@ class CartController with ChangeNotifier {
   List<FoodModel> get foodCart => _foodCart;
   int get cartLength => _foodCart.length;
 
-  bool addFoodToCart(FoodModel choosenFood) {
-    int holder = 0;
-    if (_foodCart.isEmpty) {
-      checkFoodList() ? _foodCart.add(choosenFood) : {};
+  bool? addFood(FoodModel choosenFood) {
+    if (foodCart.isEmpty) {
+      choosenFood.amount++;
+      _foodCart.add(choosenFood);
       notifyListeners();
-      return true;
-    } else if (_foodCart.isNotEmpty) {
-      for (var foodInCart in _foodCart) {
-        if (choosenFood.category == foodInCart.category) holder++;
-      }
-
-      if (holder == 0) {
-        checkFoodList()
-            ? {
-                _foodCart.add(choosenFood),
-                notifyListeners(),
+    } else {
+      if (checkCart()) {
+        for (var food in foodCart) {
+          if (food.category == "dishes" && choosenFood.category == "dishes") {
+            print("ana yemek zaten eklendi.");
+            false;
+          } else {
+            if (checkCart()) {
+              foodCart.add(choosenFood);
+            }
+            for (var element in foodCart) {
+              if (element.foodName == choosenFood.foodName) {
+                element.amount++;
+                break;
               }
-            : {};
-        return true;
-      } else {
-        return false;
+            }
+            notifyListeners();
+          }
+        }
       }
     }
     return true;
   }
 
-  removeFoodFromCart(FoodModel food) {
+  cancelFood(FoodModel food) {
     for (var foodInCart in _foodCart) {
       if (_foodCart.isNotEmpty) {
         (foodInCart.foodName == food.foodName)
-            ? _foodCart.remove(foodInCart)
+            ? {
+                _foodCart.remove(foodInCart),
+                foodInCart.amount--,
+              }
             : {};
         notifyListeners();
       }
     }
   }
 
-  bool checkFoodList() {
+  bool checkCart() {
     return (_foodCart.length < 3) ? true : false;
   }
 
@@ -60,3 +66,20 @@ class CartController with ChangeNotifier {
     return false;
   }
 }
+
+
+
+  // if (holder == 0) {
+  //           if (checkFoodList()) _foodCart.add(choosenFood);
+  //           notifyListeners();
+  //           return true;
+  //         } else {
+  //           if (checkFoodList()) {
+  //             _foodCart.add(choosenFood);
+  //             notifyListeners();
+  //             return true;
+  //           }
+  //           return false;
+  //         }
+
+  
