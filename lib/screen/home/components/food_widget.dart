@@ -145,8 +145,10 @@ class FoodWidget extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "${check(cartController, food)}",
-                  style: textTheme.headline1!.copyWith(color: Colors.white),
+                  getFoodAmount(cartController, food),
+                  style: textTheme.headline1!.copyWith(
+                    color: Colors.white,
+                  ),
                 ),
                 CircleAvatar(
                   backgroundColor: Colors.white,
@@ -179,13 +181,13 @@ class FoodWidget extends StatelessWidget {
     );
   }
 
-  String? check(CartController cartController, FoodModel food) {
+  String getFoodAmount(CartController cartController, FoodModel food) {
     for (var element in cartController.foodCart) {
       if (element.foodName == food.foodName) {
         return element.amount.toString();
-      } else {}
-      break;
+      }
     }
-    return null;
+
+    return "0";
   }
 }
