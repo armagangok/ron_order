@@ -24,7 +24,7 @@ class ActivationWidget extends StatelessWidget {
     final w = context.getWidth(1);
 
     return Consumer(
-      builder: (context, ActivationViewmodel foodActivation, child) {
+      builder: (context, ActivationController foodActivation, child) {
         return InkWell(
           onTap: () {
             food.isActive

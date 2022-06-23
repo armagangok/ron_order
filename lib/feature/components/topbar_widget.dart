@@ -8,8 +8,8 @@ import '../../../core/network/firebase/view-models/firebase_viewmodel.dart';
 import '../../core/navigation/navigation.dart';
 import '../../screen/auth/screen_login/viewmodel/textfield_controller.dart';
 import '../../screen/auth/screen_register/provider/textfield_controller.dart';
+import '../../screen/home/controller/cart_controller.dart';
 import '../../screen/home/screen/cart_screen.dart';
-import '../../screen/home/viewmodel/cart_viewmodel.dart';
 import '../../screen/root/root_screen.dart';
 
 class TopBarWidget extends StatelessWidget {
@@ -75,7 +75,7 @@ class TopBarWidget extends StatelessWidget {
 
   Widget cartWidget() {
     return Consumer(
-      builder: (BuildContext context, CartViewmodel cart, _) {
+      builder: (BuildContext context, CartController cart, _) {
         return (cart.cartLength != 0)
             ? Stack(
                 children: [
@@ -111,7 +111,7 @@ class LogoutButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final FirebaseVmodel firebase = Provider.of<FirebaseVmodel>(context);
-    CartViewmodel cart = Provider.of<CartViewmodel>(context);
+    CartController cart = Provider.of<CartController>(context);
     LoginTextController loginTextController =
         Provider.of<LoginTextController>(context);
     RegisterTextController registerTextController =

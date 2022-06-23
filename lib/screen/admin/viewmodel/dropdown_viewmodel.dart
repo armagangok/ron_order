@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class DropDownProvider with ChangeNotifier {
+class DropDownController with ChangeNotifier {
   String dropDownValue = "dishes";
 
   List<String> categories = [

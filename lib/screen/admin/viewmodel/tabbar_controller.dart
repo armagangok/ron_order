@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class TabIndexProvider with ChangeNotifier {
+class TabBarController with ChangeNotifier {
   int currentIndex = 0;
 
   changeIndex(newIndex) {

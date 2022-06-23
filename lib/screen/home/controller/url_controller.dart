@@ -1,4 +1,4 @@
-class UrlProvider {
+class UrlController {
   String _url = "";
 
   String get getUrl => _url;

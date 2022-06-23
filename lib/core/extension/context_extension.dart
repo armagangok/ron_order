@@ -5,10 +5,10 @@ extension EasyContext on BuildContext {
   double getWidth(double ratio) => MediaQuery.of(this).size.width * ratio;
 
   ThemeData get theme => Theme.of(this);
-
   TextTheme get textTheme => Theme.of(this).textTheme;
-
   ColorScheme get colorScheme => Theme.of(this).colorScheme;
+
+  Color get primaryColor => theme.primaryColor;
 
   Size get size => MediaQuery.of(this).size;
 

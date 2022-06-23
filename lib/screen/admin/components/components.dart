@@ -1,8 +1,11 @@
 import 'dart:io';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ron_order/core/constants/constant_text.dart';
+import 'package:ron_order/feature/components/snackbar.dart';
 
 import '../../../../core/components/global_elevated_button.dart';
 import '../../../core/extension/context_extension.dart';
@@ -10,8 +13,7 @@ import '../../../core/tools/uuid_provider.dart';
 import '../../../feature/models/food_model.dart';
 import '../../../feature/models/storage_model.dart';
 import '../../../feature/viewmodel/order_viewmodel.dart';
-import '../../auth/screen_register/components/dialogs.dart';
-import '../../home/viewmodel/image_provider.dart';
+import '../../home/controller/image_controller.dart';
 import '../viewmodel/dropdown_viewmodel.dart';
 import '../viewmodel/textfield_provider.dart';
 
@@ -23,7 +25,8 @@ class UploadImageButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final OrderViewmodel orderViewmodel = OrderViewmodel();
-    final DropDownProvider dropDown = Provider.of<DropDownProvider>(context);
+    final DropDownController dropDown =
+        Provider.of<DropDownController>(context);
     final ImageController imageProvider = Provider.of<ImageController>(context);
     final AdminTextController controller =
         Provider.of<AdminTextController>(context);
@@ -33,10 +36,13 @@ class UploadImageButton extends StatelessWidget {
       onPressed: () async {
         File? fileToUpload;
         if (imageProvider.image == null) {
-          await dialog(context, "Please choose a food photo.");
+          ScaffoldMessenger.of(context)
+              .showSnackBar(getSnackBar1(kText.noImage));
         } else {
           if (controller.foodController.text == "") {
-            await dialog(context, "Food name cannot be empty.");
+            ScaffoldMessenger.of(context).showSnackBar(
+              getSnackBar1(kText.foodNameEmpty),
+            );
           } else {
             fileToUpload = File(imageProvider.image!.path);
             StorogeFoodModel storageModel = StorogeFoodModel(
@@ -50,9 +56,18 @@ class UploadImageButton extends StatelessWidget {
               ),
             );
 
-            orderViewmodel.uploadFoodToStorage(storageModel).whenComplete(
-                  () => dialog(context, "Food has been uploaded."),
-                );
+            try {
+              orderViewmodel.uploadFoodToStorage(storageModel).whenComplete(
+                    () => ScaffoldMessenger.of(context).showSnackBar(
+                      getSnackBar1(kText.picUploaded),
+                    ),
+                  );
+            } on FirebaseException catch (e) {
+              print(e.code);
+              ScaffoldMessenger.of(context).showSnackBar(
+                getSnackBar1(e.message!),
+              );
+            }
           }
         }
       },
@@ -104,9 +119,12 @@ class GalleryImage extends StatelessWidget {
 class TabBarWidget extends StatelessWidget {
   final String text;
 
+  final Color color;
+
   const TabBarWidget({
     Key? key,
     required this.text,
+    required this.color,
   }) : super(key: key);
 
   @override
@@ -117,7 +135,7 @@ class TabBarWidget extends StatelessWidget {
       padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(16.0)),
-        color: context.theme.primaryColor,
+        color: color,
       ),
       height: h * 0.065,
       width: double.infinity,

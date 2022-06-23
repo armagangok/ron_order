@@ -1,19 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ron_order/core/navigation/navigation.dart';
-import 'package:ron_order/feature/viewmodel/order_viewmodel.dart';
-import 'package:ron_order/screen/home/screen/home_screen.dart';
 
-import './add_new_food.dart';
-import './food_update_screen.dart';
-import './order_screen.dart';
-import '../../../../core/extension/context_extension.dart';
+import '../../../core/extension/context_extension.dart';
+import '../../../core/navigation/navigation.dart';
 import '../../../core/tools/pdf_provider.dart';
 import '../../../feature/components/topbar_widget.dart';
+import '../../../feature/viewmodel/order_viewmodel.dart';
+import '../../home/screen/home_screen.dart';
 import '../components/components.dart';
 import '../viewmodel/order_list_provider.dart';
-import '../viewmodel/tab_index_provider.dart';
+import '../viewmodel/tabbar_controller.dart';
+import 'add_new_food.dart';
+import 'food_update_screen.dart';
+import 'order_screen.dart';
 
 class AdminScreen extends StatelessWidget {
   const AdminScreen({Key? key}) : super(key: key);
@@ -21,74 +21,20 @@ class AdminScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final PdfOrderProvider pdfService = PdfOrderProvider();
-    OrderListProvider orderListProvider =
-        Provider.of<OrderListProvider>(context);
-
+    OrderListController orderListProvider =
+        Provider.of<OrderListController>(context);
     OrderViewmodel orderViewmodel = Provider.of<OrderViewmodel>(context);
+    // TabProvider tabProvider = Provider.of<TabProvider>(context);
+    // tabProvider.changeIndex(_tabController.index);
+
+    // print(_tabController.index);
 
     return Scaffold(
-      appBar: AppBar(
-        leadingWidth: 100,
-        title: Center(
-          child: Text(
-            "Admin Panel",
-            style: context.textTheme.headline6,
-          ),
-        ),
-        actions: [
-          Consumer(
-            builder: ((context, TabIndexProvider indexProvider, child) {
-              return IconButton(
-                icon: Icon(
-                  CupertinoIcons.trash,
-                  color: (indexProvider.currentIndex == 2)
-                      ? Colors.black
-                      : Colors.black.withOpacity(0),
-                ),
-                onPressed: () {
-                  buildDialog(
-                    context,
-                    () async => await orderViewmodel.deleteAllOrders(),
-                    "Do you want to delete all orders?",
-                  );
-                },
-              );
-            }),
-          ),
-          const Center(child: LogoutButton()),
-        ],
-        leading: Consumer(
-          builder: (context, TabIndexProvider indexProvider, child) {
-            return Builder(builder: (context) {
-              return Row(
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      getTo(const HomeScreen(), context);
-                    },
-                    icon: const Icon(CupertinoIcons.person),
-                  ),
-                  IconButton(
-                    onPressed: () async {
-                      final pdf = await pdfService
-                          .createOrderPdf(orderListProvider.getOrderList);
-                      await pdfService.savePdfFile(
-                        "ron_yemek_siparişler",
-                        pdf,
-                      );
-                    },
-                    icon: Icon(
-                      CupertinoIcons.share,
-                      color: (indexProvider.currentIndex == 2)
-                          ? Colors.black
-                          : Colors.black.withOpacity(0),
-                    ),
-                  ),
-                ],
-              );
-            });
-          },
-        ),
+      appBar: buildAppBar(
+        context,
+        pdfService,
+        orderListProvider,
+        orderViewmodel,
       ),
       body: DefaultTabController(
         length: 3,
@@ -97,16 +43,31 @@ class AdminScreen extends StatelessWidget {
           physics: const ClampingScrollPhysics(),
           children: [
             Consumer(
-              builder: (context, TabIndexProvider indexProvider, child) {
+              builder: (context, TabBarController controller, child) {
                 return TabBar(
                   padding: const EdgeInsets.all(5),
                   indicatorColor: Colors.black.withOpacity(0),
                   indicatorSize: TabBarIndicatorSize.label,
-                  onTap: (value) => indexProvider.changeIndex(value),
-                  tabs: const [
-                    TabBarWidget(text: "New Food"),
-                    TabBarWidget(text: "Update Food"),
-                    TabBarWidget(text: "Orders"),
+                  onTap: (value) => controller.changeIndex(value),
+                  tabs: [
+                    TabBarWidget(
+                      text: "New Food",
+                      color: (controller.currentIndex == 0)
+                          ? context.theme.primaryColor
+                          : Colors.grey.withOpacity(0.6),
+                    ),
+                    TabBarWidget(
+                      text: "Update Food",
+                      color: (controller.currentIndex == 1)
+                          ? context.theme.primaryColor
+                          : Colors.grey.withOpacity(0.6),
+                    ),
+                    TabBarWidget(
+                      text: "Orders",
+                      color: (controller.currentIndex == 2)
+                          ? context.theme.primaryColor
+                          : Colors.grey.withOpacity(0.6),
+                    ),
                   ],
                 );
               },
@@ -114,6 +75,7 @@ class AdminScreen extends StatelessWidget {
             SizedBox(
               height: context.getHeight(0.8),
               child: const TabBarView(
+                physics: NeverScrollableScrollPhysics(),
                 children: [
                   AddNewFoodScreen(),
                   FoodUpdateScreen(),
@@ -124,6 +86,79 @@ class AdminScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  AppBar buildAppBar(
+    BuildContext context,
+    PdfOrderProvider pdfService,
+    OrderListController orderListProvider,
+    OrderViewmodel orderViewmodel,
+  ) {
+    return AppBar(
+      automaticallyImplyLeading: false,
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              IconButton(
+                onPressed: () => getTo(const HomeScreen(), context),
+                icon: const Icon(CupertinoIcons.person),
+              ),
+              Consumer(
+                builder: (context, TabBarController indexProvider, _) {
+                  return indexProvider.currentIndex == 2
+                      ? IconButton(
+                          onPressed: () async {
+                            final pdf = await pdfService
+                                .createOrderPdf(orderListProvider.getOrderList);
+                            await pdfService.savePdfFile(
+                              "ron_yemek_siparişler",
+                              pdf,
+                            );
+                          },
+                          icon: const Icon(
+                            CupertinoIcons.share,
+                            color: Colors.black,
+                          ),
+                        )
+                      : const SizedBox();
+                },
+              )
+            ],
+          ),
+          Expanded(
+            child: Center(
+              child: Text(
+                'Admin Panel',
+                style: context.textTheme.labelMedium,
+              ),
+            ),
+          )
+        ],
+      ),
+      actions: [
+        Consumer(
+          builder: ((context, TabBarController indexProvider, child) {
+            return indexProvider.currentIndex == 2
+                ? IconButton(
+                    icon: const Icon(CupertinoIcons.trash, color: Colors.black),
+                    onPressed: () {
+                      buildDialog(
+                        context,
+                        () async => await orderViewmodel.deleteAllOrders(),
+                        "Do you want to delete all orders?",
+                      );
+                    },
+                  )
+                : const SizedBox();
+          }),
+        ),
+        const Center(child: LogoutButton()),
+      ],
     );
   }
 }

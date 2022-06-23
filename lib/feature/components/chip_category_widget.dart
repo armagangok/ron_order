@@ -12,7 +12,7 @@ class ChipCategoryWidgetBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ChipViewmodel chipController = Provider.of<ChipViewmodel>(context);
+    final ChipController chipController = Provider.of<ChipController>(context);
 
     final double height = context.getHeight(1);
     return SizedBox(
@@ -42,8 +42,8 @@ class ChipCategoryWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final double height = context.getHeight(1);
     final double width = context.getWidth(1);
-    final ChipViewmodel categoryController =
-        Provider.of<ChipViewmodel>(context);
+    final ChipController categoryController =
+        Provider.of<ChipController>(context);
     final Category category = categoryController.getCategories[index];
     final Color primaryColor = context.theme.primaryColor;
     bool isSelected = category.isSelected;

@@ -11,7 +11,7 @@ import '../../../feature/components/food_grid_view_builder.dart';
 import '../../../feature/models/order_model.dart';
 import '../../../feature/viewmodel/order_viewmodel.dart';
 import '../../auth/screen_register/components/dialogs.dart';
-import '../viewmodel/cart_viewmodel.dart';
+import '../controller/cart_controller.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({Key? key}) : super(key: key);
@@ -20,7 +20,7 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final OrderViewmodel orderVmodel = Provider.of<OrderViewmodel>(context);
     final FirebaseVmodel firebase = Provider.of<FirebaseVmodel>(context);
-    final CartViewmodel cart = Provider.of<CartViewmodel>(context);
+    final CartController cart = Provider.of<CartController>(context);
 
     return Scaffold(
       appBar: const GlobalAppBar(
@@ -52,7 +52,7 @@ class CartScreen extends StatelessWidget {
                         ),
                       }
                     : {
-                         orderVmodel.orderFood(order).whenComplete(
+                        orderVmodel.orderFood(order).whenComplete(
                               () => dialog(
                                 context,
                                 "Order is being sent!",

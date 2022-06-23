@@ -49,7 +49,7 @@ class _GlobalTextFieldState extends State<GlobalTextField> {
         style: context.textTheme.bodyText2,
         // autovalidateMode: widget.autovalidateMode,
         decoration: InputDecoration(
-          contentPadding: const EdgeInsets.all(2),
+          contentPadding: const EdgeInsets.all(10),
           hintText: widget.hintText,
           hintStyle: context.textTheme.caption,
           filled: true,

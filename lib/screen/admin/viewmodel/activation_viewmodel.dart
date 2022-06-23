@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-
 import '../../../core/network/firestore/activation_service/activation_service.dart';
 import '../../../core/network/firestore/activation_service/base_activation_service.dart';
 import '../../../feature/models/food_model.dart';
 
-class ActivationViewmodel with ChangeNotifier implements BaseActivationService {
+class ActivationController
+    with ChangeNotifier
+    implements BaseActivationService {
   final ActivationService _activationService = ActivationService();
 
   @override

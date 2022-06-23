@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 
 import '../../../feature/models/food_model.dart';
 
-class CartViewmodel with ChangeNotifier {
+class CartController with ChangeNotifier {
   final List<FoodModel> _foodCart = [];
 
   List<FoodModel> get foodCart => _foodCart;
   int get cartLength => _foodCart.length;
 
-  bool addFoodToCart(FoodModel choosenFood, BuildContext context) {
+  bool addFoodToCart(FoodModel choosenFood) {
     int holder = 0;
     if (_foodCart.isEmpty) {
       checkFoodList() ? _foodCart.add(choosenFood) : {};
@@ -18,9 +18,7 @@ class CartViewmodel with ChangeNotifier {
       return true;
     } else if (_foodCart.isNotEmpty) {
       for (var foodInCart in _foodCart) {
-        if (choosenFood.category == foodInCart.category) {
-          holder++;
-        } else {}
+        if (choosenFood.category == foodInCart.category) holder++;
       }
 
       if (holder == 0) {

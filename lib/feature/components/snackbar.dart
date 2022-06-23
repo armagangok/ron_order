@@ -13,13 +13,16 @@ SnackBar getSnackBar(String warningText) {
           padding: const EdgeInsets.all(8),
           height: 70,
           decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 125, 125, 125).withOpacity(0.6),
+            color: Colors.black.withOpacity(0.6),
             borderRadius: const BorderRadius.all(Radius.circular(15)),
           ),
           child: Center(
             child: Text(
               warningText,
-              style: const TextStyle(fontSize: 14, color: Colors.white),
+              style: const TextStyle(
+                fontSize: 14,
+                color: Colors.white,
+              ),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),

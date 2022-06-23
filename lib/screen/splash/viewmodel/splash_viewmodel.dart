@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/navigation/navigation.dart';
 import '../../root/root_screen.dart';
 
-class SplashViewmodel {
+class SplashController {
   Future<void> waitForDelay(context) async {
     await Future.delayed(
       const Duration(milliseconds: 1800),

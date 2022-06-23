@@ -7,38 +7,36 @@ import '../../../feature/viewmodel/order_viewmodel.dart';
 import '../../../screen/admin/viewmodel/activation_viewmodel.dart';
 import '../../../screen/admin/viewmodel/dropdown_viewmodel.dart';
 import '../../../screen/admin/viewmodel/order_list_provider.dart';
-import '../../../screen/admin/viewmodel/tab_index_provider.dart';
+import '../../../screen/admin/viewmodel/tab_provider.dart';
 import '../../../screen/admin/viewmodel/textfield_provider.dart';
 import '../../../screen/auth/screen_login/viewmodel/checkbox_provider.dart';
 import '../../../screen/auth/screen_login/viewmodel/textfield_controller.dart';
 import '../../../screen/auth/screen_register/provider/textfield_controller.dart';
-import '../../../screen/home/viewmodel/cart_viewmodel.dart';
-import '../../../screen/home/viewmodel/image_provider.dart';
-import '../../../screen/home/viewmodel/index_provider.dart';
-import '../../../screen/home/viewmodel/menu_viewmodel.dart';
-import '../../../screen/home/viewmodel/url_viewmodel.dart';
+import '../../../screen/home/controller/cart_controller.dart';
+import '../../../screen/home/controller/image_controller.dart';
+import '../../../screen/home/controller/index_controller.dart';
+import '../../../screen/home/controller/url_controller.dart';
 import '../../../screen/splash/viewmodel/splash_viewmodel.dart';
 import '../../network/firebase/view-models/firebase_viewmodel.dart';
 
 class ProviderHelper {
   List<SingleChildWidget> providers = [
-    ChangeNotifierProvider(create: (_) => ChipViewmodel()),
-    ChangeNotifierProvider(create: (_) => MenuViewmodel()),
-    ChangeNotifierProvider(create: (_) => CartViewmodel()),
+    ChangeNotifierProvider(create: (_) => ChipController()),
+    ChangeNotifierProvider(create: (_) => CartController()),
     ChangeNotifierProvider(create: (_) => FirebaseVmodel()),
-    ChangeNotifierProvider(create: (_) => DropDownProvider()),
+    ChangeNotifierProvider(create: (_) => DropDownController()),
     ChangeNotifierProvider(create: (_) => ImageController()),
-    ChangeNotifierProvider(create: (_) => ActivationViewmodel()),
-    ChangeNotifierProvider(create: (_) => CheckBoxProvider()),
-    ChangeNotifierProvider(create: (_) => TabIndexProvider()),
+    ChangeNotifierProvider(create: (_) => ActivationController()),
+    ChangeNotifierProvider(create: (_) => CheckBoxController()),
+    ChangeNotifierProvider(create: (_) => TabBarController()),
     ChangeNotifierProvider(create: (_) => FoodViewmodel()),
     Provider(create: (_) => RegisterTextController()),
     Provider(create: (_) => LoginTextController()),
     Provider(create: (_) => OrderViewmodel()),
-    Provider(create: (_) => IndexProvider()),
-    Provider(create: (_) => UrlProvider()),
-    Provider(create: (_) => SplashViewmodel()),
-    Provider(create: (_) => OrderListProvider()),
+    Provider(create: (_) => IndexController()),
+    Provider(create: (_) => UrlController()),
+    Provider(create: (_) => SplashController()),
+    Provider(create: (_) => OrderListController()),
     Provider(create: (_) => AdminTextController()),
     // Provider(create: (_) => PreferenceController()),
     // ChangeNotifierProvider(create: (_) => FirestoreVModel()),

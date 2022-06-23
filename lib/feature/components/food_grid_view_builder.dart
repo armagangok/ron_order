@@ -29,12 +29,12 @@ class GridViewBuilderWidget extends StatelessWidget {
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 10,
-        mainAxisExtent: h * (0.36),
+        mainAxisExtent: h * (0.35),
         mainAxisSpacing: 10,
       ),
       itemBuilder: (context, index) {
         return Consumer(
-          builder: (context, ActivationViewmodel foodActivation, child) {
+          builder: (context, ActivationController foodActivation, child) {
             return isActivationWidget
                 ? FoodWidgetAdmin(food: foodList[index])
                 : FoodWidget(food: foodList[index]);

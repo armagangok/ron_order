@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CheckBoxProvider extends ChangeNotifier {
+class CheckBoxController extends ChangeNotifier {
   bool value = false;
 
   void changeCheckBox(bool e) {

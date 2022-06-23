@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../core/components/components.dart';
 import '../../../../core/components/global_textfield.dart';
+import '../../../core/extension/context_extension.dart';
 import '../components/components.dart';
 import '../components/dropdown_widget.dart';
 import '../viewmodel/textfield_provider.dart';
@@ -22,9 +23,10 @@ class AddNewFoodScreen extends StatelessWidget {
       children: [
         GlobalTextField(
           hintText: "Enter Food Name",
-          color: const Color.fromARGB(255, 252, 236, 187),
+          color: context.primaryColor.withOpacity(0.1),
           controller: controller.foodController,
         ),
+        const SizedBox004(),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: const [

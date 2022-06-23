@@ -17,8 +17,8 @@ class FoodWidgetAdmin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ActivationViewmodel foodActivation =
-        Provider.of<ActivationViewmodel>(context);
+    final ActivationController foodActivation =
+        Provider.of<ActivationController>(context);
 
     final TextTheme textTheme = context.textTheme;
     final double height = context.getHeight(1);
@@ -89,8 +89,9 @@ class FoodWidgetAdmin extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            color: Colors.amber,
+          const Spacer(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5),
             child: AutoSizeText(
               food.foodName,
               textAlign: TextAlign.center,
@@ -100,6 +101,7 @@ class FoodWidgetAdmin extends StatelessWidget {
               maxLines: 2,
             ),
           ),
+          const Spacer(),
         ],
       ),
     );

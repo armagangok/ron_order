@@ -19,29 +19,6 @@ class SizedBox004 extends StatelessWidget {
 //
 //
 
-class DividerWidget extends StatelessWidget {
-  const DividerWidget({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        getDivider(),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Text(
-            "OR",
-            style: context.textTheme.headline6,
-          ),
-        ),
-        getDivider(),
-      ],
-    );
-  }
-
-  Widget getDivider() => const Expanded(child: Divider());
-}
 
 //
 //

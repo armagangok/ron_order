@@ -16,8 +16,8 @@ class OrderScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Provider.of<OrderViewmodel>(context).fetchOrder();
 
-    OrderListProvider orderListProvider =
-        Provider.of<OrderListProvider>(context);
+    OrderListController orderListProvider =
+        Provider.of<OrderListController>(context);
 
     double h = context.getHeight(1);
 

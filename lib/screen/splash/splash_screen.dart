@@ -11,7 +11,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  final SplashViewmodel splash = SplashViewmodel();
+  final SplashController splash = SplashController();
   @override
   void initState() {
     splash.waitAndNavigate(context);

@@ -67,7 +67,7 @@ class FoodUpdateScreen extends StatelessWidget {
           children: [
             const ChipCategoryWidgetBuilder(),
             Consumer(
-              builder: (context, ChipViewmodel chip, _) {
+              builder: (context, ChipController chip, _) {
                 // print(chipViewmodel.getChoosenCategory);
                 // return all[chipViewmodel.getChoosenCategory]!.isNotEmpty
                 //     ? GridViewBuilderWidget(

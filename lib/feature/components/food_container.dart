@@ -3,12 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import './activation_widget.dart';
+import '../../screen/home/controller/cart_controller.dart';
 import './snackbar.dart';
 import '../../core/constants/constant_text.dart';
 import '../../core/extension/context_extension.dart';
-import '../../screen/admin/viewmodel/activation_viewmodel.dart';
-import '../../screen/home/viewmodel/cart_viewmodel.dart';
 import '../models/food_model.dart';
 
 class FoodWidget extends StatelessWidget {
@@ -21,13 +19,17 @@ class FoodWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final CartViewmodel foodCart = Provider.of<CartViewmodel>(context);
+    final CartController foodCart = Provider.of<CartController>(context);
     return GestureDetector(
       onTap: () {
-        var a = foodCart.addFoodToCart(food, context);
+        (foodCart.foodCart.length == 3)
+            ? ScaffoldMessenger.of(context)
+                .showSnackBar(getSnackBar(kText.cartIsFull))
+            : {};
+        var a = foodCart.addFoodToCart(food);
         (a == false)
             ? ScaffoldMessenger.of(context)
-                .showSnackBar(getSnackBar(kText.anotherCategoryWarning))
+                .showSnackBar(getSnackBar(kText.chooseAnotherCategory))
             : {};
       },
       child: Stack(
@@ -35,7 +37,7 @@ class FoodWidget extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               color: foodCart.isSelected(food)
-                  ? Colors.black.withOpacity(0.35)
+                  ? Colors.black.withOpacity(0.15)
                   : Colors.white,
               borderRadius: const BorderRadius.all(Radius.circular(16)),
             ),
@@ -60,9 +62,9 @@ class FoodWidget extends StatelessWidget {
                     ),
                   ),
                 ),
+                const Spacer(),
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 5, horizontal: 3),
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
                   child: AutoSizeText(
                     food.foodName,
                     textAlign: TextAlign.center,
@@ -71,6 +73,7 @@ class FoodWidget extends StatelessWidget {
                     maxLines: 2,
                   ),
                 ),
+                const Spacer(),
               ],
             ),
           ),
@@ -90,15 +93,14 @@ class FoodWidget extends StatelessWidget {
 
   //
 
-  Widget removeButton(CartViewmodel foodCart, FoodModel food, color) {
+  Widget removeButton(CartController foodCart, FoodModel food, color) {
     return GestureDetector(
-      child: const Icon(
-        CupertinoIcons.trash_fill,
-        color: Colors.white,
-        size: 70,
+      child: Icon(
+        CupertinoIcons.check_mark_circled,
+        color: const Color.fromARGB(255, 81, 255, 87).withOpacity(0.8),
+        size: 120,
       ),
       onTap: () => foodCart.removeFoodFromCart(food),
     );
   }
 }
-

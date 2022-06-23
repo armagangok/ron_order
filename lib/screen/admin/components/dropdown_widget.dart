@@ -1,6 +1,8 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../core/extension/context_extension.dart';
 import '../viewmodel/dropdown_viewmodel.dart';
 
 class DropdownWidget extends StatelessWidget {
@@ -8,25 +10,40 @@ class DropdownWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DropDownProvider dropDownVmodel =
-        Provider.of<DropDownProvider>(context);
+    final DropDownController provider =
+        Provider.of<DropDownController>(context);
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 0),
-      child: DropdownButton<String>(
-        value: dropDownVmodel.dropDownValue,
-        icon: const Icon(Icons.keyboard_arrow_down_outlined),
-        borderRadius: const BorderRadius.all(Radius.circular(20)),
-        elevation: 16,
-        underline: const SizedBox(),
-        onChanged: (String? newValue) =>
-            dropDownVmodel.changeCategory(newValue!),
-        items: dropDownVmodel.categories
-            .map<DropdownMenuItem<String>>((String value) {
-          return DropdownMenuItem<String>(
-            value: value,
-            child: Text(value),
-          );
-        }).toList(),
+      height: context.getHeight(0.06),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(color: context.primaryColor),
+          borderRadius: const BorderRadius.all(Radius.circular(16))),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 5),
+        child: DropdownButton(
+          underline: const SizedBox(),
+          value: provider.dropDownValue,
+          icon: Icon(
+            Icons.keyboard_arrow_down_outlined,
+            color: context.primaryColor,
+          ),
+          borderRadius: const BorderRadius.all(
+            Radius.circular(16),
+          ),
+          elevation: 16,
+          onChanged: (String? newValue) => provider.changeCategory(newValue!),
+          items:
+              provider.categories.map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: AutoSizeText(
+                value,
+                style: context.textTheme.subtitle2,
+                maxLines: 1,
+              ),
+            );
+          }).toList(),
+        ),
       ),
     );
   }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../models/category_model.dart';
 
-class ChipViewmodel with ChangeNotifier {
+class ChipController with ChangeNotifier {
   // static final ChipController _singleton = ChipController._();
   // factory ChipController() => _singleton;
   // ChipController._();
@@ -33,6 +33,3 @@ class ChipViewmodel with ChangeNotifier {
     notifyListeners();
   }
 }
-
-
-
