@@ -3,11 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import './snackbar.dart';
-import '../../core/constants/constant_text.dart';
-import '../../core/extension/context_extension.dart';
-import '../../screen/home/controller/cart_controller.dart';
-import '../models/food_model.dart';
+import '../../../core/constants/constant_text.dart';
+import '../../../core/extension/context_extension.dart';
+import '../../../feature/components/snackbar.dart';
+import '../../../feature/models/food_model.dart';
+import '../controller/cart_controller.dart';
 
 class FoodWidget extends StatelessWidget {
   const FoodWidget({
@@ -39,18 +39,13 @@ class FoodWidget extends StatelessWidget {
           foodCart.isSelected(food)
               ? Positioned.fill(
                   child: buildFoodNumberWidget(
-                  w,
-                  food,
-                  foodCart,
-                  context.textTheme,
-                  context,
+                    w,
+                    food,
+                    foodCart,
+                    context.textTheme,
+                    context,
+                  ),
                 )
-                  // removeButton(
-                  //   foodCart,
-                  //   food,
-                  //   context.theme.primaryColor,
-                  // ),
-                  )
               : const Center(),
         ],
       ),
@@ -150,7 +145,7 @@ class FoodWidget extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "${food.amount}",
+                  "${check(cartController, food)}",
                   style: textTheme.headline1!.copyWith(color: Colors.white),
                 ),
                 CircleAvatar(
@@ -159,18 +154,14 @@ class FoodWidget extends StatelessWidget {
                     onPressed: () {
                       bool? a = cartController.addFood(choosenFood);
 
-                      
-
                       if (cartController.cartLength == 3) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          getSnackBar(
-                              "Yemek sepetine sadece 3 çeşit yemek ekleyebilirsiniz."),
+                          getSnackBar(kText.only3Food),
                         );
                       } else if (a == true) {
                         print(a);
                         ScaffoldMessenger.of(context).showSnackBar(
-                          getSnackBar(
-                              "Sadece 1 tane ana yemek seçebilirsiniz."),
+                          getSnackBar(kText.only1MainDish),
                         );
                       }
                     },
@@ -186,5 +177,15 @@ class FoodWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String? check(CartController cartController, FoodModel food) {
+    for (var element in cartController.foodCart) {
+      if (element.foodName == food.foodName) {
+        return element.amount.toString();
+      } else {}
+      break;
+    }
+    return null;
   }
 }

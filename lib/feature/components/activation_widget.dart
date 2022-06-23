@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import './food_container.dart';
+import '../../screen/home/components/food_widget.dart';
 import '../../core/extension/context_extension.dart';
 import '../../screen/admin/components/admin_food_widget.dart';
 import '../../screen/admin/viewmodel/activation_viewmodel.dart';

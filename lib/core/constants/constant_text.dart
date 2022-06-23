@@ -20,6 +20,8 @@ class ConstText {
   String foodNameEmpty = "Yemek adı boş bırakılamaz.";
   String picUploaded =
       "Yemek başarılı bir şekilde oluşturuldu ve sisteme yüklendi.";
+  String only3Food = "Yemek sepetine sadece 3 çeşit yemek ekleyebilirsiniz.";
+  String only1MainDish = "Sadece 1 tane ana yemek seçebilirsiniz.";
 
   Map<String, String> warningText = {
     "email-already-in-use":

@@ -5,7 +5,7 @@ import '../../core/extension/context_extension.dart';
 import '../../screen/admin/components/admin_food_widget.dart';
 import '../../screen/admin/viewmodel/activation_viewmodel.dart';
 import '../models/food_model.dart';
-import 'food_container.dart';
+import '../../screen/home/components/food_widget.dart';
 
 class GridViewBuilderWidget extends StatelessWidget {
   final List<FoodModel> foodList;
