@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'package:flutter/material.dart';
 
 import '../../../feature/models/food_model.dart';
@@ -16,33 +14,26 @@ class CartController with ChangeNotifier {
       _foodCart.add(choosenFood);
       notifyListeners();
     } else {
-      if (checkCart()) {
-        for (var food in foodCart) {
-          if (food.category == "dishes" && choosenFood.category == "dishes") {
-            print("main dish error");
-            return false;
-          } else {
-            if (choosenFood.foodName == food.foodName) {
-              print("ayni yemekten seçildi sayisini arttir");
-              if (checkCart()) {
-                food.amount++;
-                notifyListeners();
+      if (checkIf1MainDish(choosenFood) == false) {
+        return false;
+      } else {
+        checkIfSameFood(choosenFood)
+            ? {
+                if (checkCart())
+                  {
+                    choosenFood.amount++,
+                    notifyListeners(),
+                  }
               }
-              return null;
-            } else {
-              print("farkli yemek sepete ekle");
-              if (checkCart()) {
-                choosenFood.amount++;
-                foodCart.add(choosenFood);
-                notifyListeners();
-              }
-              return null;
-            }
-          }
-        }
-        return null;
+            : {
+                if (checkCart())
+                  {
+                    choosenFood.amount++,
+                    _foodCart.add(choosenFood),
+                    notifyListeners(),
+                  }
+              };
       }
-      return null;
     }
     return null;
   }
@@ -54,7 +45,7 @@ class CartController with ChangeNotifier {
             ? {
                 foodInCart.amount--,
                 {
-                  _foodCart.remove(foodInCart),
+                  if (foodInCart.amount == 0) _foodCart.remove(foodInCart),
                 }
               }
             : {};
@@ -63,8 +54,32 @@ class CartController with ChangeNotifier {
     }
   }
 
+  bool checkIfSameFood(FoodModel choosenFood) {
+    for (var foodInCart in _foodCart) {
+      if (foodInCart.foodID == choosenFood.foodID) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  bool checkIf1MainDish(FoodModel choosenFood) {
+    int counter = 0;
+    for (var foodInCart in _foodCart) {
+      if (foodInCart.category == "dishes" && choosenFood.category == "dishes") {
+        counter++;
+      }
+    }
+
+    return (counter == 0) ? true : false;
+  }
+
   bool checkCart() {
-    return (_foodCart.length < 3) ? true : false;
+    int allFood = 0;
+    for (var element in _foodCart) {
+      allFood += element.amount;
+    }
+    return (allFood < 3) ? true : false;
   }
 
   bool isSelected(FoodModel selectedFood) {

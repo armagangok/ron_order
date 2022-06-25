@@ -155,11 +155,12 @@ class FoodWidget extends StatelessWidget {
                     onPressed: () {
                       bool? a = cartController.addFood(choosenFood);
 
-                      if (cartController.cartLength == 3) {
+                      if (cartController.checkCart() == false) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           getSnackBar(kText.only3Food),
                         );
-                      } else if (a == false) {
+                      }
+                      if (a == false) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           getSnackBar(kText.only1MainDish),
                         );
