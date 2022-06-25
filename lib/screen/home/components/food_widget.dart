@@ -59,7 +59,7 @@ class FoodWidget extends StatelessWidget {
     BuildContext context,
   ) {
     return AnimatedContainer(
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 500),
       decoration: BoxDecoration(
         color: foodCart.isSelected(food) ? context.primaryColor : Colors.white,
         borderRadius: const BorderRadius.all(Radius.circular(16)),
@@ -67,8 +67,7 @@ class FoodWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          AnimatedContainer(
-            duration: const Duration(microseconds: 300),
+          Container(
             width: double.infinity,
             height: context.getHeight(0.27),
             decoration: BoxDecoration(
@@ -145,7 +144,7 @@ class FoodWidget extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  getFoodAmount(cartController, food),
+                  cartController.getFoodAmount(cartController.foodCart, food),
                   style: textTheme.headline1!.copyWith(
                     color: Colors.white,
                   ),
@@ -160,8 +159,7 @@ class FoodWidget extends StatelessWidget {
                         ScaffoldMessenger.of(context).showSnackBar(
                           getSnackBar(kText.only3Food),
                         );
-                      } else if (a == true) {
-                        print(a);
+                      } else if (a == false) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           getSnackBar(kText.only1MainDish),
                         );
@@ -179,15 +177,5 @@ class FoodWidget extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  String getFoodAmount(CartController cartController, FoodModel food) {
-    for (var element in cartController.foodCart) {
-      if (element.foodName == food.foodName) {
-        return element.amount.toString();
-      }
-    }
-
-    return "0";
   }
 }

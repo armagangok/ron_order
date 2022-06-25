@@ -7,11 +7,8 @@ extension EasyContext on BuildContext {
   ThemeData get theme => Theme.of(this);
   TextTheme get textTheme => Theme.of(this).textTheme;
   ColorScheme get colorScheme => Theme.of(this).colorScheme;
-
   Color get primaryColor => theme.primaryColor;
-
   Size get size => MediaQuery.of(this).size;
-
   EdgeInsets get edgeInsets => MediaQuery.of(this).padding;
 
   void dismissKeyboard() {

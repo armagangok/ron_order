@@ -39,11 +39,14 @@ class HomeScreen extends StatelessWidget {
                       final foodList = snapshot.data;
                       return SizedBox(
                         height: height * 0.8,
-                        child: foodList!.isEmpty
-                            ? const Center(
-                                child: Text("Aktif yemek bulunmamaktadır."),
-                              )
-                            : GridViewBuilderWidget(foodList: foodList),
+                        child: (foodList == null)
+                            ? const Text(
+                                "Verilere erişmeye çalışırken bir sorun oluştu.")
+                            : foodList.isEmpty
+                                ? const Center(
+                                    child: Text("Aktif yemek bulunmamaktadır."),
+                                  )
+                                : GridViewBuilderWidget(foodList: foodList),
                       );
                     } else if (snapshot.connectionState ==
                         ConnectionState.waiting) {

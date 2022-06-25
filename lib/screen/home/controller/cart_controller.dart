@@ -19,24 +19,32 @@ class CartController with ChangeNotifier {
       if (checkCart()) {
         for (var food in foodCart) {
           if (food.category == "dishes" && choosenFood.category == "dishes") {
-            print("ana yemek zaten eklendi.");
-            false;
+            print("main dish error");
+            return false;
           } else {
-            if (checkCart()) {
-              foodCart.add(choosenFood);
-            }
-            for (var element in foodCart) {
-              if (element.foodName == choosenFood.foodName) {
-                element.amount++;
-                break;
+            if (choosenFood.foodName == food.foodName) {
+              print("ayni yemekten seçildi sayisini arttir");
+              if (checkCart()) {
+                food.amount++;
+                notifyListeners();
               }
+              return null;
+            } else {
+              print("farkli yemek sepete ekle");
+              if (checkCart()) {
+                choosenFood.amount++;
+                foodCart.add(choosenFood);
+                notifyListeners();
+              }
+              return null;
             }
-            notifyListeners();
           }
         }
+        return null;
       }
+      return null;
     }
-    return true;
+    return null;
   }
 
   cancelFood(FoodModel food) {
@@ -44,8 +52,10 @@ class CartController with ChangeNotifier {
       if (_foodCart.isNotEmpty) {
         (foodInCart.foodName == food.foodName)
             ? {
-                _foodCart.remove(foodInCart),
                 foodInCart.amount--,
+                {
+                  _foodCart.remove(foodInCart),
+                }
               }
             : {};
         notifyListeners();
@@ -65,21 +75,14 @@ class CartController with ChangeNotifier {
     }
     return false;
   }
+
+  String getFoodAmount(List<FoodModel> foodCart, FoodModel food) {
+    for (var element in foodCart) {
+      if (element.foodName == food.foodName) {
+        return element.amount.toString();
+      }
+    }
+
+    return "0";
+  }
 }
-
-
-
-  // if (holder == 0) {
-  //           if (checkFoodList()) _foodCart.add(choosenFood);
-  //           notifyListeners();
-  //           return true;
-  //         } else {
-  //           if (checkFoodList()) {
-  //             _foodCart.add(choosenFood);
-  //             notifyListeners();
-  //             return true;
-  //           }
-  //           return false;
-  //         }
-
-  

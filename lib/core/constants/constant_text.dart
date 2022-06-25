@@ -24,6 +24,7 @@ class ConstText {
   String only1MainDish = "Sadece 1 tane ana yemek seçebilirsiniz.";
 
   Map<String, String> warningText = {
+    "user-not-found": "Kullanıcı bulunamadı.",
     "email-already-in-use":
         "Bu email zaten başka bir hesap tarafından kullanılıyor.",
     "invalid-email": "Email hatalı, lütfen emalinizi kontrol edin.",
