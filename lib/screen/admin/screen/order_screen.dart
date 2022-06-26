@@ -21,40 +21,44 @@ class OrderScreen extends StatelessWidget {
 
     double h = context.getHeight(1);
 
-    return Scaffold(
-      body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          physics: const ClampingScrollPhysics(),
-          children: [
-            Center(child: textWidget(context)),
-            const SizedBox004(),
-            FutureBuilder<List<OrderModel>>(
-              future: Provider.of<OrderViewmodel>(context).fetchOrder(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  final List<OrderModel> orders = snapshot.data!;
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        body: SafeArea(
+          child: ListView(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            physics: const ClampingScrollPhysics(),
+            children: [
+              Center(child: textWidget(context)),
+              const SizedBox004(),
+              FutureBuilder<List<OrderModel>>(
+                future: Provider.of<OrderViewmodel>(context).fetchOrder(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    final List<OrderModel> orders = snapshot.data!;
 
-                  orderListProvider.setOrderList = orders;
+                    orderListProvider.setOrderList = orders;
 
-                  return orders.isEmpty
-                      ? const Center(
-                          child: Text("There is no active order recently."),
-                        )
-                      : buildOrders(orders, h);
-                } else if (snapshot.connectionState ==
-                    ConnectionState.waiting) {
-                  return const Center(
-                    child: Text("Waiting for data..."),
-                  );
-                } else {
-                  return const Center(
-                    child: Text("Check your internet connection."),
-                  );
-                }
-              },
-            ),
-          ],
+                    return orders.isEmpty
+                        ? const Center(
+                            child:
+                                Text("Şu anda aktif sipariş bulunmamaktadır."),
+                          )
+                        : buildOrders(orders, h);
+                  } else if (snapshot.connectionState ==
+                      ConnectionState.waiting) {
+                    return const Center(
+                      child: Text("Yemek verileri getiriliyor..."),
+                    );
+                  } else {
+                    return const Center(
+                      child: Text("İnternet bağlantızı kontrol edin."),
+                    );
+                  }
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -73,10 +77,11 @@ class OrderScreen extends StatelessWidget {
     return GridView.builder(
       shrinkWrap: true,
       physics: const ClampingScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        mainAxisExtent: h * 0.15,
         crossAxisCount: 3,
         crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
+        mainAxisSpacing: 5,
       ),
       itemCount: orders.length,
       itemBuilder: (context, index) {
@@ -95,25 +100,28 @@ class OrderScreen extends StatelessWidget {
                 maxLines: 1,
                 maxFontSize: 16,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ListView.builder(
-                    physics: const ClampingScrollPhysics(),
-                    shrinkWrap: true,
-                    addAutomaticKeepAlives: false,
-                    addRepaintBoundaries: false,
-                    itemCount: orders[index].orderList.length,
-                    itemBuilder: (context, index1) {
-                      return AutoSizeText(
-                        orders[index].orderList[index1].foodName,
-                        style: context.textTheme.subtitle1,
-                        maxLines: 1,
-                        minFontSize: 12,
-                      );
-                    },
-                  )
-                ],
+              ListView.separated(
+                separatorBuilder: (context, index) =>
+                    SizedBox(height: h * 0.008),
+                physics: const ClampingScrollPhysics(),
+                shrinkWrap: true,
+                addAutomaticKeepAlives: false,
+                addRepaintBoundaries: false,
+                itemCount: orders[index].orderList.length,
+                itemBuilder: (context, index1) {
+                  return Row(
+                    children: [
+                      Expanded(
+                        child: AutoSizeText(
+                          "${orders[index].orderList[index1].amount}x${orders[index].orderList[index1].foodName} ",
+                          style: context.textTheme.subtitle1,
+                          maxLines: 2,
+                          maxFontSize: 12,
+                        ),
+                      ),
+                    ],
+                  );
+                },
               )
             ],
           ),
@@ -123,8 +131,8 @@ class OrderScreen extends StatelessWidget {
   }
 }
 
-class DeleteFoodDialog extends StatelessWidget {
-  const DeleteFoodDialog({
+class DeleteOrderDialog extends StatelessWidget {
+  const DeleteOrderDialog({
     Key? key,
     required this.text,
     required this.func,
@@ -170,7 +178,7 @@ Future<void> buildDialog(
 ) async {
   await showDialog(
     context: context,
-    builder: (_) => DeleteFoodDialog(
+    builder: (_) => DeleteOrderDialog(
       text: text,
       func: () async => await func(),
     ),

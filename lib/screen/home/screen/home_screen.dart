@@ -18,51 +18,54 @@ class HomeScreen extends StatelessWidget {
     final double width = context.getWidth(1);
     // final Color primaryColor = context.theme.primaryColor;
 
-    return Scaffold(
-      body: SafeArea(
-        child: ListView(
-          physics: const ClampingScrollPhysics(),
-          padding: EdgeInsets.symmetric(horizontal: width * 0.025),
-          children: [
-            const TopBarWidget(),
-            const ChipCategoryWidgetBuilder(),
-            SizedBox(width: width * 0.01),
-            Consumer(
-              builder: (context, ChipController chipViewmodel, _) {
-                String category = chipViewmodel.chosenCategory;
-
-                return FutureBuilder(
-                  future: Provider.of<FoodViewmodel>(context)
-                      .fetchFoodByCategory(category),
-                  builder: (context, AsyncSnapshot<List<FoodModel>> snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      final foodList = snapshot.data;
-                      return SizedBox(
-                        height: height * 0.8,
-                        child: (foodList == null)
-                            ? const Text(
-                                "Verilere erişmeye çalışırken bir sorun oluştu.")
-                            : foodList.isEmpty
-                                ? const Center(
-                                    child: Text("Aktif yemek bulunmamaktadır."),
-                                  )
-                                : GridViewBuilderWidget(foodList: foodList),
-                      );
-                    } else if (snapshot.connectionState ==
-                        ConnectionState.waiting) {
-                      return const Center(
-                        child: Text("Yemek verileri için bekleniyor..."),
-                      );
-                    } else {
-                      return const Center(
-                        child: Text("Beklenmeyen bi hata oluştu..."),
-                      );
-                    }
-                  },
-                );
-              },
-            )
-          ],
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        body: SafeArea(
+          child: ListView(
+            physics: const ClampingScrollPhysics(),
+            padding: EdgeInsets.symmetric(horizontal: width * 0.025),
+            children: [
+              const TopBarWidget(),
+              const ChipCategoryWidgetBuilder(),
+              SizedBox(width: width * 0.01),
+              Consumer(
+                builder: (context, ChipController chipViewmodel, _) {
+                  String category = chipViewmodel.chosenCategory;
+    
+                  return FutureBuilder(
+                    future: Provider.of<FoodViewmodel>(context)
+                        .fetchFoodByCategory(category),
+                    builder: (context, AsyncSnapshot<List<FoodModel>> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        final foodList = snapshot.data;
+                        return SizedBox(
+                          height: height * 0.8,
+                          child: (foodList == null)
+                              ? const Text(
+                                  "Verilere erişmeye çalışırken bir sorun oluştu.")
+                              : foodList.isEmpty
+                                  ? const Center(
+                                      child: Text("Aktif yemek bulunmamaktadır."),
+                                    )
+                                  : GridViewBuilderWidget(foodList: foodList),
+                        );
+                      } else if (snapshot.connectionState ==
+                          ConnectionState.waiting) {
+                        return const Center(
+                          child: Text("Yemek verileri için bekleniyor..."),
+                        );
+                      } else {
+                        return const Center(
+                          child: Text("Beklenmeyen bi hata oluştu..."),
+                        );
+                      }
+                    },
+                  );
+                },
+              )
+            ],
+          ),
         ),
       ),
     );

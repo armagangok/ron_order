@@ -48,7 +48,7 @@ class FoodWidget extends StatelessWidget {
                 children: [
                   SizedBox(
                     width: width * 0.9,
-                    height: height * 0.8,
+                    height: height * 0.9,
                     child: Image.network(
                       food.imageUrl,
                       fit: BoxFit.fill,
@@ -92,12 +92,11 @@ class FoodWidget extends StatelessWidget {
 
   //
 
-  AnimatedContainer buildFoodContainer(
+  Widget buildFoodContainer(
     CartController foodCart,
     BuildContext context,
   ) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 400),
+    return Container(
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(16)),

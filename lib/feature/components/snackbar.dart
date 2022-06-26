@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 SnackBar getSnackBar(String warningText) {
@@ -44,8 +45,8 @@ SnackBar getSnackBar(String warningText) {
         //   ),
         // ),
         Positioned(
-          top: -20,
-          left: 5,
+          top: -8,
+          left: -8,
           child: Stack(
             alignment: Alignment.center,
             children: [
@@ -57,12 +58,12 @@ SnackBar getSnackBar(String warningText) {
                   borderRadius: BorderRadius.all(Radius.circular(15)),
                 ),
               ),
-              const Positioned(
-                top: 5,
+              const Positioned.fill(
+                
                 child: Icon(
-                  Icons.clear_outlined,
+                  CupertinoIcons.exclamationmark,
                   color: Colors.white,
-                  size: 20,
+                  size: 15,
                 ),
               )
             ],
@@ -130,7 +131,7 @@ SnackBar getSnackBar1(String warningText) {
               const Positioned(
                 top: 5,
                 child: Icon(
-                  Icons.clear_outlined,
+                  CupertinoIcons.exclamationmark,
                   color: Colors.white,
                   size: 20,
                 ),

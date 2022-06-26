@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/extension/context_extension.dart';
-import '../../../feature/components/activation_widget.dart';
 import '../../../feature/models/food_model.dart';
 import '../viewmodel/activation_viewmodel.dart';
+import 'activation_widget.dart';
 
 class FoodWidgetAdmin extends StatelessWidget {
   const FoodWidgetAdmin({
@@ -110,9 +110,3 @@ class FoodWidgetAdmin extends StatelessWidget {
 
 //
 
-Future<void> deleteFoodDialog(context, FoodModel food) async {
-  await showDialog(
-    context: context,
-    builder: (_) => DeleteFoodDialog(food: food),
-  );
-}

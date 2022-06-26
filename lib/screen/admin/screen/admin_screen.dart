@@ -2,9 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+
 import '../../../core/extension/context_extension.dart';
 import '../../../core/navigation/navigation.dart';
 import '../../../core/tools/pdf_provider.dart';
+import '../../../feature/components/snackbar.dart';
 import '../../../feature/components/topbar_widget.dart';
 import '../../../feature/viewmodel/order_viewmodel.dart';
 import '../../home/screen/home_screen.dart';
@@ -24,66 +26,68 @@ class AdminScreen extends StatelessWidget {
     OrderListController orderListProvider =
         Provider.of<OrderListController>(context);
     OrderViewmodel orderViewmodel = Provider.of<OrderViewmodel>(context);
-    // TabProvider tabProvider = Provider.of<TabProvider>(context);
-    // tabProvider.changeIndex(_tabController.index);
+    TabBarController tabProvider = Provider.of<TabBarController>(context);
 
-    // print(_tabController.index);
-
-    return Scaffold(
-      appBar: buildAppBar(
-        context,
-        pdfService,
-        orderListProvider,
-        orderViewmodel,
-      ),
-      body: DefaultTabController(
-        length: 3,
-        child: ListView(
-          shrinkWrap: true,
-          physics: const ClampingScrollPhysics(),
-          children: [
-            Consumer(
-              builder: (context, TabBarController controller, child) {
-                return TabBar(
-                  padding: EdgeInsets.zero,
-                  indicatorColor: Colors.black.withOpacity(0),
-                  indicatorSize: TabBarIndicatorSize.label,
-                  onTap: (value) => controller.changeIndex(value),
-                  tabs: [
-                    TabBarWidget(
-                      text: "New Food",
-                      color: (controller.currentIndex == 0)
-                          ? context.theme.primaryColor
-                          : Colors.grey.withOpacity(0.6),
-                    ),
-                    TabBarWidget(
-                      text: "Update Food",
-                      color: (controller.currentIndex == 1)
-                          ? context.theme.primaryColor
-                          : Colors.grey.withOpacity(0.6),
-                    ),
-                    TabBarWidget(
-                      text: "Orders",
-                      color: (controller.currentIndex == 2)
-                          ? context.theme.primaryColor
-                          : Colors.grey.withOpacity(0.6),
-                    ),
-                  ],
-                );
-              },
-            ),
-            SizedBox(
-              height: context.getHeight(0.8),
-              child: const TabBarView(
-                physics: NeverScrollableScrollPhysics(),
-                children: [
-                  AddNewFoodScreen(),
-                  FoodUpdateScreen(),
-                  OrderScreen(),
-                ],
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        appBar: buildAppBar(
+          context,
+          pdfService,
+          orderListProvider,
+          orderViewmodel,
+        ),
+        body: DefaultTabController(
+          initialIndex: tabProvider.currentIndex,
+          animationDuration: const Duration(milliseconds: 600),
+          length: 3,
+          child: ListView(
+            shrinkWrap: true,
+            physics: const ClampingScrollPhysics(),
+            children: [
+              Consumer(
+                builder: (context, TabBarController controller, child) {
+                  return TabBar(
+                    padding: EdgeInsets.zero,
+                    indicatorColor: Colors.black.withOpacity(0),
+                    indicatorSize: TabBarIndicatorSize.label,
+                    onTap: (value) => controller.changeIndex(value),
+                    tabs: [
+                      TabBarWidget(
+                        text: "New Food",
+                        color: (controller.currentIndex == 0)
+                            ? context.theme.primaryColor
+                            : Colors.grey.withOpacity(0.6),
+                      ),
+                      TabBarWidget(
+                        text: "Update Food",
+                        color: (controller.currentIndex == 1)
+                            ? context.theme.primaryColor
+                            : Colors.grey.withOpacity(0.6),
+                      ),
+                      TabBarWidget(
+                        text: "Orders",
+                        color: (controller.currentIndex == 2)
+                            ? context.theme.primaryColor
+                            : Colors.grey.withOpacity(0.6),
+                      ),
+                    ],
+                  );
+                },
               ),
-            ),
-          ],
+              SizedBox(
+                height: context.getHeight(0.8),
+                child: const TabBarView(
+                  physics: NeverScrollableScrollPhysics(),
+                  children: [
+                    AddNewFoodScreen(),
+                    FoodUpdateScreen(),
+                    OrderScreen(),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -151,7 +155,11 @@ class AdminScreen extends StatelessWidget {
                       buildDialog(
                         context,
                         () async => await orderViewmodel.deleteAllOrders(),
-                        "Do you want to delete all orders?",
+                        "Tüm siparişleri silmek istiyor musun?",
+                      ).whenComplete(
+                        () => ScaffoldMessenger.of(context).showSnackBar(
+                          getSnackBar1("Siparişler başarıyla silindi."),
+                        ),
                       );
                     },
                   )

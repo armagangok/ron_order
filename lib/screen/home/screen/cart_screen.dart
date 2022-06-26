@@ -22,47 +22,50 @@ class CartScreen extends StatelessWidget {
     final FirebaseVmodel firebase = Provider.of<FirebaseVmodel>(context);
     final CartController cart = Provider.of<CartController>(context);
 
-    return Scaffold(
-      appBar: const GlobalAppBar(
-        title: "My Orders",
-        enableBackButton: true,
-      ),
-      body: Column(
-        children: [
-          GridViewBuilderWidget(
-            foodList: cart.foodCart,
-            isActivationWidget: false,
-          ),
-          const SizedBox004(),
-          GlobalElevatedButton(
-            onPressed: () async {
-              final OrderModel order = OrderModel(
-                orderList: cart.foodCart,
-                orderer: firebase.user!.userName!,
-                ordererId: firebase.user!.id!,
-              );
-
-              (cart.cartLength == 0)
-                  ? {
-                      await dialog(
-                        context,
-                        "Please select at least 1 food to order!",
-                      ),
-                    }
-                  : {
-                      orderVmodel.orderFood(order).whenComplete(
-                            () => dialog(
-                              context,
-                              "Order is being sent!",
-                            ).whenComplete(
-                              () => getTo(const HomeScreen(), context),
-                            ),
-                          )
-                    };
-            },
-            text: "Send Order",
-          ),
-        ],
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        appBar: const GlobalAppBar(
+          title: "My Orders",
+          enableBackButton: true,
+        ),
+        body: Column(
+          children: [
+            GridViewBuilderWidget(
+              foodList: cart.foodCart,
+              isActivationWidget: false,
+            ),
+            const SizedBox004(),
+            GlobalElevatedButton(
+              onPressed: () async {
+                final OrderModel order = OrderModel(
+                  orderList: cart.foodCart,
+                  orderer: firebase.user!.userName!,
+                  ordererId: firebase.user!.id!,
+                );
+    
+                (cart.cartLength == 0)
+                    ? {
+                        await dialog(
+                          context,
+                          "Please select at least 1 food to order!",
+                        ),
+                      }
+                    : {
+                        orderVmodel.orderFood(order).whenComplete(
+                              () => dialog(
+                                context,
+                                "Order is being sent!",
+                              ).whenComplete(
+                                () => getTo(const HomeScreen(), context),
+                              ),
+                            )
+                      };
+              },
+              text: "Send Order",
+            ),
+          ],
+        ),
       ),
     );
   }

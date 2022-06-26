@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ron_order/core/navigation/navigation.dart';
+import 'package:ron_order/screen/home/screen/home_screen.dart';
 
 import '../../core/extension/context_extension.dart';
 
@@ -21,7 +23,7 @@ class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
         leading: enableBackButton
             ? IconButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  getTo(const HomeScreen(), context);
                 },
                 icon: const Icon(CupertinoIcons.back))
             : const SizedBox(),

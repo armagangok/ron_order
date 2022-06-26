@@ -20,13 +20,16 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SizedBox(
-        height: context.getHeight(1),
-        width: double.infinity,
-        child: Image.asset(
-          "assets/img/image.png",
-          fit: BoxFit.fill,
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        body: SizedBox(
+          height: context.getHeight(1),
+          width: double.infinity,
+          child: Image.asset(
+            "assets/img/image.png",
+            fit: BoxFit.fill,
+          ),
         ),
       ),
     );

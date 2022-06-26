@@ -12,30 +12,33 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const GlobalAppBar(title: "Log in"),
-      body: SizedBox(
-        height: context.getHeight(1),
-        child: ListView(
-          physics: const ClampingScrollPhysics(),
-          padding: EdgeInsets.symmetric(horizontal: context.getWidth(0.08)),
-          children: [
-            const EmailTextField(),
-            const SizedBox004(),
-            const PasswordTextField(),
-            const SizedBox004(),
-            const LoginButton(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const Text("Dont Have An Account?"),
-                TextButton(
-                  onPressed: () => getTo(const RegisterScreen(), context),
-                  child: const Text("Register"),
-                ),
-              ],
-            ),
-          ],
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        appBar: const GlobalAppBar(title: "Log in"),
+        body: SizedBox(
+          height: context.getHeight(1),
+          child: ListView(
+            physics: const ClampingScrollPhysics(),
+            padding: EdgeInsets.symmetric(horizontal: context.getWidth(0.08)),
+            children: [
+              const EmailTextField(),
+              const SizedBox004(),
+              const PasswordTextField(),
+              const SizedBox004(),
+              const LoginButton(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const Text("Dont Have An Account?"),
+                  TextButton(
+                    onPressed: () => getTo(const RegisterScreen(), context),
+                    child: const Text("Register"),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

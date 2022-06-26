@@ -16,41 +16,44 @@ class RegisterScreen extends StatelessWidget {
     final RegisterTextController controller =
         Provider.of<RegisterTextController>(context);
 
-    return Scaffold(
-      appBar: const GlobalAppBar(
-        title: "Register",
-        enableBackButton: true,
-      ),
-      body: ListView(
-        padding: EdgeInsets.symmetric(horizontal: context.getHeight(0.05)),
-        physics: const ClampingScrollPhysics(),
-        children: [
-          GlobalTextField(
-            hintText: "User Name",
-            controller: controller.username,
-          ),
-          const SizedBox004(),
-          GlobalTextField(
-            hintText: "Email Adress",
-            controller: controller.email,
-            keyboardType: TextInputType.emailAddress,
-            
-          ),
-          const SizedBox004(),
-          GlobalTextField(
-            hintText: "Password",
-            isObscured: true,
-            controller: controller.password,
-          ),
-          const SizedBox004(),
-          GlobalTextField(
-            hintText: "Re Password",
-            isObscured: true,
-            controller: controller.rePassword,
-          ),
-          const SizedBox004(),
-          const RegisterButton(),
-        ],
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        appBar: const GlobalAppBar(
+          title: "Register",
+          enableBackButton: true,
+        ),
+        body: ListView(
+          padding: EdgeInsets.symmetric(horizontal: context.getHeight(0.05)),
+          physics: const ClampingScrollPhysics(),
+          children: [
+            GlobalTextField(
+              hintText: "User Name",
+              controller: controller.username,
+            ),
+            const SizedBox004(),
+            GlobalTextField(
+              hintText: "Email Adress",
+              controller: controller.email,
+              keyboardType: TextInputType.emailAddress,
+              
+            ),
+            const SizedBox004(),
+            GlobalTextField(
+              hintText: "Password",
+              isObscured: true,
+              controller: controller.password,
+            ),
+            const SizedBox004(),
+            GlobalTextField(
+              hintText: "Re Password",
+              isObscured: true,
+              controller: controller.rePassword,
+            ),
+            const SizedBox004(),
+            const RegisterButton(),
+          ],
+        ),
       ),
     );
   }
