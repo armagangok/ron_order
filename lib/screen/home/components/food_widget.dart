@@ -19,32 +19,70 @@ class FoodWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width = context.getWidth(1);
+    final height = context.getHeight(1);
     final CartController foodCart = Provider.of<CartController>(context);
-    final w = context.getHeight(1);
+
     return GestureDetector(
       onTap: () {
-        (foodCart.foodCart.length == 3)
+        var a = foodCart.addFood(food);
+
+        a == null
             ? ScaffoldMessenger.of(context)
                 .showSnackBar(getSnackBar(kText.cartIsFull))
             : {};
-        var a = foodCart.addFood(food);
-        (a == false)
+
+        a == false
             ? ScaffoldMessenger.of(context)
                 .showSnackBar(getSnackBar(kText.chooseAnotherCategory))
             : {};
+      },
+      onLongPress: () {
+        showDialog(
+          context: context,
+          builder: (ctx) {
+            final width = ctx.getWidth(1);
+            final height = ctx.getHeight(1);
+            return AlertDialog(
+              content: Stack(
+                children: [
+                  SizedBox(
+                    width: width * 0.9,
+                    height: height * 0.8,
+                    child: Image.network(
+                      food.imageUrl,
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(
+                      CupertinoIcons.xmark_circle,
+                      color: Colors.white.withOpacity(0.9),
+                      size: 50,
+                    ),
+                  ),
+                ],
+              ),
+              insetPadding: EdgeInsets.zero,
+              contentPadding: EdgeInsets.zero,
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+            );
+          },
+        );
       },
       child: Stack(
         children: [
           buildFoodContainer(foodCart, context),
           foodCart.isSelected(food)
-              ? Positioned.fill(
-                  child: buildFoodNumberWidget(
-                    w,
-                    food,
-                    foodCart,
-                    context.textTheme,
-                    context,
-                  ),
+              ? buildFoodNumberWidget(
+                  width,
+                  food,
+                  foodCart,
+                  context.textTheme,
+                  context,
                 )
               : const Center(),
         ],
@@ -59,10 +97,10 @@ class FoodWidget extends StatelessWidget {
     BuildContext context,
   ) {
     return AnimatedContainer(
-      duration: const Duration(milliseconds: 500),
-      decoration: BoxDecoration(
-        color: foodCart.isSelected(food) ? context.primaryColor : Colors.white,
-        borderRadius: const BorderRadius.all(Radius.circular(16)),
+      duration: const Duration(milliseconds: 400),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(Radius.circular(16)),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -88,10 +126,8 @@ class FoodWidget extends StatelessWidget {
             child: AutoSizeText(
               food.foodName,
               textAlign: TextAlign.center,
-              style: context.textTheme.labelMedium!.copyWith(
-                color: foodCart.isSelected(food) ? Colors.white : null,
-              ),
-              maxFontSize: 18,
+              style: context.textTheme.labelMedium!.copyWith(),
+              maxFontSize: 20,
               maxLines: 2,
             ),
           ),
@@ -123,59 +159,59 @@ class FoodWidget extends StatelessWidget {
     TextTheme textTheme,
     context,
   ) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: w * 0.005),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          SizedBox(
-            width: w * 0.268,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: IconButton(
-                    onPressed: () => cartController.cancelFood(choosenFood),
-                    icon: const Icon(
-                      Icons.remove,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-                Text(
-                  cartController.getFoodAmount(cartController.foodCart, food),
-                  style: textTheme.headline1!.copyWith(
-                    color: Colors.white,
-                  ),
-                ),
-                CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: IconButton(
-                    onPressed: () {
-                      bool? a = cartController.addFood(choosenFood);
-
-                      if (cartController.checkCart() == false) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          getSnackBar(kText.only3Food),
-                        );
-                      }
-                      if (a == false) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          getSnackBar(kText.only1MainDish),
-                        );
-                      }
-                    },
-                    icon: const Icon(
-                      Icons.add,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+    return Positioned.fill(
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.black.withOpacity(0.35),
+          borderRadius: const BorderRadius.all(
+            Radius.circular(16.0),
           ),
-        ],
+        ),
+        width: double.infinity,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            CircleAvatar(
+              backgroundColor: Colors.white,
+              child: IconButton(
+                onPressed: () => cartController.cancelFood(choosenFood),
+                icon: const Icon(
+                  Icons.remove,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+            Text(
+              cartController.getFoodAmount(cartController.foodCart, food),
+              style: textTheme.headline2!.copyWith(
+                color: Colors.white,
+              ),
+            ),
+            CircleAvatar(
+              backgroundColor: Colors.white,
+              child: IconButton(
+                onPressed: () {
+                  bool? a = cartController.addFood(choosenFood);
+
+                  if (a == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      getSnackBar(kText.only3Food),
+                    );
+                  }
+                  if (a == false) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      getSnackBar(kText.only1MainDish),
+                    );
+                  }
+                },
+                icon: const Icon(
+                  Icons.add,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

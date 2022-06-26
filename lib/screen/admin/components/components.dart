@@ -133,7 +133,6 @@ class TabBarWidget extends StatelessWidget {
     final h = context.getHeight(1);
     final w = context.getWidth(1);
     return Container(
-      padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(16.0)),
         color: color,
@@ -144,6 +143,8 @@ class TabBarWidget extends StatelessWidget {
         child: AutoSizeText(
           text,
           textAlign: TextAlign.center,
+          maxLines: 1,
+          // style: context.textTheme.labelSmall!.copyWith(color: Colors.black),
         ),
       ),
     );

@@ -82,7 +82,7 @@ class TopBarWidget extends StatelessWidget {
                   Positioned(
                     right: 0,
                     child: Text(
-                      "${cart.cartLength}",
+                      "${cart.getTotalFood()}",
                       style: context.textTheme.titleMedium!.copyWith(
                         color: context.theme.primaryColor,
                         fontWeight: FontWeight.bold,

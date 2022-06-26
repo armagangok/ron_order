@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 import '../../core/extension/context_extension.dart';
 import '../../screen/admin/components/admin_food_widget.dart';
 import '../../screen/admin/viewmodel/activation_viewmodel.dart';
-import '../models/food_model.dart';
 import '../../screen/home/components/food_widget.dart';
+import '../models/food_model.dart';
 
 class GridViewBuilderWidget extends StatelessWidget {
   final List<FoodModel> foodList;
@@ -28,8 +28,8 @@ class GridViewBuilderWidget extends StatelessWidget {
       addRepaintBoundaries: false,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        crossAxisSpacing: 10,
-        mainAxisExtent: h * (0.35),
+        crossAxisSpacing: w * 0.025,
+        mainAxisExtent: h * 0.35,
         mainAxisSpacing: 10,
       ),
       itemBuilder: (context, index) {

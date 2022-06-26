@@ -45,7 +45,7 @@ class AdminScreen extends StatelessWidget {
             Consumer(
               builder: (context, TabBarController controller, child) {
                 return TabBar(
-                  padding: const EdgeInsets.all(5),
+                  padding: EdgeInsets.zero,
                   indicatorColor: Colors.black.withOpacity(0),
                   indicatorSize: TabBarIndicatorSize.label,
                   onTap: (value) => controller.changeIndex(value),
@@ -103,6 +103,7 @@ class AdminScreen extends StatelessWidget {
         children: <Widget>[
           Row(
             mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
                 onPressed: () => getTo(const HomeScreen(), context),
