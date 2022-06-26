@@ -12,9 +12,9 @@ class RootScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final FirebaseVmodel firebase = Provider.of<FirebaseVmodel>(context);
-
     if (firebase.state == ViewState.idle) {
       if (firebase.user != null) {
+        print(firebase.user!.userName);
         return (firebase.user!.isAdmin)
             ? const AdminScreen()
             : const HomeScreen();

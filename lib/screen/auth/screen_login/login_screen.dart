@@ -32,7 +32,8 @@ class LoginScreen extends StatelessWidget {
                 children: [
                   const Text("Dont Have An Account?"),
                   TextButton(
-                    onPressed: () => getTo(const RegisterScreen(), context),
+                    onPressed: () =>
+                        getTo(const RegisterScreen(), context),
                     child: const Text("Register"),
                   ),
                 ],

@@ -35,7 +35,7 @@ class TopBarWidget extends StatelessWidget {
             firebase.user!.isAdmin
                 ? IconButton(
                     onPressed: () {
-                      getTo(const AdminScreen(), context);
+                      getToRemove(const AdminScreen(), context);
                     },
                     icon: const Icon(
                       CupertinoIcons.person,
@@ -130,7 +130,7 @@ class LogoutButton extends StatelessWidget {
 
         await firebase
             .logout()
-            .whenComplete(() => getTo(const RootScreen(), context));
+            .whenComplete(() => getToRemove(const RootScreen(), context));
       },
       color: Colors.black,
     );

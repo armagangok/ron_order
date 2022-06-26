@@ -4,15 +4,13 @@ import 'package:provider/provider.dart';
 
 import '../../../../core/components/global_elevated_button.dart';
 import '../../../../core/constants/constant_text.dart';
+import '../../../../core/extension/context_extension.dart';
 import '../../../../core/navigation/navigation.dart';
 import '../../../../core/network/firebase/models/user_model.dart';
 import '../../../../core/network/firebase/view-models/firebase_viewmodel.dart';
 import '../../../../feature/components/snackbar.dart';
 import '../../../root/root_screen.dart';
 import '../provider/textfield_controller.dart';
-import '../../../../core/extension/context_extension.dart';
-
-
 
 class RegisterButton extends StatelessWidget {
   const RegisterButton({
@@ -55,7 +53,7 @@ class RegisterButton extends StatelessWidget {
 
               a != null
                   ? {
-                      getTo(const RootScreen(), context),
+                      getToRemove(const RootScreen(), context),
                       ScaffoldMessenger.of(context).showSnackBar(
                         getSnackBar(kText.registrationSuccess),
                       ),

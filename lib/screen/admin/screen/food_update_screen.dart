@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
+import '../../../core/extension/context_extension.dart';
 import '../../../feature/components/chip_category_widget.dart';
 import '../../../feature/components/food_grid_view_builder.dart';
 import '../../../feature/models/food_model.dart';
@@ -66,7 +66,7 @@ class FoodUpdateScreen extends StatelessWidget {
           child: ListView(
             shrinkWrap: true,
             physics: const ClampingScrollPhysics(),
-            padding: const EdgeInsets.all(10),
+            padding: EdgeInsets.all(context.getWidth(0.025)),
             children: [
               const ChipCategoryWidgetBuilder(),
               Consumer(
@@ -80,7 +80,7 @@ class FoodUpdateScreen extends StatelessWidget {
                   //     : const Center(
                   //         child: Text(
                   //             "Something went wrong while fetching food from database."),
-                  //       ); 
+                  //       );
                   return FutureBuilder<List<FoodModel>>(
                     future: FoodViewmodel()
                         .fetchFoodForAdminScreen(chip.chosenCategory),

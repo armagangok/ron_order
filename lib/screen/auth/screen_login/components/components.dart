@@ -74,7 +74,7 @@ class LoginButton extends StatelessWidget {
                           ScaffoldMessenger.of(context).showSnackBar(
                             getSnackBar1(kText.loginSuccess),
                           ),
-                          getTo(const RootScreen(), context),
+                          getToRemove(const RootScreen(), context),
                         }
                       : {},
                 );
@@ -83,7 +83,7 @@ class LoginButton extends StatelessWidget {
             ScaffoldMessenger.of(context).showSnackBar(
               getSnackBar(kText.warningText[e.code]!),
             );
-            // 
+            //
           }
         },
         text: "Log in",

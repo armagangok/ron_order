@@ -2,11 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 import '../../../core/extension/context_extension.dart';
 import '../../../core/navigation/navigation.dart';
 import '../../../core/tools/pdf_provider.dart';
-import '../../../feature/components/snackbar.dart';
 import '../../../feature/components/topbar_widget.dart';
 import '../../../feature/viewmodel/order_viewmodel.dart';
 import '../../home/screen/home_screen.dart';
@@ -76,9 +74,9 @@ class AdminScreen extends StatelessWidget {
                 },
               ),
               SizedBox(
-                height: context.getHeight(0.8),
+                height: context.getHeight(0.82),
                 child: const TabBarView(
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: ClampingScrollPhysics(),
                   children: [
                     AddNewFoodScreen(),
                     FoodUpdateScreen(),
@@ -110,7 +108,7 @@ class AdminScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
-                onPressed: () => getTo(const HomeScreen(), context),
+                onPressed: () => getToRemove(const HomeScreen(), context),
                 icon: const Icon(CupertinoIcons.person),
               ),
               Consumer(
@@ -139,7 +137,7 @@ class AdminScreen extends StatelessWidget {
             child: Center(
               child: Text(
                 'Admin Panel',
-                style: context.textTheme.labelMedium,
+                style: context.textTheme.labelSmall,
               ),
             ),
           )
@@ -156,10 +154,6 @@ class AdminScreen extends StatelessWidget {
                         context,
                         () async => await orderViewmodel.deleteAllOrders(),
                         "Tüm siparişleri silmek istiyor musun?",
-                      ).whenComplete(
-                        () => ScaffoldMessenger.of(context).showSnackBar(
-                          getSnackBar1("Siparişler başarıyla silindi."),
-                        ),
                       );
                     },
                   )

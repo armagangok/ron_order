@@ -73,7 +73,7 @@ class OnboardingScreen extends StatelessWidget {
                   ),
                   const SizedBox004(),
                   InkWell(
-                    onTap: () => getTo(const RootScreen(), context),
+                    onTap: () => getToRemove(const RootScreen(), context),
                     child: CircleAvatar(
                       radius: width * 0.085,
                       backgroundColor: Colors.white,

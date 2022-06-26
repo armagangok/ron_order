@@ -8,7 +8,7 @@ class ConstText {
   String userNameEmpty = "Kullanıcı adı boş bırakılamaz.";
   String emailEmpty = "Emil boş bırakılamaz.";
   String passwordsEmpty = "Şifreler boş bırakılamaz.";
-  String passwordsNotSame = "Şifreler aynı değil Lütfen kontrol ediniz.";
+  String passwordsNotSame = "Şifreler aynı değil. Lütfen kontrol ediniz.";
   String registrationSuccess =
       "Hesap başarıyla oluşturuldu. Lütfen giriş yapın.";
   String loginSuccess = "Başarılı bir şekilde oturum açıldı.";

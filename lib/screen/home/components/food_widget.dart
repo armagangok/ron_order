@@ -48,22 +48,28 @@ class FoodWidget extends StatelessWidget {
                 children: [
                   SizedBox(
                     width: width * 0.9,
-                    height: height * 0.9,
+                    height: height * 0.7,
                     child: Image.network(
                       food.imageUrl,
                       fit: BoxFit.fill,
                     ),
                   ),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(
-                      CupertinoIcons.xmark_circle,
-                      color: Colors.white.withOpacity(0.9),
-                      size: 50,
+                  GestureDetector(
+                    onTap: () => Navigator.pop(context),
+                    child: Padding(
+                      padding: const EdgeInsets.all(3.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.black.withOpacity(0.5),
+                            shape: BoxShape.circle),
+                        child: Icon(
+                          CupertinoIcons.xmark_circle,
+                          color: Colors.white.withOpacity(0.9),
+                          size: 40,
+                        ),
+                      ),
                     ),
-                  ),
+                  )
                 ],
               ),
               insetPadding: EdgeInsets.zero,

@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../core/components/components.dart';
 import '../../../../core/extension/context_extension.dart';
+import '../../../feature/components/snackbar.dart';
 import '../../../feature/models/order_model.dart';
 import '../../../feature/viewmodel/order_viewmodel.dart';
 import '../viewmodel/order_list_provider.dart';
@@ -26,7 +27,7 @@ class OrderScreen extends StatelessWidget {
       child: Scaffold(
         body: SafeArea(
           child: ListView(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
+            // padding: EdgeInsets.all(context.getHeight(0.025)),
             physics: const ClampingScrollPhysics(),
             children: [
               Center(child: textWidget(context)),
@@ -34,26 +35,26 @@ class OrderScreen extends StatelessWidget {
               FutureBuilder<List<OrderModel>>(
                 future: Provider.of<OrderViewmodel>(context).fetchOrder(),
                 builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    final List<OrderModel> orders = snapshot.data!;
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.done:
+                      final List<OrderModel> orders = snapshot.data!;
+                      orderListProvider.setOrderList = orders;
+                      return orders.isEmpty
+                          ? const Center(
+                              child: Text(
+                                  "Şu anda aktif sipariş bulunmamaktadır."),
+                            )
+                          : buildOrders(orders, h);
 
-                    orderListProvider.setOrderList = orders;
+                    case ConnectionState.waiting:
+                      return const Center(
+                        child: Text("Yemek verileri getiriliyor..."),
+                      );
 
-                    return orders.isEmpty
-                        ? const Center(
-                            child:
-                                Text("Şu anda aktif sipariş bulunmamaktadır."),
-                          )
-                        : buildOrders(orders, h);
-                  } else if (snapshot.connectionState ==
-                      ConnectionState.waiting) {
-                    return const Center(
-                      child: Text("Yemek verileri getiriliyor..."),
-                    );
-                  } else {
-                    return const Center(
-                      child: Text("İnternet bağlantızı kontrol edin."),
-                    );
+                    default:
+                      return const Center(
+                        child: Text("İnternet bağlantızı kontrol edin."),
+                      );
                   }
                 },
               ),
@@ -153,15 +154,19 @@ class DeleteOrderDialog extends StatelessWidget {
               TextButton(
                 onPressed: () async {
                   Navigator.pop(context);
-                  return await func();
+                  func().whenComplete(
+                    () => ScaffoldMessenger.of(context).showSnackBar(
+                      getSnackBar1("Siparişler başarıyla silindi."),
+                    ),
+                  );
                 },
-                child: const Text("Yes"),
+                child: const Text("SİL"),
               ),
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: const Text("No"),
+                child: const Text("İPTAL"),
               ),
             ],
           ),

@@ -2,10 +2,10 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import './food_dialog.dart';
 import '../../../core/extension/context_extension.dart';
 import '../../../feature/models/food_model.dart';
 import '../viewmodel/activation_viewmodel.dart';
-import 'activation_widget.dart';
 
 class FoodWidgetAdmin extends StatelessWidget {
   const FoodWidgetAdmin({

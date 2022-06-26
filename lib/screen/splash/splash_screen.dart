@@ -1,25 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import './viewmodel/splash_viewmodel.dart';
 import '../../core/extension/context_extension.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  final SplashController splash = SplashController();
-  @override
-  void initState() {
-    splash.waitAndNavigate(context);
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final SplashController splash = Provider.of<SplashController>(context);
+    splash.waitAndNavigate(context);
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(

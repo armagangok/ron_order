@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ron_order/core/navigation/navigation.dart';
 import 'package:ron_order/screen/onboarding/onboarding_screen.dart';
+import 'package:ron_order/screen/root/root_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../../core/navigation/navigation.dart';
-import '../../root/root_screen.dart';
 
 class SplashController {
   Future<void> waitForDelay(context) async {
@@ -14,20 +13,22 @@ class SplashController {
 
   //
 
-  void waitAndNavigate(BuildContext context) {
-    SharedPreferences.getInstance().then((value) {
-      (value.getInt("firstRun") == null)
+  Future waitAndNavigate(BuildContext context) async {
+    SharedPreferences.getInstance().then((instance) {
+      instance.getInt("atFirstRun") == null
           ? {
-              value.setInt("firstRun", 1).whenComplete(
+              print(instance.getInt("atFirstRun")),
+              instance.setInt("atFirstRun", 1).whenComplete(
                     () => waitForDelay(context).whenComplete(
-                      () => getTo(const OnboardingScreen(), context),
+                      () => getToRemove(const OnboardingScreen(), context),
                     ),
-                  )
+                  ),
+              print(instance.getInt("atFirstRun")),
             }
           : {
               waitForDelay(context).whenComplete(
-                () => getTo(const RootScreen(), context),
-              )
+                () => getToRemove(const RootScreen(), context),
+              ),
             };
     });
   }
