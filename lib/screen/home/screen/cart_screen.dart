@@ -19,10 +19,6 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final OrderViewmodel orderVmodel = Provider.of<OrderViewmodel>(context);
-    final FirebaseVmodel firebase = Provider.of<FirebaseVmodel>(context);
-    final CartController cart = Provider.of<CartController>(context);
-
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -35,34 +31,56 @@ class CartScreen extends StatelessWidget {
           child: ListView(
             physics: const ClampingScrollPhysics(),
             children: [
-              GridViewBuilderWidget(
-                foodList: cart.foodCart,
-                isActivationWidget: false,
-              ),
+              buildFoodGridView(),
               const SizedBox004(),
-              cart.cartLength != 0
-                  ? GlobalElevatedButton(
-                      onPressed: () async {
-                        final OrderModel order = OrderModel(
-                          orderList: cart.foodCart,
-                          orderer: firebase.user!.userName!,
-                          ordererId: firebase.user!.id!,
-                        );
-
-                        orderVmodel.orderFood(order).whenComplete(
-                              () => ScaffoldMessenger.of(context).showSnackBar(
-                                snackbarSuccess("Siparişiniz gönderildi."),
-                              ),
-                            );
-                        getToRemove(const HomeScreen(), context);
-                      },
-                      text: "Sipariş Gönder",
-                    )
-                  : const SizedBox()
+              buildUploadOrderButton()
             ],
           ),
         ),
       ),
+    );
+  }
+
+  //
+
+  Widget buildUploadOrderButton() {
+    return Consumer(
+      builder: (context, CartController cart, _) {
+        final FirebaseVmodel firebase = Provider.of<FirebaseVmodel>(context);
+        final OrderViewmodel orderVmodel = Provider.of<OrderViewmodel>(context);
+        return cart.cartLength != 0
+            ? GlobalElevatedButton(
+                onPressed: () async {
+                  final OrderModel order = OrderModel(
+                    orderList: cart.foodCart,
+                    orderer: firebase.user!.userName!,
+                    ordererId: firebase.user!.id!,
+                  );
+
+                  orderVmodel.orderFood(order).whenComplete(
+                        () => ScaffoldMessenger.of(context).showSnackBar(
+                          snackbarSuccess("Siparişiniz gönderildi."),
+                        ),
+                      );
+                  getToRemove(const HomeScreen(), context);
+                },
+                text: "Sipariş Gönder",
+              )
+            : const SizedBox();
+      },
+    );
+  }
+
+  //
+
+  Widget buildFoodGridView() {
+    return Consumer(
+      builder: (context, CartController cart, _) {
+        return GridViewBuilderWidget(
+          foodList: cart.foodCart,
+          isActivationWidget: false,
+        );
+      },
     );
   }
 }
