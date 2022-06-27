@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ron_order/feature/viewmodel/food_viewmodel.dart';
 
 import './food_dialog.dart';
 import '../../../core/extension/context_extension.dart';
@@ -20,6 +21,8 @@ class FoodWidgetAdmin extends StatelessWidget {
     final ActivationController foodActivation =
         Provider.of<ActivationController>(context);
 
+    final FoodViewmodel foodViewmodel = Provider.of<FoodViewmodel>(context);
+
     final TextTheme textTheme = context.textTheme;
     final double height = context.getHeight(1);
     final double width = context.getWidth(1);
@@ -31,6 +34,7 @@ class FoodWidgetAdmin extends StatelessWidget {
       },
       onLongPress: () async {
         await deleteFoodDialog(context, food);
+        // foodViewmodel.getAllFood();
       },
       child: Stack(
         children: [

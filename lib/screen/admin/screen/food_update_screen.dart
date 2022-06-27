@@ -6,59 +6,29 @@ import 'package:provider/provider.dart';
 import '../../../core/extension/context_extension.dart';
 import '../../../feature/components/chip_category_widget.dart';
 import '../../../feature/components/food_grid_view_builder.dart';
-import '../../../feature/models/food_model.dart';
 import '../../../feature/viewmodel/chip_controller.dart';
 import '../../../feature/viewmodel/food_viewmodel.dart';
 
-class FoodUpdateScreen extends StatelessWidget {
+class FoodUpdateScreen extends StatefulWidget {
   const FoodUpdateScreen({Key? key}) : super(key: key);
 
-//   @override
-//   State<FoodUpdateScreen> createState() => _FoodUpdateScreenState();
-// }
+  @override
+  State<FoodUpdateScreen> createState() => _FoodUpdateScreenState();
+}
 
-// class _FoodUpdateScreenState extends State<FoodUpdateScreen> {
-//   Map<String, List<FoodModel>> all = {
-//     "dishes": [],
-//     "sub dishes": [],
-//     "deserts": [],
-//     "soups": [],
-//     "salads": [],
-//     "others": []
-//   };
+class _FoodUpdateScreenState extends State<FoodUpdateScreen> {
+  final FoodViewmodel foodViewmodel = FoodViewmodel();
 
-//   @override
-//   void initState() {
-//     print("triggered");
-//     FoodViewmodel()
-//         .fetchFoodForAdminScreen("dishes")
-//         .then((dishes) => all["dishes"] = dishes);
-
-//     FoodViewmodel()
-//         .fetchFoodForAdminScreen("sub dishes")
-//         .then((subDishes) => all["sub dishes"] = subDishes);
-
-//     FoodViewmodel()
-//         .fetchFoodForAdminScreen("deserts")
-//         .then((deserts) => all["deserts"] = deserts);
-
-//     FoodViewmodel()
-//         .fetchFoodForAdminScreen("soups")
-//         .then((soups) => all["soups"] = soups);
-
-//     FoodViewmodel()
-//         .fetchFoodForAdminScreen("salads")
-//         .then((salads) => all["salads"] = salads);
-
-//     FoodViewmodel()
-//         .fetchFoodForAdminScreen("others")
-//         .then((others) => all["others"] = others);
-
-//     super.initState();
-//   }
+  @override
+  void initState() {
+    foodViewmodel.getAllFood();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    ChipController chipViewmodel = Provider.of<ChipController>(context);
+    FoodViewmodel fmd = Provider.of<FoodViewmodel>(context);
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -71,38 +41,14 @@ class FoodUpdateScreen extends StatelessWidget {
               const ChipCategoryWidgetBuilder(),
               Consumer(
                 builder: (context, ChipController chip, _) {
-                  // print(chipViewmodel.getChoosenCategory);
-                  // return all[chipViewmodel.getChoosenCategory]!.isNotEmpty
-                  //     ? GridViewBuilderWidget(
-                  //         foodList: all[chipViewmodel.getChoosenCategory]!,
-                  //         isActivationWidget: true,
-                  //       )
-                  //     : const Center(
-                  //         child: Text(
-                  //             "Something went wrong while fetching food from database."),
-                  //       );
-                  return FutureBuilder<List<FoodModel>>(
-                    future: FoodViewmodel()
-                        .fetchFoodForAdminScreen(chip.chosenCategory),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done) {
-                        var foodList = snapshot.data;
-                        return GridViewBuilderWidget(
-                          foodList: foodList!,
+                  return fmd.all[chipViewmodel.chosenCategory]!.isNotEmpty
+                      ? GridViewBuilderWidget(
+                          foodList: fmd.all[chipViewmodel.chosenCategory]!,
                           isActivationWidget: true,
+                        )
+                      : const Center(
+                          child: Text("Bu kategoride yemek bulunamadı."),
                         );
-                      } else if (snapshot.connectionState ==
-                          ConnectionState.waiting) {
-                        return const Center(
-                          child: Text("Waiting for data..."),
-                        );
-                      } else {
-                        return const Center(
-                          child: Text("Error occured."),
-                        );
-                      }
-                    },
-                  );
                 },
               ),
             ],

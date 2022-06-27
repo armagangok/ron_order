@@ -29,21 +29,6 @@ SnackBar getSnackBar(String warningText) {
             ),
           ),
         ),
-        // Positioned(
-        //   bottom: 25,
-        //   left: 20,
-        //   child: ClipRRect(
-        //     child: Stack(
-        //       children: const [
-        //         Icon(
-        //           Icons.circle,
-        //           color: Color.fromARGB(255, 255, 255, 255),
-        //           size: 17,
-        //         )
-        //       ],
-        //     ),
-        //   ),
-        // ),
         Positioned(
           top: -15,
           left: -15,
@@ -59,7 +44,6 @@ SnackBar getSnackBar(String warningText) {
                 ),
               ),
               const Positioned.fill(
-                
                 child: Icon(
                   CupertinoIcons.exclamationmark,
                   color: Colors.white,
@@ -74,7 +58,10 @@ SnackBar getSnackBar(String warningText) {
   );
 }
 
-SnackBar getSnackBar1(String warningText) {
+//
+//
+
+SnackBar snackbarSuccess(String warningText) {
   return SnackBar(
     backgroundColor: Colors.transparent,
     behavior: SnackBarBehavior.floating,
@@ -99,21 +86,6 @@ SnackBar getSnackBar1(String warningText) {
             ),
           ),
         ),
-        // Positioned(
-        //   bottom: 25,
-        //   left: 20,
-        //   child: ClipRRect(
-        //     child: Stack(
-        //       children: const [
-        //         Icon(
-        //           Icons.circle,
-        //           color: Color.fromARGB(255, 255, 255, 255),
-        //           size: 17,
-        //         )
-        //       ],
-        //     ),
-        //   ),
-        // ),
         Positioned(
           top: -10,
           left: -10,
@@ -124,14 +96,14 @@ SnackBar getSnackBar1(String warningText) {
                 height: 30,
                 width: 30,
                 decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 255, 9, 9),
+                  color: Color.fromARGB(255, 0, 255, 34),
                   borderRadius: BorderRadius.all(Radius.circular(15)),
                 ),
               ),
               const Positioned(
                 top: 5,
                 child: Icon(
-                  CupertinoIcons.exclamationmark,
+                  CupertinoIcons.check_mark,
                   color: Colors.white,
                   size: 20,
                 ),

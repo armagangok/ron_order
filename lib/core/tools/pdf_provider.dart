@@ -1,17 +1,26 @@
+// ignore_for_file: avoid_print
+
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:flutter/services.dart';
 import 'package:open_file/open_file.dart';
-//import 'package:open_document/open_document.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:pdf/widgets.dart';
 
 import '../../feature/models/order_model.dart';
 
 class PdfOrderProvider {
   Future<Uint8List> createOrderPdf(List<OrderModel> orders) async {
-    final pdf = pw.Document();
+    ThemeData myTheme = ThemeData.withFont(
+      base: Font.ttf(
+        await rootBundle.load("assets/fonts/Lato/Lato-Regular.ttf"),
+      ),
+    );
+
+    final pdf = pw.Document(theme: myTheme);
 
     pdf.addPage(
       pw.Page(
@@ -21,14 +30,14 @@ class PdfOrderProvider {
             children: [
               pw.Text(
                 "RON YEMEK SIPARISLERI",
-                style: pw.TextStyle(
+                style: myTheme.header5.copyWith(
                   fontSize: 20,
                   fontWeight: pw.FontWeight.bold,
                 ),
               ),
               pw.SizedBox(height: 20),
               pw.Expanded(
-                child: gridView(orders),
+                child: gridView(orders, myTheme),
               ),
             ],
           );
@@ -40,7 +49,7 @@ class PdfOrderProvider {
 
   //
 
-  gridView(List<OrderModel> orders) {
+  gridView(List<OrderModel> orders, pw.ThemeData myTheme) {
     return pw.GridView(
       crossAxisCount: 4,
       crossAxisSpacing: 10,
@@ -53,10 +62,7 @@ class PdfOrderProvider {
               children: [
                 pw.Text(
                   element.orderer,
-                  style: pw.TextStyle(
-                    fontWeight: pw.FontWeight.bold,
-                    fontSize: 14,
-                  ),
+                  style: myTheme.defaultTextStyle.copyWith(fontSize: 14),
                 ),
                 pw.ListView.builder(
                   itemCount: element.orderList.length,
@@ -66,9 +72,8 @@ class PdfOrderProvider {
                       children: [
                         pw.Text(
                           element.orderList[indext].foodName,
-                          style: const pw.TextStyle(
-                            fontSize: 12,
-                          ),
+                          style:
+                              myTheme.defaultTextStyle.copyWith(fontSize: 12),
                         ),
                       ],
                     );
@@ -87,7 +92,11 @@ class PdfOrderProvider {
     final output = await getTemporaryDirectory();
     var filePath = "${output.path}/$fileName.pdf";
     final file = File(filePath);
-    await file.writeAsBytes(byteList);
-    await OpenFile.open(filePath);
+    try {
+      await file.writeAsBytes(byteList);
+      await OpenFile.open(filePath);
+    } catch (e) {
+      print("$e");
+    }
   }
 }

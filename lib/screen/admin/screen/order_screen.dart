@@ -160,11 +160,11 @@ class DeleteOrderDialog extends StatelessWidget {
             children: [
               TextButton(
                 onPressed: () async {
-                  Navigator.pop(context);
-                  func().whenComplete(
-                    () => ScaffoldMessenger.of(context).showSnackBar(
-                      getSnackBar("Siparişler başarıyla silindi."),
-                    ),
+                  func().whenComplete(() {
+                    Navigator.pop(context);
+                  });
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    snackbarSuccess("Siparişler başarıyla silindi."),
                   );
                 },
                 child: const Text("SİL"),

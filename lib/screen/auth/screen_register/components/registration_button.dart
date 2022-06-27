@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -66,7 +68,7 @@ class RegisterButton extends StatelessWidget {
             } on FirebaseAuthException catch (e) {
               print(e.code);
               ScaffoldMessenger.of(context).showSnackBar(
-                getSnackBar1(kText.warningText[e.code]!),
+                getSnackBar(kText.warningText[e.code]!),
               );
             }
           }

@@ -10,7 +10,8 @@ class FoodService implements BaseFoodService {
   Future<List<FoodModel>> fetchFoodByCategory(String category) async {
     final List<FoodModel> foodList = [];
 
-    var orderSnapshot = await _firestore.collection(category).get();
+    var orderSnapshot =
+        await _firestore.collection(category).orderBy("foodName").get();
 
     for (var orderMap in orderSnapshot.docs) {
       var food = FoodModel.fromMap(orderMap.data());

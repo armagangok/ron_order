@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ron_order/feature/components/snackbar.dart';
 
 import '../../../core/extension/context_extension.dart';
 import '../../../core/navigation/navigation.dart';
@@ -116,12 +117,18 @@ class AdminScreen extends StatelessWidget {
                   return indexProvider.currentIndex == 2
                       ? IconButton(
                           onPressed: () async {
-                            final pdf = await pdfService
-                                .createOrderPdf(orderListProvider.getOrderList);
-                            await pdfService.savePdfFile(
-                              "ron_yemek_siparişler",
-                              pdf,
-                            );
+                            try {
+                              final pdf = await pdfService.createOrderPdf(
+                                  orderListProvider.getOrderList);
+                              await pdfService.savePdfFile(
+                                "ron_yemek_siparişler",
+                                pdf,
+                              );
+                            } catch (e) {
+                              print("$e");
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(getSnackBar("$e"));
+                            }
                           },
                           icon: const Icon(
                             CupertinoIcons.share,
@@ -137,7 +144,7 @@ class AdminScreen extends StatelessWidget {
             child: Center(
               child: Text(
                 'Admin Panel',
-                style: context.textTheme.labelSmall,
+                style: context.textTheme.bodyLarge,
               ),
             ),
           )

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import '../models/category_model.dart';
 
 class ChipController with ChangeNotifier {
-  // static final ChipController _singleton = ChipController._();
-  // factory ChipController() => _singleton;
-  // ChipController._();
+  static final ChipController _singleton = ChipController._();
+  factory ChipController() => _singleton;
+  ChipController._();
 
   final List<Category> categories = [
     Category(categoryName: "dishes", isSelected: true),
@@ -21,12 +21,14 @@ class ChipController with ChangeNotifier {
   String get chosenCategory => choosenCategoryList[0];
   List<Category> get getCategories => categories;
 
-  void changeCategory(String newCategory, bool value, index) {
+  void changeCategory(String newCategory, bool value, int index) {
     choosenCategoryList.clear();
     choosenCategoryList.add(newCategory);
 
     for (Category category in categories) {
-      (category.isSelected == true) ? category.isSelected = false : {};
+      (category.isSelected == true)
+          ? category.isSelected = false
+          : {category.isSelected == true};
     }
 
     categories[index].isSelected = value;

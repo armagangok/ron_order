@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -15,10 +13,8 @@ class DialogMessage extends StatefulWidget {
 }
 
 class _DialogMessageState extends State<DialogMessage> {
-  
   @override
   Widget build(BuildContext context) {
-    log("${context.widget.runtimeType}build run");
     return CupertinoAlertDialog(
       title: Column(
         children: [

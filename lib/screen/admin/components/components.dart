@@ -59,7 +59,7 @@ class UploadImageButton extends StatelessWidget {
 
             try {
               ScaffoldMessenger.of(context).showSnackBar(
-                getSnackBar(kText.picUploaded),
+                snackbarSuccess(kText.picUploaded),
               );
               await orderViewmodel.uploadFoodToStorage(storageModel);
               controller.foodController.clear();
