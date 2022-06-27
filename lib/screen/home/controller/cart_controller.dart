@@ -36,9 +36,7 @@ class CartController with ChangeNotifier {
           } else {
             return null;
           }
-          
         }
-        
       }
     }
 

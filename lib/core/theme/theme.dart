@@ -118,11 +118,19 @@ final ThemeData appTheme = ThemeData.light().copyWith(
     //   fontWeight: FontWeight.w300,
     //   color: Color.fromRGBO(68, 53, 65, 1),
     // ),
+
+    // labelSmall: const TextStyle(
+    //   fontSize: 16,
+    //   fontWeight: FontWeight.w600,
+    //   color: Color(0xff32324D),
+    // ),
+
     labelMedium: TextStyle(
       fontSize: 22,
       fontWeight: FontWeight.w600,
       color: Color(0xff32324D),
     ),
+
     // titleLarge: const TextStyle(
     //   fontSize: 96,
     //   fontWeight: FontWeight.w300,

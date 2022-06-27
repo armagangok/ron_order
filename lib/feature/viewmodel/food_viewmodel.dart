@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../core/network/firebase/view-models/firebase_viewmodel.dart';
 import '../../core/network/firestore/food_service/food_service.dart';
 import '../models/food_model.dart';
 
@@ -10,9 +9,8 @@ class FoodViewmodel with ChangeNotifier {
   FoodViewmodel._internal();
 
   final FoodService _foodService = FoodService();
-  final FirebaseVmodel _firebase = FirebaseVmodel();
 
-  Map<String, List<FoodModel>> all = {
+  Map<String, List<FoodModel>> fetchedFoodList = {
     "dishes": [],
     "sub dish": [],
     "deserts": [],
@@ -21,7 +19,16 @@ class FoodViewmodel with ChangeNotifier {
     "others": [],
   };
 
-  Future<List<FoodModel>> fetchFoodForUserScreen(String category) async {
+  // Map<String, List<FoodModel>> allUser = {
+  //   "dishes": [],
+  //   "sub dish": [],
+  //   "deserts": [],
+  //   "soups": [],
+  //   "salads": [],
+  //   "others": [],
+  // };
+
+  Future<List<FoodModel>> fetchFoodForUser(String category) async {
     var foodListFromService = await _foodService.fetchFoodByCategory(category);
     List<FoodModel> foodList = [];
 
@@ -32,7 +39,7 @@ class FoodViewmodel with ChangeNotifier {
     return foodList;
   }
 
-  Future<List<FoodModel>> fetchFoodForAdminScreen(String category) async {
+  Future<List<FoodModel>> fetchFoodForAdmin(String category) async {
     var foodListFromService = await _foodService.fetchFoodByCategory(category);
     return foodListFromService;
   }
@@ -40,27 +47,41 @@ class FoodViewmodel with ChangeNotifier {
   Future<void> deleteFood(FoodModel food) async {
     await _foodService
         .deleteFood(food)
-        .whenComplete(() => all[food.category]!.remove(food));
+        .whenComplete(() => fetchedFoodList[food.category]!.remove(food));
     notifyListeners();
   }
 
-  Future<void> getAllFood() async {
-    fetchFoodForAdminScreen("dishes").then((dishes) => all["dishes"] = dishes);
+  Future<void> getAllFood({bool? forAdmin}) async {
+    final List<FoodModel> dishes = forAdmin!
+        ? await fetchFoodForAdmin("dishes")
+        : await fetchFoodForUser("dishes");
+    fetchedFoodList["dishes"] = dishes;
 
-    fetchFoodForAdminScreen("sub dishes")
-        .then((subDishes) => all["sub dishes"] = subDishes);
+    final List<FoodModel> subDishes = forAdmin
+        ? await fetchFoodForAdmin("sub dishes")
+        : await fetchFoodForUser("sub dishes");
+    fetchedFoodList["sub dishes"] = subDishes;
 
-    fetchFoodForAdminScreen("deserts")
-        .then((deserts) => all["deserts"] = deserts);
+    final List<FoodModel> deserts = forAdmin
+        ? await fetchFoodForAdmin("deserts")
+        : await fetchFoodForUser("deserts");
+    fetchedFoodList["deserts"] = deserts;
 
-    fetchFoodForAdminScreen("soups").then((soups) => all["soups"] = soups);
+    final List<FoodModel> soups = forAdmin
+        ? await fetchFoodForAdmin("soups")
+        : await fetchFoodForUser("soups");
+    fetchedFoodList["soups"] = soups;
 
-    fetchFoodForAdminScreen("salads").then((salads) => all["salads"] = salads);
+    final List<FoodModel> salads = forAdmin
+        ? await fetchFoodForAdmin("salads")
+        : await fetchFoodForUser("salads");
+    fetchedFoodList["salads"] = salads;
 
-    fetchFoodForAdminScreen("others").then((others) => all["others"] = others);
-  }
+    final List<FoodModel> others = forAdmin
+        ? await fetchFoodForAdmin("others")
+        : await fetchFoodForUser("others");
+    fetchedFoodList["others"] = others;
 
-  void notif() {
     notifyListeners();
   }
 }

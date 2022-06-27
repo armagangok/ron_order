@@ -36,7 +36,6 @@ class RegisterScreen extends StatelessWidget {
               hintText: "Email Adresi",
               controller: controller.email,
               keyboardType: TextInputType.emailAddress,
-              
             ),
             const SizedBox004(),
             GlobalTextField(

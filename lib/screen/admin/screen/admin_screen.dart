@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,8 +14,8 @@ import '../components/components.dart';
 import '../components/order_dialog.dart';
 import '../viewmodel/order_list_provider.dart';
 import '../viewmodel/tabbar_controller.dart';
-import 'add_new_food.dart';
 import 'food_update_screen.dart';
+import 'new_food_screen.dart';
 import 'order_screen.dart';
 
 class AdminScreen extends StatelessWidget {
@@ -23,9 +24,7 @@ class AdminScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final PdfOrderProvider pdfService = PdfOrderProvider();
-    OrderListController orderListProvider =
-        Provider.of<OrderListController>(context);
-    OrderViewmodel orderViewmodel = Provider.of<OrderViewmodel>(context);
+
     TabBarController tabProvider = Provider.of<TabBarController>(context);
 
     return WillPopScope(
@@ -34,8 +33,6 @@ class AdminScreen extends StatelessWidget {
         appBar: buildAppBar(
           context,
           pdfService,
-          orderListProvider,
-          orderViewmodel,
         ),
         body: DefaultTabController(
           initialIndex: tabProvider.currentIndex,
@@ -98,12 +95,7 @@ class AdminScreen extends StatelessWidget {
 
   //
 
-  AppBar buildAppBar(
-    BuildContext context,
-    PdfOrderProvider pdfService,
-    OrderListController orderListProvider,
-    OrderViewmodel orderViewmodel,
-  ) {
+  AppBar buildAppBar(BuildContext context, PdfOrderProvider pdfService) {
     return AppBar(
       automaticallyImplyLeading: false,
       title: Row(
@@ -116,10 +108,12 @@ class AdminScreen extends StatelessWidget {
             children: [
               IconButton(
                 onPressed: () => getToRemove(const HomeScreen(), context),
-                icon: const Icon(CupertinoIcons.person),
+                icon: const Icon(CupertinoIcons.home),
               ),
               Consumer(
                 builder: (context, TabBarController indexProvider, _) {
+                  OrderListController orderListProvider =
+                      Provider.of<OrderListController>(context);
                   return indexProvider.currentIndex == 2
                       ? IconButton(
                           onPressed: () async {
@@ -147,9 +141,14 @@ class AdminScreen extends StatelessWidget {
           ),
           Expanded(
             child: Center(
-              child: Text(
-                'Admin Panel',
-                style: context.textTheme.bodyLarge,
+              child: AutoSizeText(
+                "Admin Panel",
+                style: context.textTheme.labelMedium!.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: const Color(0xff32324D),
+                ),
+                maxFontSize: 20,
+                minFontSize: 16,
               ),
             ),
           )
@@ -158,6 +157,8 @@ class AdminScreen extends StatelessWidget {
       actions: [
         Consumer(
           builder: ((context, TabBarController indexProvider, child) {
+            OrderViewmodel orderViewmodel =
+                Provider.of<OrderViewmodel>(context);
             return indexProvider.currentIndex == 2
                 ? IconButton(
                     icon: const Icon(CupertinoIcons.trash, color: Colors.black),

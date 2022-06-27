@@ -19,30 +19,15 @@ class TopBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    FirebaseVmodel firebase = Provider.of<FirebaseVmodel>(context);
+    
 
-    final double h = context.getHeight(1);
-    final double w = context.getWidth(1);
-
-    var textTheme = context.textTheme;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        buildLocationAndTextWidget(textTheme, w),
         Row(
           children: [
-            firebase.user!.isAdmin
-                ? IconButton(
-                    onPressed: () {
-                      getToRemove(const AdminScreen(), context);
-                    },
-                    icon: const Icon(
-                      CupertinoIcons.person,
-                      color: Colors.black,
-                    ),
-                  )
-                : const SizedBox(),
+          
             const LogoutButton(),
             cartWidget(),
           ],
@@ -52,24 +37,6 @@ class TopBarWidget extends StatelessWidget {
   }
 
   //
-
-  Row buildLocationAndTextWidget(textTheme, w) {
-    return Row(
-      children: [
-        const Icon(
-          CupertinoIcons.location,
-          color: Color(0xff8E8787),
-        ),
-        Padding(
-          padding: EdgeInsets.only(left: w * (0.05)),
-          child: Text(
-            "Etibol Lokantası",
-            style: textTheme.subtitle1,
-          ),
-        ),
-      ],
-    );
-  }
 
   //
 
