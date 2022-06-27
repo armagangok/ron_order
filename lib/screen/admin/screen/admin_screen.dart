@@ -23,18 +23,23 @@ class AdminScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final PdfOrderProvider pdfService = PdfOrderProvider();
-
-    TabBarController tabProvider = Provider.of<TabBarController>(context);
-
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
-        appBar: buildAppBar(
-          context,
-          pdfService,
-        ),
-        body: DefaultTabController(
+        appBar: buildAppBar(context),
+        body: body(),
+      ),
+    );
+  }
+
+  Consumer<TabBarController> body() {
+    return Consumer(
+      builder: (
+        BuildContext context,
+        TabBarController tabProvider,
+        Widget? _,
+      ) {
+        return DefaultTabController(
           initialIndex: tabProvider.currentIndex,
           animationDuration: const Duration(milliseconds: 400),
           length: 3,
@@ -42,38 +47,34 @@ class AdminScreen extends StatelessWidget {
             shrinkWrap: true,
             physics: const ClampingScrollPhysics(),
             children: [
-              Consumer(
-                builder: (context, TabBarController controller, child) {
-                  return TabBar(
-                    isScrollable: true,
-                    padding:
-                        EdgeInsets.symmetric(vertical: context.getHeight(0.02)),
-                    indicatorColor: Colors.black.withOpacity(0),
-                    indicatorSize: TabBarIndicatorSize.label,
-                    onTap: (value) => controller.changeIndex(value),
-                    unselectedLabelColor: Colors.black,
-                    tabs: [
-                      TabBarWidget(
-                        text: "Yemek Ekle",
-                        color: (controller.currentIndex == 0)
-                            ? context.theme.primaryColor
-                            : Colors.white,
-                      ),
-                      TabBarWidget(
-                        text: "Yemek Güncelle",
-                        color: (controller.currentIndex == 1)
-                            ? context.theme.primaryColor
-                            : Colors.white,
-                      ),
-                      TabBarWidget(
-                        text: "Siperişler",
-                        color: (controller.currentIndex == 2)
-                            ? context.theme.primaryColor
-                            : Colors.white,
-                      ),
-                    ],
-                  );
-                },
+              TabBar(
+                isScrollable: true,
+                padding:
+                    EdgeInsets.symmetric(vertical: context.getHeight(0.02)),
+                indicatorColor: Colors.black.withOpacity(0),
+                indicatorSize: TabBarIndicatorSize.label,
+                onTap: (value) => tabProvider.changeIndex(value),
+                unselectedLabelColor: Colors.black,
+                tabs: [
+                  TabBarWidget(
+                    text: "Yemek Ekle",
+                    color: (tabProvider.currentIndex == 0)
+                        ? context.theme.primaryColor
+                        : Colors.white,
+                  ),
+                  TabBarWidget(
+                    text: "Yemek Güncelle",
+                    color: (tabProvider.currentIndex == 1)
+                        ? context.theme.primaryColor
+                        : Colors.white,
+                  ),
+                  TabBarWidget(
+                    text: "Siperişler",
+                    color: (tabProvider.currentIndex == 2)
+                        ? context.theme.primaryColor
+                        : Colors.white,
+                  ),
+                ],
               ),
               SizedBox(
                 height: context.getHeight(0.78),
@@ -88,14 +89,14 @@ class AdminScreen extends StatelessWidget {
               ),
             ],
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
   //
 
-  AppBar buildAppBar(BuildContext context, PdfOrderProvider pdfService) {
+  AppBar buildAppBar(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: false,
       title: Row(
@@ -112,8 +113,9 @@ class AdminScreen extends StatelessWidget {
               ),
               Consumer(
                 builder: (context, TabBarController indexProvider, _) {
-                  OrderListController orderListProvider =
-                      Provider.of<OrderListController>(context);
+                  final PdfOrderProvider pdfService = PdfOrderProvider();
+                  final OrderController orderListProvider =
+                      Provider.of<OrderController>(context);
                   return indexProvider.currentIndex == 2
                       ? IconButton(
                           onPressed: () async {

@@ -1,6 +1,6 @@
 import 'package:ron_order/feature/models/order_model.dart';
 
-class OrderListController {
+class OrderController {
   List<OrderModel> _orders = [];
 
   get getOrderList => _orders;

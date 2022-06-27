@@ -33,7 +33,7 @@ class ProviderHelper {
     Provider(create: (_) => IndexController()),
     Provider(create: (_) => UrlController()),
     Provider(create: (_) => SplashController()),
-    Provider(create: (_) => OrderListController()),
+    Provider(create: (_) => OrderController()),
     Provider(create: (_) => AdminTextController()),
     ChangeNotifierProvider(create: (_) => OrderViewmodel()),
     ChangeNotifierProvider(create: (_) => FirebaseVmodel()),

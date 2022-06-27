@@ -26,8 +26,7 @@ class _OrderScreenState extends State<OrderScreen> {
   Widget build(BuildContext context) {
     Provider.of<OrderViewmodel>(context).fetchOrder();
 
-    OrderListController orderListProvider =
-        Provider.of<OrderListController>(context);
+    OrderController orderListProvider = Provider.of<OrderController>(context);
 
     double height = context.getHeight(1);
     double width = context.getWidth(1);
