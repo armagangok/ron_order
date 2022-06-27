@@ -1,15 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ron_order/feature/components/snackbar.dart';
 
 import '../../../core/extension/context_extension.dart';
 import '../../../core/navigation/navigation.dart';
 import '../../../core/tools/pdf_provider.dart';
+import '../../../feature/components/snackbar.dart';
 import '../../../feature/components/topbar_widget.dart';
 import '../../../feature/viewmodel/order_viewmodel.dart';
 import '../../home/screen/home_screen.dart';
 import '../components/components.dart';
+import '../components/order_dialog.dart';
 import '../viewmodel/order_list_provider.dart';
 import '../viewmodel/tabbar_controller.dart';
 import 'add_new_food.dart';
@@ -38,7 +39,7 @@ class AdminScreen extends StatelessWidget {
         ),
         body: DefaultTabController(
           initialIndex: tabProvider.currentIndex,
-          animationDuration: const Duration(milliseconds: 600),
+          animationDuration: const Duration(milliseconds: 400),
           length: 3,
           child: ListView(
             shrinkWrap: true,
@@ -47,35 +48,38 @@ class AdminScreen extends StatelessWidget {
               Consumer(
                 builder: (context, TabBarController controller, child) {
                   return TabBar(
-                    padding: EdgeInsets.zero,
+                    isScrollable: true,
+                    padding:
+                        EdgeInsets.symmetric(vertical: context.getHeight(0.02)),
                     indicatorColor: Colors.black.withOpacity(0),
                     indicatorSize: TabBarIndicatorSize.label,
                     onTap: (value) => controller.changeIndex(value),
+                    unselectedLabelColor: Colors.black,
                     tabs: [
                       TabBarWidget(
-                        text: "New Food",
+                        text: "Yemek Ekle",
                         color: (controller.currentIndex == 0)
                             ? context.theme.primaryColor
-                            : Colors.grey.withOpacity(0.6),
+                            : Colors.white,
                       ),
                       TabBarWidget(
-                        text: "Update Food",
+                        text: "Yemek Güncelle",
                         color: (controller.currentIndex == 1)
                             ? context.theme.primaryColor
-                            : Colors.grey.withOpacity(0.6),
+                            : Colors.white,
                       ),
                       TabBarWidget(
-                        text: "Orders",
+                        text: "Siperişler",
                         color: (controller.currentIndex == 2)
                             ? context.theme.primaryColor
-                            : Colors.grey.withOpacity(0.6),
+                            : Colors.white,
                       ),
                     ],
                   );
                 },
               ),
               SizedBox(
-                height: context.getHeight(0.82),
+                height: context.getHeight(0.78),
                 child: const TabBarView(
                   physics: NeverScrollableScrollPhysics(),
                   children: [
@@ -91,6 +95,8 @@ class AdminScreen extends StatelessWidget {
       ),
     );
   }
+
+  //
 
   AppBar buildAppBar(
     BuildContext context,
@@ -125,9 +131,8 @@ class AdminScreen extends StatelessWidget {
                                 pdf,
                               );
                             } catch (e) {
-                              print("$e");
                               ScaffoldMessenger.of(context)
-                                  .showSnackBar(getSnackBar("$e"));
+                                  .showSnackBar(snackbarWanrning("$e"));
                             }
                           },
                           icon: const Icon(

@@ -59,6 +59,10 @@ class FoodViewmodel with ChangeNotifier {
 
     fetchFoodForAdminScreen("others").then((others) => all["others"] = others);
   }
+
+  void notif() {
+    notifyListeners();
+  }
 }
 
 // Future<List<FoodModel>> fetchAllFood() async {

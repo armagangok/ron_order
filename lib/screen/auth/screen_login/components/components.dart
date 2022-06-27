@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ron_order/core/constants/constant_text.dart';
@@ -24,7 +23,7 @@ class PasswordTextField extends StatelessWidget {
         Provider.of<LoginTextController>(context);
 
     return GlobalTextField(
-      hintText: "Password",
+      hintText: "Şifre",
       isObscured: true,
       controller: controller.passwordController,
     );
@@ -42,7 +41,7 @@ class EmailTextField extends StatelessWidget {
         Provider.of<LoginTextController>(context);
 
     return GlobalTextField(
-      hintText: "Email Adress",
+      hintText: "Email Adresi",
       controller: controller.emailController,
     );
   }
@@ -81,12 +80,12 @@ class LoginButton extends StatelessWidget {
           } on FirebaseAuthException catch (e) {
             print(e.code);
             ScaffoldMessenger.of(context).showSnackBar(
-              getSnackBar(kText.warningText[e.code]!),
+              snackbarWanrning(kText.warningText[e.code]!),
             );
             //
           }
         },
-        text: "Log in",
+        text: "Giriş Yap",
       ),
     );
   }

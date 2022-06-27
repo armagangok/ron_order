@@ -29,12 +29,12 @@ class FoodWidget extends StatelessWidget {
 
         a == null
             ? ScaffoldMessenger.of(context)
-                .showSnackBar(getSnackBar(kText.cartIsFull))
+                .showSnackBar(snackbarWanrning(kText.cartIsFull))
             : {};
 
         a == false
             ? ScaffoldMessenger.of(context)
-                .showSnackBar(getSnackBar(kText.chooseAnotherCategory))
+                .showSnackBar(snackbarWanrning(kText.chooseAnotherCategory))
             : {};
       },
       onLongPress: () {
@@ -200,12 +200,12 @@ class FoodWidget extends StatelessWidget {
 
                   if (a == null) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      getSnackBar(kText.only3Food),
+                      snackbarWanrning(kText.only3Food),
                     );
                   }
                   if (a == false) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      getSnackBar(kText.only1MainDish),
+                      snackbarWanrning(kText.only1MainDish),
                     );
                   }
                 },

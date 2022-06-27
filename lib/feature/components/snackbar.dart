@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-SnackBar getSnackBar(String warningText) {
+SnackBar snackbarWanrning(String warningText) {
   return SnackBar(
     backgroundColor: Colors.transparent,
     behavior: SnackBarBehavior.floating,
@@ -14,7 +14,7 @@ SnackBar getSnackBar(String warningText) {
           padding: const EdgeInsets.all(8),
           height: 70,
           decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.6),
+            color: Colors.black.withOpacity(0.5),
             borderRadius: const BorderRadius.all(Radius.circular(15)),
           ),
           child: Center(
@@ -73,9 +73,9 @@ SnackBar snackbarSuccess(String warningText) {
         Container(
           padding: const EdgeInsets.all(8),
           height: 70,
-          decoration: const BoxDecoration(
-            color: Colors.grey,
-            borderRadius: BorderRadius.all(Radius.circular(15)),
+          decoration: BoxDecoration(
+            color: const Color.fromARGB(255, 27, 27, 27).withOpacity(0.6),
+            borderRadius: const BorderRadius.all(Radius.circular(15)),
           ),
           child: Center(
             child: Text(

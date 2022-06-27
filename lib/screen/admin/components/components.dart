@@ -32,16 +32,16 @@ class UploadImageButton extends StatelessWidget {
         Provider.of<AdminTextController>(context);
 
     return GlobalElevatedButton(
-      text: "Upload Image To Database",
+      text: "Yemeği Kaydet",
       onPressed: () async {
         File? fileToUpload;
         if (imageProvider.image == null) {
           ScaffoldMessenger.of(context)
-              .showSnackBar(getSnackBar(kText.noImage));
+              .showSnackBar(snackbarWanrning(kText.noImage));
         } else {
           if (controller.foodController.text == "") {
             ScaffoldMessenger.of(context).showSnackBar(
-              getSnackBar(kText.foodNameEmpty),
+              snackbarWanrning(kText.foodNameEmpty),
             );
           } else {
             fileToUpload = File(imageProvider.image!.path);
@@ -67,7 +67,7 @@ class UploadImageButton extends StatelessWidget {
               fileToUpload = null;
             } on FirebaseException catch (e) {
               ScaffoldMessenger.of(context).showSnackBar(
-                getSnackBar(e.message!),
+                snackbarWanrning(e.message!),
               );
             }
           }
@@ -89,7 +89,7 @@ class PickImageButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final ImageController imageProvider = Provider.of<ImageController>(context);
     return TextButton(
-      child: const Text("Pick Image"),
+      child: const Text("Fotoğraf Seç"),
       onPressed: () async {
         return await imageProvider.pickImage();
       },
@@ -122,7 +122,6 @@ class GalleryImage extends StatelessWidget {
 
 class TabBarWidget extends StatelessWidget {
   final String text;
-
   final Color color;
 
   const TabBarWidget({
@@ -141,13 +140,18 @@ class TabBarWidget extends StatelessWidget {
         color: color,
       ),
       height: h * 0.065,
-      width: double.infinity,
       child: Center(
-        child: AutoSizeText(
-          text,
-          textAlign: TextAlign.center,
-          maxLines: 1,
-          // style: context.textTheme.labelSmall!.copyWith(color: Colors.black),
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: h * 0.002,
+            horizontal: w * 0.025,
+          ),
+          child: AutoSizeText(
+            text,
+            textAlign: TextAlign.center,
+            maxLines: 1,
+            // style: context.textTheme.labelSmall!.copyWith(color: Colors.black),
+          ),
         ),
       ),
     );

@@ -20,7 +20,7 @@ class RegisterScreen extends StatelessWidget {
       onWillPop: () async => false,
       child: Scaffold(
         appBar: const GlobalAppBar(
-          title: "Register",
+          title: "Hesap Oluştur",
           enableBackButton: true,
         ),
         body: ListView(
@@ -28,25 +28,25 @@ class RegisterScreen extends StatelessWidget {
           physics: const ClampingScrollPhysics(),
           children: [
             GlobalTextField(
-              hintText: "User Name",
+              hintText: "Kullanıcı Adı",
               controller: controller.username,
             ),
             const SizedBox004(),
             GlobalTextField(
-              hintText: "Email Adress",
+              hintText: "Email Adresi",
               controller: controller.email,
               keyboardType: TextInputType.emailAddress,
               
             ),
             const SizedBox004(),
             GlobalTextField(
-              hintText: "Password",
+              hintText: "Şifre",
               isObscured: true,
               controller: controller.password,
             ),
             const SizedBox004(),
             GlobalTextField(
-              hintText: "Re Password",
+              hintText: "Tekrar Şifre",
               isObscured: true,
               controller: controller.rePassword,
             ),

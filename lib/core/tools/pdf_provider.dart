@@ -71,7 +71,7 @@ class PdfOrderProvider {
                       mainAxisAlignment: pw.MainAxisAlignment.start,
                       children: [
                         pw.Text(
-                          element.orderList[indext].foodName,
+                          "${element.orderList[indext].amount}x${element.orderList[indext].foodName}",
                           style:
                               myTheme.defaultTextStyle.copyWith(fontSize: 12),
                         ),

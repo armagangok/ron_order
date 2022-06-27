@@ -15,7 +15,7 @@ class LoginScreen extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
-        appBar: const GlobalAppBar(title: "Log in"),
+        appBar: const GlobalAppBar(title: "Giriş Yap"),
         body: SizedBox(
           height: context.getHeight(1),
           child: ListView(
@@ -30,11 +30,11 @@ class LoginScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const Text("Dont Have An Account?"),
+                  const Text("Hesabınız yok mu?"),
                   TextButton(
                     onPressed: () =>
                         getTo(const RegisterScreen(), context),
-                    child: const Text("Register"),
+                    child: const Text("Hesap Oluştur"),
                   ),
                 ],
               ),

@@ -76,11 +76,11 @@ final ThemeData appTheme = ThemeData.light().copyWith(
 
   //
 
-  splashColor: const Color.fromRGBO(58, 53, 65, 0.23),
+  highlightColor: Colors.transparent,
 
   //
 
-  highlightColor: Colors.white,
+  splashColor: Colors.transparent,
 
   //
 
@@ -128,8 +128,6 @@ final ThemeData appTheme = ThemeData.light().copyWith(
     //   fontWeight: FontWeight.w300,
     //   color: Color.fromRGBO(68, 53, 65, 1),
     // ),
-
-    
 
     headline1: TextStyle(
       fontSize: 96,

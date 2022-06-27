@@ -1,17 +1,26 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/components/components.dart';
 import '../../../../core/extension/context_extension.dart';
-import '../../../feature/components/snackbar.dart';
 import '../../../feature/models/order_model.dart';
 import '../../../feature/viewmodel/order_viewmodel.dart';
 import '../viewmodel/order_list_provider.dart';
 
-class OrderScreen extends StatelessWidget {
+class OrderScreen extends StatefulWidget {
   const OrderScreen({Key? key}) : super(key: key);
+
+  @override
+  State<OrderScreen> createState() => _OrderScreenState();
+}
+
+class _OrderScreenState extends State<OrderScreen> {
+  @override
+  void initState() {
+    OrderViewmodel().getOrderList();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,15 +78,15 @@ class OrderScreen extends StatelessWidget {
     );
   }
 
+  //
   Widget textWidget(BuildContext context) {
     return Text(
-      "Ron Food Orders",
+      "Ron Yemek Siparişleri",
       style: context.textTheme.headline5,
     );
   }
 
   //
-
   Widget buildOrders(List<OrderModel> orders, double height) {
     return GridView.builder(
       shrinkWrap: true,
@@ -137,62 +146,4 @@ class OrderScreen extends StatelessWidget {
       },
     );
   }
-}
-
-class DeleteOrderDialog extends StatelessWidget {
-  const DeleteOrderDialog({
-    Key? key,
-    required this.text,
-    required this.func,
-  }) : super(key: key);
-
-  final Function func;
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return CupertinoAlertDialog(
-      title: Column(
-        children: [
-          Text(text),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              TextButton(
-                onPressed: () async {
-                  func().whenComplete(() {
-                    Navigator.pop(context);
-                  });
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    snackbarSuccess("Siparişler başarıyla silindi."),
-                  );
-                },
-                child: const Text("SİL"),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Text("İPTAL"),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-Future<void> buildDialog(
-  context,
-  Function func,
-  String text,
-) async {
-  await showDialog(
-    context: context,
-    builder: (_) => DeleteOrderDialog(
-      text: text,
-      func: () async => await func(),
-    ),
-  );
 }

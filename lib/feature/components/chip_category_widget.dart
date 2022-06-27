@@ -42,12 +42,10 @@ class ChipCategoryWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final double height = context.getHeight(1);
     final double width = context.getWidth(1);
-    final ChipController categoryController =
-        Provider.of<ChipController>(context);
-    final Category category = categoryController.getCategories[index];
-    final Color primaryColor = context.theme.primaryColor;
+    final ChipController chipController = Provider.of<ChipController>(context);
+    final Category category = chipController.getCategories[index];
+
     bool isSelected = category.isSelected;
-    final String categoryName = category.categoryName;
 
     return Padding(
       padding: EdgeInsets.symmetric(
@@ -63,17 +61,17 @@ class ChipCategoryWidget extends StatelessWidget {
           vertical: height * 0.01,
         ),
         label: Text(
-          categoryName,
+          category.categoryName,
           style: TextStyle(
             color: isSelected ? Colors.white : Colors.black,
           ),
         ),
         showCheckmark: false,
         backgroundColor: context.theme.scaffoldBackgroundColor,
-        selectedColor: primaryColor,
+        selectedColor: context.primaryColor,
         selected: isSelected,
         onSelected: (value) {
-          categoryController.changeCategory(categoryName, value, index);
+          chipController.changeCategory(category.categoryName, value, index);
           isSelected = value;
         },
       ),

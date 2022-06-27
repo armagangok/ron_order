@@ -11,7 +11,7 @@ Future<void> initApp() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  runApp(
+  runApp( 
     MultiProvider(
       providers: ProviderHelper().providers,
       child: const MyApp(),

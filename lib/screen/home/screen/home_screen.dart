@@ -32,12 +32,11 @@ class HomeScreen extends StatelessWidget {
               Consumer(
                 builder: (context, ChipController chipViewmodel, _) {
                   String category = chipViewmodel.chosenCategory;
-
+    
                   return FutureBuilder(
                     future: Provider.of<FoodViewmodel>(context)
                         .fetchFoodForUserScreen(category),
-                    builder:
-                        (context, AsyncSnapshot<List<FoodModel>> snapshot) {
+                    builder: (context, AsyncSnapshot<List<FoodModel>> snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
                         final foodList = snapshot.data;
                         return SizedBox(
@@ -47,8 +46,7 @@ class HomeScreen extends StatelessWidget {
                                   "Verilere erişmeye çalışırken bir sorun oluştu.")
                               : foodList.isEmpty
                                   ? const Center(
-                                      child:
-                                          Text("Aktif yemek bulunmamaktadır."),
+                                      child: Text("Aktif yemek bulunmamaktadır."),
                                     )
                                   : GridViewBuilderWidget(foodList: foodList),
                         );

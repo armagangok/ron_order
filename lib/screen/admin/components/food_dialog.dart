@@ -38,7 +38,7 @@ class DeleteFoodDialog extends StatelessWidget {
                       .whenComplete(() => Navigator.pop(context))
                       .whenComplete(
                         () => ScaffoldMessenger.of(context).showSnackBar(
-                          getSnackBar(
+                          snackbarWanrning(
                               "${food.foodName} isimli yemek, ${food.category} kategorisinden silindi."),
                         ),
                       );

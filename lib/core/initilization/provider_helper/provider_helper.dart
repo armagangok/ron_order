@@ -35,10 +35,8 @@ class ProviderHelper {
     Provider(create: (_) => SplashController()),
     Provider(create: (_) => OrderListController()),
     Provider(create: (_) => AdminTextController()),
-    Provider(create: (_) => OrderViewmodel()),
+    ChangeNotifierProvider(create: (_) => OrderViewmodel()),
     ChangeNotifierProvider(create: (_) => FirebaseVmodel()),
     ChangeNotifierProvider(create: (_) => FoodViewmodel()),
-    // Provider(create: (_) => PreferenceController()),
-    // ChangeNotifierProvider(create: (_) => FirestoreVModel()),
   ];
 }

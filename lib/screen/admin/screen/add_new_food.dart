@@ -19,10 +19,10 @@ class AddNewFoodScreen extends StatelessWidget {
     return ListView(
       shrinkWrap: true,
       physics: const ClampingScrollPhysics(),
-      padding: const EdgeInsets.all(10),
+      padding: EdgeInsets.symmetric(horizontal: context.getWidth(0.025)),
       children: [
         GlobalTextField(
-          hintText: "Enter Food Name",
+          hintText: "Yemek adı giriniz",
           color: context.primaryColor.withOpacity(0.1),
           controller: controller.foodController,
         ),

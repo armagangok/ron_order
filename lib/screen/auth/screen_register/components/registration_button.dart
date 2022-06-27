@@ -38,17 +38,17 @@ class RegisterButton extends StatelessWidget {
 
           if (controller.username.text.isEmpty) {
             ScaffoldMessenger.of(context)
-                .showSnackBar(getSnackBar(kText.userNameEmpty));
+                .showSnackBar(snackbarWanrning(kText.userNameEmpty));
           } else if (controller.email.text.isEmpty) {
             ScaffoldMessenger.of(context)
-                .showSnackBar(getSnackBar(kText.emailEmpty));
+                .showSnackBar(snackbarWanrning(kText.emailEmpty));
           } else if (controller.password.text.isEmpty ||
               controller.password.text.isEmpty) {
             ScaffoldMessenger.of(context)
-                .showSnackBar(getSnackBar(kText.passwordsEmpty));
+                .showSnackBar(snackbarWanrning(kText.passwordsEmpty));
           } else if (controller.password.text != controller.rePassword.text) {
             ScaffoldMessenger.of(context)
-                .showSnackBar(getSnackBar(kText.passwordsNotSame));
+                .showSnackBar(snackbarWanrning(kText.passwordsNotSame));
           } else {
             try {
               var a = await firebase.register(user);
@@ -57,23 +57,23 @@ class RegisterButton extends StatelessWidget {
                   ? {
                       getToRemove(const RootScreen(), context),
                       ScaffoldMessenger.of(context).showSnackBar(
-                        getSnackBar(kText.registrationSuccess),
+                        snackbarSuccess(kText.registrationSuccess),
                       ),
                     }
                   : {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        getSnackBar(kText.unknownError),
+                        snackbarWanrning(kText.unknownError),
                       ),
                     };
             } on FirebaseAuthException catch (e) {
               print(e.code);
               ScaffoldMessenger.of(context).showSnackBar(
-                getSnackBar(kText.warningText[e.code]!),
+                snackbarWanrning(kText.warningText[e.code]!),
               );
             }
           }
         },
-        text: "Register",
+        text: "Kayıt Ol",
       ),
     );
   }

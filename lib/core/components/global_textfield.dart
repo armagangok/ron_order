@@ -53,7 +53,7 @@ class _GlobalTextFieldState extends State<GlobalTextField> {
           hintText: widget.hintText,
           hintStyle: context.textTheme.caption,
           filled: true,
-          fillColor: widget.color,
+          fillColor: Colors.white,
           suffixIcon: buildObsecureIcon(),
 
           border: OutlineInputBorder(

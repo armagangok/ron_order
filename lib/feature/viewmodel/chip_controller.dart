@@ -8,7 +8,7 @@ class ChipController with ChangeNotifier {
   ChipController._();
 
   final List<Category> categories = [
-    Category(categoryName: "dishes", isSelected: true),
+    Category(categoryName: "dishes", isSelected: false),
     Category(categoryName: "sub dishes", isSelected: false),
     Category(categoryName: "deserts", isSelected: false),
     Category(categoryName: "soups", isSelected: false),
