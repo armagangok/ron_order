@@ -76,7 +76,7 @@ class AdminScreen extends StatelessWidget {
               SizedBox(
                 height: context.getHeight(0.82),
                 child: const TabBarView(
-                  physics: ClampingScrollPhysics(),
+                  physics: NeverScrollableScrollPhysics(),
                   children: [
                     AddNewFoodScreen(),
                     FoodUpdateScreen(),

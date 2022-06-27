@@ -4,12 +4,12 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ron_order/core/constants/constant_text.dart';
-import 'package:ron_order/feature/components/snackbar.dart';
 
 import '../../../../core/components/global_elevated_button.dart';
+import '../../../core/constants/constant_text.dart';
 import '../../../core/extension/context_extension.dart';
 import '../../../core/tools/uuid_provider.dart';
+import '../../../feature/components/snackbar.dart';
 import '../../../feature/models/food_model.dart';
 import '../../../feature/models/storage_model.dart';
 import '../../../feature/viewmodel/order_viewmodel.dart';
@@ -37,11 +37,11 @@ class UploadImageButton extends StatelessWidget {
         File? fileToUpload;
         if (imageProvider.image == null) {
           ScaffoldMessenger.of(context)
-              .showSnackBar(getSnackBar1(kText.noImage));
+              .showSnackBar(getSnackBar(kText.noImage));
         } else {
           if (controller.foodController.text == "") {
             ScaffoldMessenger.of(context).showSnackBar(
-              getSnackBar1(kText.foodNameEmpty),
+              getSnackBar(kText.foodNameEmpty),
             );
           } else {
             fileToUpload = File(imageProvider.image!.path);
@@ -58,15 +58,16 @@ class UploadImageButton extends StatelessWidget {
             );
 
             try {
-              orderViewmodel.uploadFoodToStorage(storageModel).whenComplete(
-                    () => ScaffoldMessenger.of(context).showSnackBar(
-                      getSnackBar1(kText.picUploaded),
-                    ),
-                  );
-            } on FirebaseException catch (e) {
-              print(e.code);
               ScaffoldMessenger.of(context).showSnackBar(
-                getSnackBar1(e.message!),
+                getSnackBar(kText.picUploaded),
+              );
+              await orderViewmodel.uploadFoodToStorage(storageModel);
+              controller.foodController.clear();
+              imageProvider.image = null;
+              fileToUpload = null;
+            } on FirebaseException catch (e) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                getSnackBar(e.message!),
               );
             }
           }
@@ -89,7 +90,9 @@ class PickImageButton extends StatelessWidget {
     final ImageController imageProvider = Provider.of<ImageController>(context);
     return TextButton(
       child: const Text("Pick Image"),
-      onPressed: () async => await imageProvider.pickImage(),
+      onPressed: () async {
+        return await imageProvider.pickImage();
+      },
     );
   }
 }

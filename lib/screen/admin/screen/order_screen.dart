@@ -20,14 +20,18 @@ class OrderScreen extends StatelessWidget {
     OrderListController orderListProvider =
         Provider.of<OrderListController>(context);
 
-    double h = context.getHeight(1);
+    double height = context.getHeight(1);
+    double width = context.getWidth(1);
 
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
         body: SafeArea(
           child: ListView(
-            // padding: EdgeInsets.all(context.getHeight(0.025)),
+            padding: EdgeInsets.symmetric(
+              vertical: height * 0.02,
+              horizontal: width * 0.03,
+            ),
             physics: const ClampingScrollPhysics(),
             children: [
               Center(child: textWidget(context)),
@@ -44,7 +48,7 @@ class OrderScreen extends StatelessWidget {
                               child: Text(
                                   "Şu anda aktif sipariş bulunmamaktadır."),
                             )
-                          : buildOrders(orders, h);
+                          : buildOrders(orders, height);
 
                     case ConnectionState.waiting:
                       return const Center(
@@ -74,15 +78,15 @@ class OrderScreen extends StatelessWidget {
 
   //
 
-  Widget buildOrders(List<OrderModel> orders, h) {
+  Widget buildOrders(List<OrderModel> orders, double height) {
     return GridView.builder(
       shrinkWrap: true,
       physics: const ClampingScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        mainAxisExtent: h * 0.15,
-        crossAxisCount: 3,
+        mainAxisExtent: height * 0.15,
+        crossAxisCount: 2,
         crossAxisSpacing: 10,
-        mainAxisSpacing: 5,
+        mainAxisSpacing: 10,
       ),
       itemCount: orders.length,
       itemBuilder: (context, index) {
@@ -91,40 +95,43 @@ class OrderScreen extends StatelessWidget {
             borderRadius: BorderRadius.circular(16.0),
           ),
           tileColor: const Color.fromARGB(255, 255, 240, 196),
-          title: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AutoSizeText(
-                orders[index].orderer,
-                style: context.textTheme.labelMedium,
-                maxLines: 1,
-                maxFontSize: 16,
-              ),
-              ListView.separated(
-                separatorBuilder: (context, index) =>
-                    SizedBox(height: h * 0.008),
-                physics: const ClampingScrollPhysics(),
-                shrinkWrap: true,
-                addAutomaticKeepAlives: false,
-                addRepaintBoundaries: false,
-                itemCount: orders[index].orderList.length,
-                itemBuilder: (context, index1) {
-                  return Row(
-                    children: [
-                      Expanded(
-                        child: AutoSizeText(
-                          "${orders[index].orderList[index1].amount}x${orders[index].orderList[index1].foodName} ",
-                          style: context.textTheme.subtitle1,
-                          maxLines: 2,
-                          maxFontSize: 12,
+          title: Padding(
+            padding: EdgeInsets.symmetric(vertical: height * 0.02),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AutoSizeText(
+                  orders[index].orderer,
+                  style: context.textTheme.labelMedium,
+                  maxLines: 1,
+                  maxFontSize: 16,
+                ),
+                ListView.separated(
+                  separatorBuilder: (context, index) =>
+                      SizedBox(height: height * 0.008),
+                  physics: const ClampingScrollPhysics(),
+                  shrinkWrap: true,
+                  addAutomaticKeepAlives: false,
+                  addRepaintBoundaries: false,
+                  itemCount: orders[index].orderList.length,
+                  itemBuilder: (context, index1) {
+                    return Row(
+                      children: [
+                        Expanded(
+                          child: AutoSizeText(
+                            "${orders[index].orderList[index1].amount}x${orders[index].orderList[index1].foodName} ",
+                            style: context.textTheme.subtitle1,
+                            maxLines: 2,
+                            maxFontSize: 12,
+                          ),
                         ),
-                      ),
-                    ],
-                  );
-                },
-              )
-            ],
+                      ],
+                    );
+                  },
+                )
+              ],
+            ),
           ),
         );
       },
@@ -156,7 +163,7 @@ class DeleteOrderDialog extends StatelessWidget {
                   Navigator.pop(context);
                   func().whenComplete(
                     () => ScaffoldMessenger.of(context).showSnackBar(
-                      getSnackBar1("Siparişler başarıyla silindi."),
+                      getSnackBar("Siparişler başarıyla silindi."),
                     ),
                   );
                 },

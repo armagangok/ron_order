@@ -1,4 +1,4 @@
-final ConstText kText = ConstText();
+ConstText kText = ConstText();
 
 class ConstText {
   static final ConstText _singleton = ConstText._internal();
@@ -19,7 +19,7 @@ class ConstText {
   String noImage = "Lütfen bir fotoğraf seçiniz";
   String foodNameEmpty = "Yemek adı boş bırakılamaz.";
   String picUploaded =
-      "Yemek başarılı bir şekilde oluşturuldu ve sisteme yüklendi.";
+      "Yemek başarıyla oluşturuldu ve şu anda sisteme yükleniyor.";
   String only3Food = "Yemek sepetine en fazla 3 adet ekleyebilirsiniz.";
   String only1MainDish = "Sadece 1 tane ana yemek seçebilirsiniz.";
 

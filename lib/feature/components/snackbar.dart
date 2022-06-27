@@ -45,8 +45,8 @@ SnackBar getSnackBar(String warningText) {
         //   ),
         // ),
         Positioned(
-          top: -8,
-          left: -8,
+          top: -15,
+          left: -15,
           child: Stack(
             alignment: Alignment.center,
             children: [
@@ -115,8 +115,8 @@ SnackBar getSnackBar1(String warningText) {
         //   ),
         // ),
         Positioned(
-          top: -20,
-          left: 5,
+          top: -10,
+          left: -10,
           child: Stack(
             alignment: Alignment.center,
             children: [
