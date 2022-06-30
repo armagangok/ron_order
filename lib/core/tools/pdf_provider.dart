@@ -27,6 +27,7 @@ class PdfOrderProvider {
         pageFormat: PdfPageFormat.a4,
         build: (pw.Context context) {
           return pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
             children: [
               pw.Text(
                 "RON YEMEK SIPARISLERI",
@@ -56,31 +57,35 @@ class PdfOrderProvider {
       mainAxisSpacing: 10,
       children: [
         for (var element in orders)
-          pw.Expanded(
-            child: pw.Column(
-              crossAxisAlignment: pw.CrossAxisAlignment.start,
-              children: [
-                pw.Text(
-                  element.orderer,
-                  style: myTheme.defaultTextStyle.copyWith(fontSize: 14),
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 13,
+                  fontWeight: pw.FontWeight.bold,
                 ),
-                pw.ListView.builder(
-                  itemCount: element.orderList.length,
-                  itemBuilder: (context, indext) {
-                    return pw.Column(
-                      mainAxisAlignment: pw.MainAxisAlignment.start,
-                      children: [
-                        pw.Text(
-                          "${element.orderList[indext].amount}x${element.orderList[indext].foodName}",
-                          style:
-                              myTheme.defaultTextStyle.copyWith(fontSize: 12),
-                        ),
-                      ],
-                    );
-                  },
-                ),
-              ],
-            ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Column(
+                    mainAxisAlignment: pw.MainAxisAlignment.start,
+                    crossAxisAlignment: pw.CrossAxisAlignment.start,
+                    children: [
+                      pw.Text(
+                        "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                        textAlign: pw.TextAlign.left,
+                        style: myTheme.defaultTextStyle.copyWith(fontSize: 12),
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ],
           ),
       ],
     );

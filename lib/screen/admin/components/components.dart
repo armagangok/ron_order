@@ -61,10 +61,18 @@ class UploadImageButton extends StatelessWidget {
               ScaffoldMessenger.of(context).showSnackBar(
                 snackbarSuccess(kText.picUploaded),
               );
-              await orderViewmodel.uploadFoodToStorage(storageModel);
+
+              await orderViewmodel
+                  .uploadFoodToStorage(storageModel)
+                  .whenComplete(
+                    () => ScaffoldMessenger.of(context).showSnackBar(
+                      snackbarSuccess("Yemek başarıyla yüklendi"),
+                    ),
+                  );
+
               controller.foodController.clear();
               imageProvider.image = null;
-              fileToUpload = null;
+              imageProvider.disposeImage();
             } on FirebaseException catch (e) {
               ScaffoldMessenger.of(context).showSnackBar(
                 snackbarWanrning(e.message!),
@@ -143,7 +151,6 @@ class TabBarWidget extends StatelessWidget {
       child: Center(
         child: Padding(
           padding: EdgeInsets.symmetric(
-            vertical: h * 0.002,
             horizontal: w * 0.025,
           ),
           child: AutoSizeText(

@@ -10,6 +10,7 @@ import '../models/food_model.dart';
 class GridViewBuilderWidget extends StatelessWidget {
   final List<FoodModel> foodList;
   final bool isActivationWidget;
+
   const GridViewBuilderWidget({
     Key? key,
     required this.foodList,
@@ -29,7 +30,7 @@ class GridViewBuilderWidget extends StatelessWidget {
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: w * 0.025,
-        mainAxisExtent: h * 0.35,
+        mainAxisExtent: h * 0.34,
         mainAxisSpacing: 10,
       ),
       itemBuilder: (context, index) {

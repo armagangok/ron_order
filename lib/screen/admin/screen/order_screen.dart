@@ -54,7 +54,8 @@ class _OrderScreenState extends State<OrderScreen> {
                       return orders.isEmpty
                           ? const Center(
                               child: Text(
-                                  "Şu anda aktif sipariş bulunmamaktadır."),
+                                "Şu anda aktif sipariş bulunmamaktadır.",
+                              ),
                             )
                           : buildOrders(orders, height);
 
@@ -87,58 +88,62 @@ class _OrderScreenState extends State<OrderScreen> {
 
   //
   Widget buildOrders(List<OrderModel> orders, double height) {
-    return GridView.builder(
+    return ListView.builder(
       shrinkWrap: true,
       physics: const ClampingScrollPhysics(),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        mainAxisExtent: height * 0.15,
-        crossAxisCount: 2,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-      ),
+      // gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      //   mainAxisExtent: height * 0.15,
+      //   crossAxisCount: 2,
+      //   crossAxisSpacing: 10,
+      //   mainAxisSpacing: 10,
+      // ),
       itemCount: orders.length,
       itemBuilder: (context, index) {
-        return ListTile(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16.0),
-          ),
-          tileColor: const Color.fromARGB(255, 255, 240, 196),
-          title: Padding(
-            padding: EdgeInsets.symmetric(vertical: height * 0.02),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AutoSizeText(
-                  orders[index].orderer,
-                  style: context.textTheme.labelMedium,
-                  maxLines: 1,
-                  maxFontSize: 16,
-                ),
-                ListView.separated(
-                  separatorBuilder: (context, index) =>
-                      SizedBox(height: height * 0.008),
-                  physics: const ClampingScrollPhysics(),
-                  shrinkWrap: true,
-                  addAutomaticKeepAlives: false,
-                  addRepaintBoundaries: false,
-                  itemCount: orders[index].orderList.length,
-                  itemBuilder: (context, index1) {
-                    return Row(
-                      children: [
-                        Expanded(
-                          child: AutoSizeText(
-                            "${orders[index].orderList[index1].amount}x${orders[index].orderList[index1].foodName} ",
-                            style: context.textTheme.subtitle1,
-                            maxLines: 2,
-                            maxFontSize: 12,
+        return Padding(
+          padding: EdgeInsets.symmetric(vertical: context.getWidth(0.025)),
+          child: ListTile(
+            
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16.0),
+            ),
+            tileColor: const Color.fromARGB(255, 255, 240, 196),
+            title: Padding(
+              padding: EdgeInsets.symmetric(vertical: height * 0.02),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AutoSizeText(
+                    orders[index].orderer,
+                    style: context.textTheme.labelMedium,
+                    maxLines: 1,
+                    maxFontSize: 16,
+                  ),
+                  ListView.separated(
+                    separatorBuilder: (context, index) =>
+                        SizedBox(height: height * 0.006),
+                    physics: const ClampingScrollPhysics(),
+                    shrinkWrap: true,
+                    addAutomaticKeepAlives: false,
+                    addRepaintBoundaries: false,
+                    itemCount: orders[index].activeOrderList.length,
+                    itemBuilder: (context, index1) {
+                      return Row(
+                        children: [
+                          Expanded(
+                            child: AutoSizeText(
+                              "${orders[index].activeOrderList[index1].amount}x${orders[index].activeOrderList[index1].foodName} ",
+                              style: context.textTheme.subtitle1,
+                              maxLines: 2,
+                              maxFontSize: 12,
+                            ),
                           ),
-                        ),
-                      ],
-                    );
-                  },
-                )
-              ],
+                        ],
+                      );
+                    },
+                  )
+                ],
+              ),
             ),
           ),
         );

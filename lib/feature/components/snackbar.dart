@@ -21,7 +21,7 @@ SnackBar snackbarWanrning(String warningText) {
             child: Text(
               warningText,
               style: const TextStyle(
-                fontSize: 14,
+                fontSize: 15,
                 color: Colors.white,
               ),
               maxLines: 2,
@@ -80,7 +80,10 @@ SnackBar snackbarSuccess(String warningText) {
           child: Center(
             child: Text(
               warningText,
-              style: const TextStyle(fontSize: 14, color: Colors.white),
+              style: const TextStyle(
+                fontSize: 15,
+                color: Colors.white,
+              ),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),

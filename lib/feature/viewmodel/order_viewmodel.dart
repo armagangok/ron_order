@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
@@ -11,17 +9,24 @@ import '../models/storage_model.dart';
 class OrderViewmodel with ChangeNotifier implements BaserOrderService {
   final OrderService _orderService = OrderService();
   final _storage = FirebaseStorage.instance;
+  OrderModel? orderModel;
 
   String downloadedUrl = "";
   List<OrderModel> orderList = [];
+  List<OrderModel> activeOrderList = [];
 
   //
 
   @override
   Future<void> orderFood(OrderModel orderModel) async {
-    (orderModel.orderList.isNotEmpty)
+    (orderModel.activeOrderList.isNotEmpty)
         ? await _orderService.orderFood(orderModel)
         : {};
+  }
+
+  void clearOrderList() {
+    orderList.clear();
+    notifyListeners();
   }
 
   //
@@ -57,12 +62,29 @@ class OrderViewmodel with ChangeNotifier implements BaserOrderService {
       print(e);
     }
   }
-  
 
   @override
   Future<void> deleteAllOrders() async {
     await _orderService.deleteAllOrders();
     orderList.clear();
+    notifyListeners();
+  }
+
+  @override
+  Future<void> saveOrder(String uid, OrderModel orderModel) async {
+    await _orderService.saveOrder(uid, orderModel);
+  }
+
+  @override
+  Future<OrderModel> fetchActiveOrder(String uid) async {
+    orderModel = await _orderService.fetchActiveOrder(uid);
+    return orderModel!;
+  }
+
+  @override
+  Future<void> deleteActiveOrder(String uid) async {
+    await _orderService.deleteActiveOrder(uid);
+    orderModel!.activeOrderList.clear();
     notifyListeners();
   }
 }

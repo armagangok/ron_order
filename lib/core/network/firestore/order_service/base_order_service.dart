@@ -6,4 +6,7 @@ abstract class BaserOrderService {
   Future<List<OrderModel>> fetchOrder();
   Future uploadFoodToStorage(StorogeFoodModel foodModel);
   Future<void> deleteAllOrders();
+  Future<void> saveOrder(String uid, OrderModel orderModel);
+  Future<OrderModel> fetchActiveOrder(String uid);
+  Future<void> deleteActiveOrder(String uid);
 }

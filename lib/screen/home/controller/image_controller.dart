@@ -25,4 +25,9 @@ class ImageController with ChangeNotifier {
       print('Failed to pick image: $e');
     }
   }
+
+  disposeImage() {
+    image = null;
+    notifyListeners();
+  }
 }

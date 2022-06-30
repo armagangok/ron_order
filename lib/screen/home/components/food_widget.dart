@@ -25,6 +25,7 @@ class FoodWidget extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
+        print(food.amount);
         var a = foodCart.addFood(food);
 
         a == null
@@ -127,31 +128,18 @@ class FoodWidget extends StatelessWidget {
           ),
           const Spacer(),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5),
+            padding: EdgeInsets.symmetric(horizontal: context.getWidth(0.002)),
             child: AutoSizeText(
               food.foodName,
               textAlign: TextAlign.center,
               style: context.textTheme.labelMedium!.copyWith(),
-              maxFontSize: 20,
+              maxFontSize: 17,
               maxLines: 2,
             ),
           ),
           const Spacer(),
         ],
       ),
-    );
-  }
-
-  //
-
-  Widget removeButton(CartController foodCart, FoodModel food, color) {
-    return GestureDetector(
-      child: Icon(
-        CupertinoIcons.check_mark_circled,
-        color: const Color.fromARGB(255, 81, 255, 87).withOpacity(0.8),
-        size: 120,
-      ),
-      onTap: () => foodCart.cancelFood(food),
     );
   }
 

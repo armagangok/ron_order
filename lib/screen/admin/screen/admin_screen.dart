@@ -25,9 +25,12 @@ class AdminScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async => false,
-      child: Scaffold(
-        appBar: buildAppBar(context),
-        body: body(),
+      child: GestureDetector(
+        onTap: () => context.dismissKeyboard(),
+        child: Scaffold(
+          appBar: buildAppBar(context),
+          body: body(),
+        ),
       ),
     );
   }
@@ -49,8 +52,10 @@ class AdminScreen extends StatelessWidget {
             children: [
               TabBar(
                 isScrollable: true,
-                padding:
-                    EdgeInsets.symmetric(vertical: context.getHeight(0.02)),
+                padding: EdgeInsets.symmetric(
+                  vertical: context.getHeight(0.015),
+                  // horizontal: context.getWidth(0.3),
+                ),
                 indicatorColor: Colors.black.withOpacity(0),
                 indicatorSize: TabBarIndicatorSize.label,
                 onTap: (value) => tabProvider.changeIndex(value),
@@ -69,7 +74,7 @@ class AdminScreen extends StatelessWidget {
                         : Colors.white,
                   ),
                   TabBarWidget(
-                    text: "Siperişler",
+                    text: "Siparişler",
                     color: (tabProvider.currentIndex == 2)
                         ? context.theme.primaryColor
                         : Colors.white,
@@ -81,7 +86,7 @@ class AdminScreen extends StatelessWidget {
                 child: const TabBarView(
                   physics: NeverScrollableScrollPhysics(),
                   children: [
-                    AddNewFoodScreen(),
+                    NewFoodScreen(),
                     FoodUpdateScreen(),
                     OrderScreen(),
                   ],
@@ -108,8 +113,10 @@ class AdminScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               IconButton(
+                
                 onPressed: () => getToRemove(const HomeScreen(), context),
                 icon: const Icon(CupertinoIcons.home),
+                padding: EdgeInsets.zero
               ),
               Consumer(
                 builder: (context, TabBarController indexProvider, _) {
@@ -149,8 +156,8 @@ class AdminScreen extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                   color: const Color(0xff32324D),
                 ),
-                maxFontSize: 20,
-                minFontSize: 16,
+                maxFontSize: 18,
+                minFontSize: 15,
               ),
             ),
           )

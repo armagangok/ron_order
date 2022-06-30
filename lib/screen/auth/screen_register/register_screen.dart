@@ -18,40 +18,43 @@ class RegisterScreen extends StatelessWidget {
 
     return WillPopScope(
       onWillPop: () async => false,
-      child: Scaffold(
-        appBar: const GlobalAppBar(
-          title: "Hesap Oluştur",
-          enableBackButton: true,
-        ),
-        body: ListView(
-          padding: EdgeInsets.symmetric(horizontal: context.getHeight(0.05)),
-          physics: const ClampingScrollPhysics(),
-          children: [
-            GlobalTextField(
-              hintText: "Kullanıcı Adı",
-              controller: controller.username,
-            ),
-            const SizedBox004(),
-            GlobalTextField(
-              hintText: "Email Adresi",
-              controller: controller.email,
-              keyboardType: TextInputType.emailAddress,
-            ),
-            const SizedBox004(),
-            GlobalTextField(
-              hintText: "Şifre",
-              isObscured: true,
-              controller: controller.password,
-            ),
-            const SizedBox004(),
-            GlobalTextField(
-              hintText: "Tekrar Şifre",
-              isObscured: true,
-              controller: controller.rePassword,
-            ),
-            const SizedBox004(),
-            const RegisterButton(),
-          ],
+      child: GestureDetector(
+        onTap: () => context.dismissKeyboard(),
+        child: Scaffold(
+          appBar: const GlobalAppBar(
+            title: "Hesap Oluştur",
+            enableBackButton: true,
+          ),
+          body: ListView(
+            padding: EdgeInsets.symmetric(horizontal: context.getHeight(0.05)),
+            physics: const ClampingScrollPhysics(),
+            children: [
+              GlobalTextField(
+                hintText: "Kullanıcı Adı",
+                controller: controller.username,
+              ),
+              const SizedBox004(),
+              GlobalTextField(
+                hintText: "Email Adresi",
+                controller: controller.email,
+                keyboardType: TextInputType.emailAddress,
+              ),
+              const SizedBox004(),
+              GlobalTextField(
+                hintText: "Şifre",
+                isObscured: true,
+                controller: controller.password,
+              ),
+              const SizedBox004(),
+              GlobalTextField(
+                hintText: "Tekrar Şifre",
+                isObscured: true,
+                controller: controller.rePassword,
+              ),
+              const SizedBox004(),
+              const RegisterButton(),
+            ],
+          ),
         ),
       ),
     );

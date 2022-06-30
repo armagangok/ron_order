@@ -16,22 +16,23 @@ class ChipController with ChangeNotifier {
     Category(categoryName: "others", isSelected: false),
   ];
 
-  final List<String> choosenCategoryList = ["dishes"];
-
-  String get chosenCategory => choosenCategoryList[0];
+  String _choosenCategory = "dishes";
+  String get chosenCategory => _choosenCategory;
   List<Category> get getCategories => categories;
 
   void changeCategory(String newCategory, bool value, int index) {
-    choosenCategoryList.clear();
-    choosenCategoryList.add(newCategory);
-
-    for (Category category in categories) {
-      (category.isSelected == true)
-          ? category.isSelected = false
-          : {category.isSelected == true};
-    }
-
-    categories[index].isSelected = value;
-    notifyListeners();
+    chosenCategory == newCategory
+        ? {}
+        : {
+            _choosenCategory = newCategory,
+            for (Category category in categories)
+              {
+                (category.isSelected == true)
+                    ? category.isSelected = false
+                    : {},
+              },
+            categories[index].isSelected = value,
+            notifyListeners(),
+          };
   }
 }

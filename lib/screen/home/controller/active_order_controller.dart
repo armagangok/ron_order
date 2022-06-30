@@ -1,19 +1,17 @@
-// ignore_for_file: body_might_complete_normally_nullable
-
 import 'package:flutter/material.dart';
 
 import '../../../feature/models/food_model.dart';
 
-class CartController with ChangeNotifier {
-  final List<FoodModel> _foodCart = [];
+class ActiveOrderController with ChangeNotifier {
+  final List<FoodModel> _activeOrderCart = [];
 
-  List<FoodModel> get foodCart => _foodCart;
-  int get cartLength => _foodCart.length;
+  List<FoodModel> get foodCart => _activeOrderCart;
+  int get cartLength => _activeOrderCart.length;
 
   dynamic addFood(FoodModel choosenFood) {
     if (foodCart.isEmpty) {
       choosenFood.amount++;
-      _foodCart.add(choosenFood);
+      _activeOrderCart.add(choosenFood);
       notifyListeners();
     } else {
       if (checkIf1MainDish(choosenFood) == false) {
@@ -22,7 +20,7 @@ class CartController with ChangeNotifier {
         if (checkIfSameFood(choosenFood) == false) {
           if (checkCart()) {
             choosenFood.amount++;
-            _foodCart.add(choosenFood);
+            _activeOrderCart.add(choosenFood);
             notifyListeners();
             return true;
           } else {
@@ -39,17 +37,16 @@ class CartController with ChangeNotifier {
         }
       }
     }
-
     return true;
   }
 
   cancelFood(FoodModel food) {
-    for (var foodInCart in _foodCart) {
-      if (_foodCart.isNotEmpty) {
+    for (var foodInCart in _activeOrderCart) {
+      if (_activeOrderCart.isNotEmpty) {
         (foodInCart.foodName == food.foodName)
             ? {
                 foodInCart.amount--,
-                if (foodInCart.amount == 0) _foodCart.remove(foodInCart),
+                if (foodInCart.amount == 0) _activeOrderCart.remove(foodInCart),
               }
             : {};
         notifyListeners();
@@ -58,7 +55,7 @@ class CartController with ChangeNotifier {
   }
 
   dynamic checkIfSameFood(FoodModel choosenFood) {
-    for (var foodInCart in _foodCart) {
+    for (var foodInCart in _activeOrderCart) {
       if (foodInCart.foodID == choosenFood.foodID) {
         return foodInCart;
       }
@@ -68,7 +65,7 @@ class CartController with ChangeNotifier {
 
   bool checkIf1MainDish(FoodModel choosenFood) {
     int counter = 0;
-    for (var foodInCart in _foodCart) {
+    for (var foodInCart in _activeOrderCart) {
       if (foodInCart.category == "dishes" && choosenFood.category == "dishes") {
         counter++;
       }
@@ -80,7 +77,7 @@ class CartController with ChangeNotifier {
   bool checkCart() => (getTotalFood() < 3) ? true : false;
 
   bool isSelected(FoodModel selectedFood) {
-    for (var food in _foodCart) {
+    for (var food in _activeOrderCart) {
       if (food.foodName == selectedFood.foodName) {
         return true;
       }
@@ -99,7 +96,7 @@ class CartController with ChangeNotifier {
 
   int getTotalFood() {
     int total = 0;
-    for (var element in _foodCart) {
+    for (var element in _activeOrderCart) {
       total += element.amount;
     }
     return total;

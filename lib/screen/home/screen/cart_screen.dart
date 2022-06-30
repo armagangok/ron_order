@@ -51,10 +51,14 @@ class CartScreen extends StatelessWidget {
         return cart.cartLength != 0
             ? GlobalElevatedButton(
                 onPressed: () async {
+                  var date = DateTime.now();
+                  String stringDate =
+                      "${date.day}/${date.month}/${date.year} - ${date.hour}:${date.minute}";
                   final OrderModel order = OrderModel(
-                    orderList: cart.foodCart,
+                    activeOrderList: cart.foodCart,
                     orderer: firebase.user!.userName!,
                     ordererId: firebase.user!.id!,
+                    date: stringDate,
                   );
 
                   orderVmodel.orderFood(order).whenComplete(
@@ -62,7 +66,10 @@ class CartScreen extends StatelessWidget {
                           snackbarSuccess("Siparişiniz gönderildi."),
                         ),
                       );
+
                   getToRemove(const HomeScreen(), context);
+
+                  cart.clearCart();
                 },
                 text: "Sipariş Gönder",
               )

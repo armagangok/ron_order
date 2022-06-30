@@ -5,41 +5,48 @@ import 'package:flutter/foundation.dart';
 import 'food_model.dart';
 
 class OrderModel {
-  List<FoodModel> orderList = [];
-  String orderer = "";
-  String ordererId = "";
+  List<FoodModel> activeOrderList;
+  String orderer;
+  String ordererId;
+  String date;
+
   OrderModel({
-    required this.orderList,
-    required this.orderer,
-    required this.ordererId,
+    this.activeOrderList = const [],
+    this.orderer = "",
+    this.ordererId = "",
+    this.date = "",
   });
 
   OrderModel copyWith({
-    List<FoodModel>? foodList,
+    List<FoodModel>? activeOrderList,
     String? orderer,
     String? ordererId,
+    String? date,
   }) {
     return OrderModel(
-      orderList: foodList ?? orderList,
+      activeOrderList: activeOrderList ?? this.activeOrderList,
       orderer: orderer ?? this.orderer,
       ordererId: ordererId ?? this.ordererId,
+      date: date ?? this.date,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'foodList': orderList.map((x) => x.toMap()).toList(),
+      'activeOrderList': activeOrderList.map((x) => x.toMap()).toList(),
       'orderer': orderer,
       'ordererId': ordererId,
+      'date': date,
     };
   }
 
   factory OrderModel.fromMap(Map<String, dynamic> map) {
     return OrderModel(
-      orderList: List<FoodModel>.from(
-          map['foodList']?.map((x) => FoodModel.fromMap(x))),
+      activeOrderList: List<FoodModel>.from(
+          map['activeOrderList']?.map((x) => FoodModel.fromMap(x))),
       orderer: map['orderer'] ?? '',
       ordererId: map['ordererId'] ?? '',
+      date: map['date'] ?? '',
     );
   }
 
@@ -49,20 +56,26 @@ class OrderModel {
       OrderModel.fromMap(json.decode(source));
 
   @override
-  String toString() =>
-      'OrderModel(foodList: $orderList, orderer: $orderer, ordererId: $ordererId)';
+  String toString() {
+    return 'OrderModel(activeOrderList: $activeOrderList, orderer: $orderer, ordererId: $ordererId, date: $date)';
+  }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
     return other is OrderModel &&
-        listEquals(other.orderList, orderList) &&
+        listEquals(other.activeOrderList, activeOrderList) &&
         other.orderer == orderer &&
-        other.ordererId == ordererId;
+        other.ordererId == ordererId &&
+        other.date == date;
   }
 
   @override
-  int get hashCode =>
-      orderList.hashCode ^ orderer.hashCode ^ ordererId.hashCode;
+  int get hashCode {
+    return activeOrderList.hashCode ^
+        orderer.hashCode ^
+        ordererId.hashCode ^
+        date.hashCode;
+  }
 }

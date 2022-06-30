@@ -62,15 +62,6 @@ class _FoodUpdateScreenState extends State<FoodUpdateScreen> {
                         ),
                       );
                   }
-
-                  // return fmd.all[chipViewmodel.chosenCategory]!.isNotEmpty
-                  //     ? GridViewBuilderWidget(
-                  //         foodList: fmd.all[chipViewmodel.chosenCategory]!,
-                  //         isActivationWidget: true,
-                  //       )
-                  //     : const Center(
-                  //         child: Text("Bu kategoride yemek bulunamadı."),
-                  //       );
                 },
               ),
             ],

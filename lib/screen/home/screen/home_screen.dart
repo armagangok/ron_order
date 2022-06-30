@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,23 +9,14 @@ import '../../../core/network/firebase/view-models/firebase_viewmodel.dart';
 import '../../../feature/components/chip_category_widget.dart';
 import '../../../feature/components/food_grid_view_builder.dart';
 import '../../../feature/components/topbar_widget.dart';
+import '../../../feature/models/food_model.dart';
 import '../../../feature/viewmodel/chip_controller.dart';
 import '../../../feature/viewmodel/food_viewmodel.dart';
 import '../../admin/screen/admin_screen.dart';
+import 'active_order_screen.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    FoodViewmodel().getAllFood(forAdmin: false);
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +29,8 @@ class _HomeScreenState extends State<HomeScreen> {
       onWillPop: () async => false,
       child: Scaffold(
         appBar: buildAppBar(
-          context.textTheme,
-          width,
           firebase.user!.isAdmin,
+          context,
         ),
         body: SafeArea(
           child: ListView(
@@ -54,6 +43,16 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: context.primaryColor.withOpacity(0.5),
+          child: const Icon(
+            CupertinoIcons.cart_fill,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            getTo(const ActiveOrderScreen(), context);
+          },
+        ),
       ),
     );
   }
@@ -63,73 +62,91 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget buildFoodGridView() {
     return Consumer(
       builder: (context, ChipController chip, _) {
-        final FoodViewmodel foodProvider = Provider.of<FoodViewmodel>(context);
+        return FutureBuilder<List<FoodModel>>(
+          future: Provider.of<FoodViewmodel>(context).fetchFoodForUser(
+            chip.chosenCategory,
+          ),
+          builder: (context, snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.done:
+                return snapshot.data == null
+                    ? const Center(
+                        child:
+                            Text("Bu kategoride aktif yemek bulunmamaktadır"),
+                      )
+                    : snapshot.data!.isEmpty
+                        ? const Center(child: Text("Bu kategori şimdilik boş."))
+                        : GridViewBuilderWidget(foodList: snapshot.data!);
 
-        switch (foodProvider.fetchedFoodList.isNotEmpty) {
-          case true:
-            return GridViewBuilderWidget(
-              foodList: foodProvider.fetchedFoodList[chip.chosenCategory]!,
-            );
+              case ConnectionState.waiting:
+                return Center(
+                  child: Column(
+                    children: [
+                      Text(
+                        "Yemek verileri için bekleniyor...",
+                        style: context.textTheme.bodyMedium!
+                            .copyWith(color: Colors.black),
+                      ),
+                      const SizedBox004(),
+                      const CircularProgressIndicator(),
+                    ],
+                  ),
+                );
 
-          default:
-            return Center(
-              child: Column(
-                children: [
-                  Text(
-                    "Yemek verileri için bekleniyor..",
+              case ConnectionState.none:
+                return Center(
+                  child: Text(
+                    "İnternet bağlantınızı kontrol edin.",
                     style: context.textTheme.bodyMedium!
                         .copyWith(color: Colors.black),
                   ),
-                  const SizedBox004(),
-                  const CircularProgressIndicator(),
-                ],
-              ),
-            );
-        }
+                );
+
+              default:
+                return Column(
+                  children: [
+                    Text(
+                      "Bir sorun oluştu.",
+                      style: context.textTheme.bodyMedium!
+                          .copyWith(color: Colors.black),
+                    ),
+                    Text(snapshot.connectionState.name)
+                  ],
+                );
+            }
+          },
+        );
       },
     );
   }
   //
 
   AppBar buildAppBar(
-    TextTheme textTheme,
-    double width,
     bool isAdmin,
+    BuildContext context,
   ) {
     return AppBar(
       automaticallyImplyLeading: false,
-      actions: const [
-        TopBarWidget(),
-      ],
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          isAdmin
-              ? IconButton(
-                  onPressed: () {
-                    getToRemove(const AdminScreen(), context);
-                  },
-                  icon: const Icon(
-                    CupertinoIcons.person,
-                    color: Colors.black,
-                  ),
-                )
-              : const SizedBox(),
-          Expanded(
-            child: Center(
-              child: AutoSizeText(
-                "Etibol Lokantası",
-                style: textTheme.labelMedium!.copyWith(
-                  fontWeight: FontWeight.w600,
-                  color: const Color(0xff32324D),
-                ),
-                maxFontSize: 20,
-                minFontSize: 16,
+      leading: isAdmin
+          ? GestureDetector(
+              onTap: () => getToRemove(const AdminScreen(), context),
+              child: const Icon(
+                CupertinoIcons.person,
+                color: Colors.black,
               ),
-            ),
-          ),
-        ],
+            )
+          : const SizedBox(),
+      actions: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: const [
+            LogoutButton(),
+          ],
+        )
+      ],
+      title: const Center(
+        child: CartWidget(),
       ),
     );
   }

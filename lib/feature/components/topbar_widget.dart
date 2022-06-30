@@ -1,7 +1,7 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ron_order/screen/admin/screen/admin_screen.dart';
 
 import '../../../core/extension/context_extension.dart';
 import '../../../core/network/firebase/view-models/firebase_viewmodel.dart';
@@ -12,35 +12,13 @@ import '../../screen/home/controller/cart_controller.dart';
 import '../../screen/home/screen/cart_screen.dart';
 import '../../screen/root/root_screen.dart';
 
-class TopBarWidget extends StatelessWidget {
-  const TopBarWidget({
+class CartWidget extends StatelessWidget {
+  const CartWidget({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    
-
-
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          children: [
-          
-            const LogoutButton(),
-            cartWidget(),
-          ],
-        )
-      ],
-    );
-  }
-
-  //
-
-  //
-
-  Widget cartWidget() {
     return Consumer(
       builder: (BuildContext context, CartController cart, _) {
         return (cart.cartLength != 0)
@@ -64,7 +42,15 @@ class TopBarWidget extends StatelessWidget {
                   ),
                 ],
               )
-            : const SizedBox();
+            : AutoSizeText(
+                "Etibol Lokantası",
+                style: context.textTheme.labelMedium!.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: const Color(0xff32324D),
+                ),
+                maxFontSize: 18,
+                minFontSize: 15,
+              );
       },
     );
   }

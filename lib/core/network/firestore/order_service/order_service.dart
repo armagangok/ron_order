@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:ron_order/core/network/firebase/view-models/firebase_viewmodel.dart';
 
 import '../../../../feature/models/order_model.dart';
 import '../../../../feature/models/storage_model.dart';
@@ -10,6 +11,7 @@ import 'base_order_service.dart';
 class OrderService implements BaserOrderService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final _storage = FirebaseStorage.instance;
+  final FirebaseVmodel _firebase = FirebaseVmodel();
   String downloadedUrl = "";
 
   //
@@ -92,5 +94,24 @@ class OrderService implements BaserOrderService {
     for (var doc in snapshots.docs) {
       await doc.reference.delete();
     }
+  }
+
+  @override
+  Future<void> saveOrder(String uid, OrderModel orderModel) async {
+    await _firestore.collection('orders').doc(uid).set(orderModel.toMap());
+  }
+
+  @override
+  Future<OrderModel> fetchActiveOrder(String uid) async {
+    var snapshot = await _firestore.collection('orders').doc(uid).get();
+
+    var order = OrderModel.fromMap(snapshot.data()!);
+    return order;
+  }
+
+  @override
+
+  Future<void> deleteActiveOrder(String uid) async {
+    await _firestore.collection('orders').doc(uid).delete();
   }
 }

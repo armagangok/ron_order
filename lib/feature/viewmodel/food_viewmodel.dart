@@ -44,6 +44,11 @@ class FoodViewmodel with ChangeNotifier {
     return foodListFromService;
   }
 
+  Future<List<FoodModel>> fetchFoodList(String category) async {
+    var foodListFromService = await _foodService.fetchFoodByCategory(category);
+    return foodListFromService;
+  }
+
   Future<void> deleteFood(FoodModel food) async {
     await _foodService
         .deleteFood(food)

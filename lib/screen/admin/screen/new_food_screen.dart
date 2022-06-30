@@ -8,8 +8,8 @@ import '../components/components.dart';
 import '../components/dropdown_widget.dart';
 import '../viewmodel/textfield_provider.dart';
 
-class AddNewFoodScreen extends StatelessWidget {
-  const AddNewFoodScreen({Key? key}) : super(key: key);
+class NewFoodScreen extends StatelessWidget {
+  const NewFoodScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

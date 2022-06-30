@@ -1,7 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ron_order/feature/viewmodel/food_viewmodel.dart';
 
 import './food_dialog.dart';
 import '../../../core/extension/context_extension.dart';
@@ -20,8 +19,6 @@ class FoodWidgetAdmin extends StatelessWidget {
   Widget build(BuildContext context) {
     final ActivationController foodActivation =
         Provider.of<ActivationController>(context);
-
-    final FoodViewmodel foodViewmodel = Provider.of<FoodViewmodel>(context);
 
     final TextTheme textTheme = context.textTheme;
     final double height = context.getHeight(1);
@@ -80,7 +77,7 @@ class FoodWidgetAdmin extends StatelessWidget {
         children: [
           Container(
             width: double.infinity,
-            height: height * 0.28,
+            height: height * 0.27,
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(
                 Radius.circular(16.0),
@@ -95,13 +92,12 @@ class FoodWidgetAdmin extends StatelessWidget {
           ),
           const Spacer(),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 0.002),
             child: AutoSizeText(
               food.foodName,
               textAlign: TextAlign.center,
               style: textTheme.labelMedium,
-              maxFontSize: 18,
-              minFontSize: 16,
+              maxFontSize: 17,
               maxLines: 2,
             ),
           ),
@@ -111,6 +107,3 @@ class FoodWidgetAdmin extends StatelessWidget {
     );
   }
 }
-
-//
-
