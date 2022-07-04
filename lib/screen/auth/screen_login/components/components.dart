@@ -61,28 +61,32 @@ class LoginButton extends StatelessWidget {
       height: context.getHeight(0.065),
       child: GlobalElevatedButton(
         onPressed: () async {
-          try {
-            await firebase
-                .login(
-                  controller.emailController.text,
-                  controller.passwordController.text,
-                )
-                .then(
-                  (value) => value != null
-                      ? {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            snackbarSuccess(kText.loginSuccess),
-                          ),
-                          getToRemove(const RootScreen(), context),
-                        }
-                      : {},
-                );
-          } on FirebaseAuthException catch (e) {
-            print(e.code);
+          if (controller.emailController.text.isEmpty ||
+              controller.passwordController.text.isEmpty) {
             ScaffoldMessenger.of(context).showSnackBar(
-              snackbarWanrning(kText.warningText[e.code]!),
-            );
-            //
+                snackbarWanrning("Email ve şifre boş bırakılamaz."));
+          } else {
+            try {
+              await firebase
+                  .login(
+                    controller.emailController.text,
+                    controller.passwordController.text,
+                  )
+                  .then(
+                    (value) => value != null
+                        ? {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              snackbarSuccess(kText.loginSuccess),
+                            ),
+                            getToRemove(const RootScreen(), context),
+                          }
+                        : {},
+                  );
+            } on FirebaseAuthException catch (e) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                snackbarWanrning(kText.warningText[e.code]!),
+              );
+            }
           }
         },
         text: "Giriş Yap",

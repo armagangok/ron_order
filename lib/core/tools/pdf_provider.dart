@@ -24,16 +24,18 @@ class PdfOrderProvider {
 
     pdf.addPage(
       pw.Page(
-        pageFormat: PdfPageFormat.a4,
+        pageFormat: PdfPageFormat.a3,
         build: (pw.Context context) {
           return pw.Column(
             crossAxisAlignment: pw.CrossAxisAlignment.start,
             children: [
-              pw.Text(
-                "RON YEMEK SIPARISLERI",
-                style: myTheme.header5.copyWith(
-                  fontSize: 20,
-                  fontWeight: pw.FontWeight.bold,
+              pw.Center(
+                child: pw.Text(
+                  "RON YEMEK SIPARISLERI",
+                  style: myTheme.header5.copyWith(
+                    fontSize: 20,
+                    fontWeight: pw.FontWeight.bold,
+                  ),
                 ),
               ),
               pw.SizedBox(height: 20),
@@ -52,7 +54,7 @@ class PdfOrderProvider {
 
   gridView(List<OrderModel> orders, pw.ThemeData myTheme) {
     return pw.GridView(
-      crossAxisCount: 4,
+      crossAxisCount: 5,
       crossAxisSpacing: 10,
       mainAxisSpacing: 10,
       children: [
@@ -64,7 +66,7 @@ class PdfOrderProvider {
               pw.Text(
                 element.orderer,
                 style: myTheme.defaultTextStyle.copyWith(
-                  fontSize: 13,
+                  fontSize: 12,
                   fontWeight: pw.FontWeight.bold,
                 ),
                 textAlign: pw.TextAlign.left,
@@ -72,16 +74,1003 @@ class PdfOrderProvider {
               pw.ListView.builder(
                 itemCount: element.activeOrderList.length,
                 itemBuilder: (context, indext) {
-                  return pw.Column(
-                    mainAxisAlignment: pw.MainAxisAlignment.start,
-                    crossAxisAlignment: pw.CrossAxisAlignment.start,
-                    children: [
-                      pw.Text(
-                        "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
-                        textAlign: pw.TextAlign.left,
-                        style: myTheme.defaultTextStyle.copyWith(fontSize: 12),
-                      ),
-                    ],
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),
+          for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),
+          for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),
+          for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),
+          for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),
+          for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),
+          for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),
+          for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),
+          for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),
+          for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
+                  );
+                },
+              ),
+            ],
+          ),for (var element in orders)
+          pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            mainAxisAlignment: pw.MainAxisAlignment.start,
+            children: [
+              pw.Text(
+                element.orderer,
+                style: myTheme.defaultTextStyle.copyWith(
+                  fontSize: 12,
+                  fontWeight: pw.FontWeight.bold,
+                ),
+                textAlign: pw.TextAlign.left,
+              ),
+              pw.ListView.builder(
+                itemCount: element.activeOrderList.length,
+                itemBuilder: (context, indext) {
+                  return pw.Text(
+                    "${element.activeOrderList[indext].amount}x${element.activeOrderList[indext].foodName}",
+                    textAlign: pw.TextAlign.left,
+                    style: myTheme.defaultTextStyle.copyWith(fontSize: 10),
                   );
                 },
               ),
