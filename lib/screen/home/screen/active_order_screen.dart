@@ -2,12 +2,12 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ron_order/core/components/global_elevated_button.dart';
-import 'package:ron_order/core/navigation/navigation.dart';
-import 'package:ron_order/screen/home/screen/home_screen.dart';
 
+import './home_screen.dart';
 import '../../../core/components/components.dart';
+import '../../../core/components/global_elevated_button.dart';
 import '../../../core/extension/context_extension.dart';
+import '../../../core/navigation/navigation.dart';
 import '../../../core/network/firebase/view-models/firebase_viewmodel.dart';
 import '../../../feature/components/snackbar.dart';
 import '../../../feature/models/order_model.dart';
@@ -53,7 +53,7 @@ class ActiveOrderScreen extends StatelessWidget {
         ),
       ),
       title: AutoSizeText(
-        "Aktif Sipariş",
+        "Aktif Siparişim",
         style: context.textTheme.labelMedium!.copyWith(
           fontWeight: FontWeight.w600,
           color: const Color(0xff32324D),
@@ -75,7 +75,6 @@ class ActiveOrderScreen extends StatelessWidget {
 
             return (order != null)
                 ? Column(
-                    
                     children: [
                       ListView.builder(
                         itemCount: order.activeOrderList.length,
@@ -95,7 +94,6 @@ class ActiveOrderScreen extends StatelessWidget {
                           );
                         },
                       ),
-                      
                       GlobalElevatedButton(
                         onPressed: () {
                           showDialog(
@@ -104,8 +102,7 @@ class ActiveOrderScreen extends StatelessWidget {
                               return CupertinoAlertDialog(
                                 content: Center(
                                   child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       const Text(
                                           "Siparişleri silmek istiyor musunuz?"),
@@ -117,14 +114,12 @@ class ActiveOrderScreen extends StatelessWidget {
                                             onPressed: () async {
                                               await orderViewmodel
                                                   .deleteActiveOrder(
-                                                      firebaseVmodel
-                                                          .user!.id!)
+                                                      firebaseVmodel.user!.id!)
                                                   .whenComplete(
                                                 () {
                                                   getBack(const HomeScreen(),
                                                       context);
-                                                  ScaffoldMessenger.of(
-                                                          context)
+                                                  ScaffoldMessenger.of(context)
                                                       .showSnackBar(
                                                     snackbarSuccess(
                                                         "Siparişler başarıyla silindi, yeni siparişleri ansayfadan seçebilirsiniz."),

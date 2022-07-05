@@ -23,7 +23,7 @@ class CartScreen extends StatelessWidget {
       onWillPop: () async => false,
       child: Scaffold(
         appBar: const GlobalAppBar(
-          title: "My Orders",
+          title: "Sipariş Gönder",
           enableBackButton: true,
         ),
         body: Padding(
